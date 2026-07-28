@@ -9,10 +9,13 @@ from .metrics import (
     weighted_completeness,
     wilson_interval,
 )
+from .traceability import TraceabilityReport, check_traceability
 
 __all__ = [
     "Association",
+    "TraceabilityReport",
     "association_from_counts",
+    "check_traceability",
     "context_expansion_ratio",
     "mean_score",
     "phi_coefficient",

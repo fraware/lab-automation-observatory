@@ -13,12 +13,10 @@ make ci
 
 The manual-only workflow templates under `.github/workflows/` are optional. They consume no Actions minutes unless explicitly dispatched.
 
-## Archival release
+## GitHub release assets
 
-1. Deposit the versioned source package and compiled manuscript assets in Zenodo.
-2. Confirm metadata against `.zenodo.json` and `CITATION.cff`.
-3. Reserve or publish the DOI.
-4. Insert the DOI into citation metadata and the manuscript data-availability statement.
-5. Record the archival DOI in a metadata-only patch release.
+Tag the release and attach compiled manuscript PDFs, highlights, the graphical abstract, and `build/results.json` using the manual release workflow in `.github/workflows/release.yml`, or publish equivalent assets from a local `make ci` run.
+
+Citation metadata lives in `CITATION.cff` and `codemeta.json`. The repository URL is the public access point for derived data, schemas, tests, and reproduction instructions.
 
 The local Git bundle and source ZIP preserve the audited v0.1.0 release candidate independently of GitHub-hosted runners.

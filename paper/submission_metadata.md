@@ -27,7 +27,6 @@
 - **Telephone:** +1 650 223 4809
 - **Fax:** Not applicable
 - **Email:** mpetel@stanford.edu
-- **ORCID:** Add before submission
 
 ## Files
 
@@ -36,7 +35,7 @@
 3. `cover_letter.pdf`
 4. `highlights.txt`
 5. `graphical_abstract.png`
-6. public repository and archival DOI
+6. public GitHub repository (https://github.com/fraware/lab-automation-observatory)
 
 ## Required declarations
 
@@ -48,9 +47,7 @@
 - Generative-AI disclosure
 - Forum-community acknowledgement
 
-## Persistent identifiers
+## Public access
 
 - **Repository:** https://github.com/fraware/lab-automation-observatory
 - **Source-first release baseline:** 5a836527839c38e7115087465cf60c3ff934f4b5
-- **Zenodo DOI:** Pending deposit
-- **Preprint DOI/identifier:** Pending deposit

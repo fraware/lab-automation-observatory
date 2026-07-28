@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this repository, please cite the paper and archived release."
+message: "If you use this repository, please cite the paper and this GitHub repository."
 title: "Lab Automation Forum Bottleneck Observatory"
 type: software
 authors:

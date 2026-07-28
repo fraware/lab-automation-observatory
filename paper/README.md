@@ -19,4 +19,8 @@ Submission support files:
 
 The main manuscript contains five figures and two tables. Direct code counts and the AI validation funnel are placed in the supplement, keeping the main submission at seven combined figures and tables.
 
-Before submission, replace the release-candidate repository URL with the final public URL and insert the Zenodo DOI.
+Before submission, insert the Zenodo DOI and the selected preprint identifier.
+
+## Submission target
+
+The release is prepared as Original Research for the **SLAS Technology special issue `NexusXp: The Connected Lab`**, with regular SLAS Technology as the transfer preference. See `submission_metadata.md` and `submission_checklist.md`.

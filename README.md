@@ -157,14 +157,31 @@ On Windows, GNU Make is not installed by default;
 [REPRODUCIBILITY.md](REPRODUCIBILITY.md#windows-and-powershell) lists the
 PowerShell equivalents, along with exactly which generated artifacts are tracked.
 
-## Community artifacts
+## Use the artifacts
 
-- `data/derived/troubleshooting_template.csv` defines a minimum reproducible laboratory-automation question.
-- `schemas/knowledge-index.schema.json` defines a governed resolved-knowledge record.
-- `data/knowledge_index/seed_records.yaml` provides ten validated seed records linked to forum provenance.
-- `data/derived/reliability_subset.csv` is the prepared hard-case adjudication set for an independent second coding pass.
+These are meant to be lifted out of the repository and used in your own lab,
+forum, or internal wiki.
 
-These artifacts should be evaluated through clarification burden, time to actionable answer, repeated-question frequency, record staleness, and final-disposition completeness.
+| Artifact | Path | Use it to |
+|---|---|---|
+| Troubleshooting question | `data/derived/troubleshooting_template.csv` | Ask a question someone else can actually reproduce |
+| Question schema | `schemas/troubleshooting-question.schema.json` | Enforce that template in a form, bot, or CI check |
+| Resolved-knowledge record | `schemas/knowledge-index.schema.json` | Store an answer with its scope, evidence, owner, and expiry |
+| Ten seed records | `data/knowledge_index/seed_records.yaml` | See the format filled in against real discussions |
+| Hard-case adjudication set | `data/derived/reliability_subset.csv` | Re-code the fourteen hardest threads and report agreement |
+
+The question schema requires the universal core of a reproducible problem report
+and adds physical-state and intervention fields once a run has partially
+executed — the point at which a description usually stops being useful. The
+knowledge record keeps applicability, root-cause status, validation stage,
+evidence grade, maintainer, and last-verified date attached to the answer, so a
+simulation result can never quietly become a wet-lab result.
+
+Publishing an artifact is not success. Judge these on whether they reduce
+clarification rounds, shorten time to an actionable answer, stop the same
+question from returning, keep records from going stale silently, and get final
+outcomes recorded. Details in
+[docs/community-artifacts.md](docs/community-artifacts.md).
 
 ## Claim control
 

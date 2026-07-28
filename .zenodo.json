@@ -1,0 +1,9 @@
+{
+  "title": "Lab Automation Forum Bottleneck Observatory",
+  "description": "Reproducible mixed-methods analysis, LaTeX manuscript, derived coding, bounded metrics, and community artifacts for public laboratory-automation discussions.",
+  "creators": [{"name": "Petel, Matéo H."}],
+  "license": "cc-by-4.0",
+  "keywords": ["laboratory automation", "lab robotics", "mixed methods", "reproducibility", "technical communities"],
+  "upload_type": "software",
+  "access_right": "open"
+}

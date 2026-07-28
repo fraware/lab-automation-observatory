@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/fraware/lab-automation-observatory/schemas/knowledge-index.schema.json",
+  "title": "Resolved laboratory-automation knowledge index",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "record_id",
+      "problem",
+      "bottleneck_codes",
+      "systems_context",
+      "root_cause_status",
+      "resolution",
+      "validation_stage",
+      "evidence_grade",
+      "known_limitations",
+      "maintainer",
+      "last_verified",
+      "forum_provenance",
+      "status"
+    ],
+    "properties": {
+      "record_id": {"type": "string", "pattern": "^RKI-[0-9]{4}-[0-9]{4}$"},
+      "problem": {"type": "string", "minLength": 20},
+      "bottleneck_codes": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {"enum": ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10"]}
+      },
+      "systems_context": {"type": "string", "minLength": 3},
+      "resource_process_context": {"type": ["string", "null"]},
+      "observed_evidence": {"type": ["string", "null"]},
+      "root_cause_status": {
+        "enum": ["Confirmed", "Confirmed for scoped claim", "Probable", "Competing", "Unknown"]
+      },
+      "resolution": {"type": "string", "minLength": 20},
+      "validation_stage": {"type": "string", "minLength": 3},
+      "evidence_grade": {"type": "integer", "minimum": 0, "maximum": 4},
+      "final_disposition": {"type": ["string", "null"]},
+      "public_artifact": {"type": ["string", "null"]},
+      "known_limitations": {
+        "type": "array",
+        "minItems": 1,
+        "items": {"type": "string", "minLength": 5}
+      },
+      "supersedes": {
+        "type": "array",
+        "items": {"type": "string", "pattern": "^RKI-[0-9]{4}-[0-9]{4}$"},
+        "default": []
+      },
+      "maintainer": {"type": "string", "minLength": 3},
+      "last_verified": {"type": "string", "format": "date"},
+      "forum_provenance": {"type": "string", "format": "uri", "pattern": "^https://labautomation\\.io/"},
+      "status": {"enum": ["active", "review_due", "disputed", "superseded", "archived"]}
+    }
+  }
+}

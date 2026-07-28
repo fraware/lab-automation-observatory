@@ -1,0 +1,35 @@
+name: Knowledge record proposal
+about: Propose a new evidence-bearing resolved-knowledge record
+title: "[knowledge] "
+labels: [knowledge-index]
+body:
+  - type: input
+    id: problem
+    attributes:
+      label: Observable problem
+    validations:
+      required: true
+  - type: input
+    id: systems
+    attributes:
+      label: Applicable systems and versions
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and source links
+    validations:
+      required: true
+  - type: textarea
+    id: resolution
+    attributes:
+      label: Resolution and validation stage
+    validations:
+      required: true
+  - type: textarea
+    id: limits
+    attributes:
+      label: Known limitations and applicability boundary
+    validations:
+      required: true

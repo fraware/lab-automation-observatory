@@ -1,0 +1,16 @@
+site_name: Lab Automation Forum Bottleneck Observatory
+site_description: Reproducible research and community artifacts for laboratory automation
+repo_url: https://github.com/fraware/lab-automation-observatory
+nav:
+  - Home: index.md
+  - Methods: methods.md
+  - Data dictionary: data-dictionary.md
+  - Community artifacts: community-artifacts.md
+  - Claim discipline: claim-discipline.md
+theme:
+  name: material
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true

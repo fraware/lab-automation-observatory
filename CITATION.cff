@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the paper and archived release."
+title: "Lab Automation Forum Bottleneck Observatory"
+type: software
+authors:
+  - family-names: Petel
+    given-names: Matéo H.
+version: 0.1.0
+date-released: 2026-07-28
+repository-code: "https://github.com/fraware/lab-automation-observatory"
+url: "https://github.com/fraware/lab-automation-observatory"
+license: Apache-2.0
+keywords:
+  - laboratory automation
+  - lab robotics
+  - mixed methods
+  - reproducible research
+preferred-citation:
+  type: article
+  title: "Where Laboratory Automation Work Breaks: A Mixed-Methods Study of Public Practitioner Discussions"
+  authors:
+    - family-names: Petel
+      given-names: Matéo H.
+  year: 2026
+  status: manuscript

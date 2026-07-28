@@ -21,6 +21,12 @@ The public derived register contains 55 threads. It records titles, dates, prima
 \section{Episode register}
 The difficult subset contains 45 episodes from 14 threads. Each episode records its lifecycle stage, primary code, modifiers, evidence form, detectability, consequence, public artifact, counterexample status, and coding confidence.
 
+\section{Hard-case adjudication set}
+\label{sec:s-adjudication}
+All coding was performed by one analyst, so no inter-rater statistic is reported. The release instead publishes the prepared adjudication set in \path{data/derived/reliability_subset.csv}. It covers the same 14 threads that were segmented into episodes and records, for each thread, the expected primary code, the most plausible competing code, why disagreement is likely, the specific adjudication question, whether episode segmentation is required, and a priority. Twelve threads are marked critical and two high.
+
+The file is an instrument rather than a result. A second coder can code the listed threads independently, answer the recorded adjudication questions, and then compute agreement on the primary code and on episode boundaries without renegotiating the coding task. Publishing the expected disagreement surface before any second pass also prevents a later agreement statistic from being computed only on the unambiguous threads. No agreement coefficient appears anywhere in this release because no independent second coding exists.
+
 \section{Metric definitions}
 \subsection{Integration Accessibility Score}
 For known component scores $s_j\in\{0,0.5,1\}$,

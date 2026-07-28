@@ -1,0 +1,4 @@
+• Ten bottlenecks organize public laboratory-automation problems.
+• Bounded metrics preserve explicit units, denominators, and unknowns.
+• Observability and recovery form the strongest technical relationship.
+• Community artifacts turn forum findings into reusable infrastructure.

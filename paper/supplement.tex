@@ -1,0 +1,85 @@
+\documentclass[preprint,12pt]{elsarticle}
+\input{macros}
+\begin{document}
+\begin{frontmatter}
+\title{Supplementary Material for ``Where Laboratory Automation Work Breaks''}
+\author{Mat\'eo H. Petel}
+\end{frontmatter}
+
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thesection}{S\arabic{section}}
+
+\section{Taxonomy and code boundaries}
+The complete machine-readable taxonomy is provided in \path{data/derived/taxonomy_rules.csv}. B1 and B10 are ecosystem conditions and become primary codes only when knowledge governance or support is the central object. B2--B9 are technical constructs with explicit inclusion and exclusion rules.
+
+\section{Evidence register}
+The public derived register contains 55 threads. It records titles, dates, primary and direct-support codes, evidence type, public outcome, migration, evidence strength, source URL, and analytical note. It excludes user handles and a verbatim corpus.
+
+\input{generated/code_counts.tex}
+
+\section{Episode register}
+The difficult subset contains 45 episodes from 14 threads. Each episode records its lifecycle stage, primary code, modifiers, evidence form, detectability, consequence, public artifact, counterexample status, and coding confidence.
+
+\section{Metric definitions}
+\subsection{Integration Accessibility Score}
+For known component scores $s_j\in\{0,0.5,1\}$,
+\[
+  \mathrm{IAS}=\frac{1}{|K|}\sum_{j\in K}s_j,
+\]
+where $K$ is the set of publicly known applicable components. Unknown components are reported separately.
+
+\subsection{Reproducibility Manifest Completeness}
+For applicable manifest fields $M$,
+\[
+  \mathrm{RMC}=\frac{1}{|M|}\sum_{j\in M}s_j,
+\]
+where 1 denotes immutable binding, 0.5 denotes partial representation, and 0 denotes omission from the reviewed evidence.
+
+\subsection{Physical Definition Completeness}
+PDC uses the same field mean over identity, geometry, material, tolerance, coordinate semantics, nesting, operating properties, provenance, validation, and reproduction. Evidence grade is reported independently.
+
+\subsection{Observability Coverage}
+OC is the known-field mean over linked run/configuration, material, command, acknowledgement, observation, state change, failure, intervention, recovery, and final disposition.
+
+\subsection{Preflight Preventability}
+Complete-case PPR is the number of definitely preflight-preventable scenarios divided by the sum of definitely preventable and definitely non-preventable scenarios. Indeterminate cases define sensitivity bounds.
+
+\subsection{Pairwise association}
+For the two-by-two table $(n_{11},n_{10},n_{01},n_{00})$,
+\[
+  \phi=\frac{n_{11}n_{00}-n_{10}n_{01}}
+  {\sqrt{(n_{11}+n_{10})(n_{01}+n_{00})(n_{11}+n_{01})(n_{10}+n_{00})}}.
+\]
+
+\section{Validation-stage representation}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/validation_funnel.pdf}
+  \caption{Validation-stage representation for the source-reported AI method-generation result. Input and syntax capabilities are described, simulation receives a quantitative denominator, and later physical stages remain unreported.}
+  \label{fig:s-validation-funnel}
+\end{figure}
+
+\section{Short anonymized quotations}
+Quotations are illustrative and are not independent quantitative observations.
+\begin{longtable}{@{}p{0.08\linewidth}p{0.48\linewidth}p{0.36\linewidth}@{}}
+\toprule
+Code & Short quotation & Source discussion \\
+\midrule
+B1 & ``Finding labware is a mess.'' & Database storing common labware specifications \\
+B2 & ``Documentation on drivers is lacking.'' & User feedback on schedulers \\
+B3 & ``This is a runtime state file.'' & Tecan Fluent version control \\
+B4 & ``This attribute has so far been completely missing in PLR.'' & PLR carrier z-height issue \\
+B5 & ``Capture everything---and only surface what you need today.'' & Automation report data \\
+B6 & ``I might have valuable liquid in my tips.'' & Error catching for composite functions \\
+B7 & ``Information about constraints becomes critical.'' & Scheduling toy problem \\
+B8 & ``It may be called a functional test instead.'' & Unit tests \\
+B9 & ``The human operator still needs to feed back the AI.'' & AI assisted method writing \\
+B10 & ``This would have saved me so much time.'' & Hamilton HSL learning \\
+\bottomrule
+\end{longtable}
+
+\section{Reproduction}
+Run \code{make reproduce}, \code{make test}, and \code{make paper}. Expected values are asserted in \code{tests/test\_published\_values.py}. Community records validate against JSON Schema Draft 2020-12.
+
+\end{document}

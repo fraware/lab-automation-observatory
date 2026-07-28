@@ -1,0 +1,13 @@
+Variable / rule,Type,Definition
+Primary bottleneck,Exactly one,The proximate obstacle that best explains the thread's central technical or community problem.
+Secondary bottleneck code,Multi-label,Directly evidenced mechanisms or consequences; not inferred merely because they are generally related.
+Evidence strength 1,Ordinal,Contextual mention or thin product claim.
+Evidence strength 2,Ordinal,Relevant discussion with limited technical detail or outcome evidence.
+Evidence strength 3,Ordinal,Explicit multi-turn technical discussion with useful implementation detail.
+Evidence strength 4,Ordinal,"Detailed incident, post-mortem, measured report, or technically rich discussion with traceable reasoning."
+Resolution: Confirmed,Categorical,Original poster or maintainers indicate the issue was fixed or a working solution was implemented.
+Resolution: Partial,Categorical,"A workaround, diagnosis, or design exists; outcome remains incomplete or locally validated."
+Resolution: Open,Categorical,No publicly confirmed solution in the reviewed material.
+Product-reported,Categorical,Outcome or metric is reported by the developer/vendor and has not been independently verified here.
+External migration,Binary,"Substantive work explicitly moved to DM, Slack, private support, meetings, or another restricted channel."
+Quote eligibility,Rule,"Short, technically material, non-identifying, context-preserving, linked, and within source quotation limits."

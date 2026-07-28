@@ -1,0 +1,176 @@
+- record_id: RKI-2026-0001
+  problem: 50 µL tip definition works locally but fails pickup and positioning on
+    another machine.
+  bottleneck_codes:
+  - B4
+  systems_context: Hamilton 50 µL tips/racks represented in PyLabRobot
+  root_cause_status: Confirmed
+  resolution: Correct tip length, z position, and rack parameters; document the multi-cause
+    diagnosis and merge fixes.
+  validation_stage: Cross-machine hardware
+  evidence_grade: 4
+  public_artifact: Forum post-mortem and merged PyLabRobot corrections
+  known_limitations:
+  - Does not validate all machines, lots, or tip families.
+  maintainer: PyLabRobot maintainers
+  last_verified: '2026-07-28'
+  forum_provenance: https://labautomation.io/t/50ul-tip-troubleshooting-report-post-mortem/3009
+  status: active
+- record_id: RKI-2026-0002
+  problem: VENUS 4 COM-based control no longer works after upgrading to VENUS 6.
+  bottleneck_codes:
+  - B2
+  systems_context: Hamilton VENUS 6 method-control interface
+  root_cause_status: Confirmed
+  resolution: Use the VENUS 6 REST API and enable the API server; treat legacy COM
+    guidance as version-specific.
+  validation_stage: Interface
+  evidence_grade: 3
+  public_artifact: Public forum explanation and API activation instructions
+  known_limitations:
+  - API coverage, licensing, and future compatibility remain version-bound.
+  maintainer: Hamilton community/vendor participants
+  last_verified: '2026-07-28'
+  forum_provenance: https://labautomation.io/t/hamilton-venus-6-com-interface-different-from-venus-4/5834
+  status: active
+- record_id: RKI-2026-0003
+  problem: Source control captures a live Fluent recovery workspace and restored files
+    are overwritten.
+  bottleneck_codes:
+  - B3
+  systems_context: Tecan Fluent Git workflow and active runtime state
+  root_cause_status: Confirmed
+  resolution: Exclude active recovery/runtime workspaces from ordinary source control;
+    distinguish method source, deployment configuration, and transient state.
+  validation_stage: Deployment / runtime
+  evidence_grade: 3
+  public_artifact: Forum diagnosis and rollback discussion
+  known_limitations:
+  - A complete vendor-independent deployment manifest is not supplied.
+  maintainer: Tecan practitioner community
+  last_verified: '2026-07-28'
+  forum_provenance: https://labautomation.io/t/tecan-fluent-version-control-git/6636
+  status: active
+- record_id: RKI-2026-0004
+  problem: Composite liquid-transfer operation fails only after pickup and aspiration.
+  bottleneck_codes:
+  - B6
+  systems_context: PyLabRobot composite transfer with destination lid assigned
+  root_cause_status: Confirmed
+  resolution: Validate the complete operation sequence and modeled destination state
+    before dispatch; record material in transit and final disposition after failure.
+  validation_stage: Simulation / runtime incident
+  evidence_grade: 3
+  public_artifact: Forum design discussion and queued-validation proposal
+  known_limitations:
+  - Implementation and scientific recovery outcome are not confirmed.
+  maintainer: PyLabRobot maintainers/community
+  last_verified: '2026-07-28'
+  forum_provenance: https://labautomation.io/t/error-catching-for-composite-functions/3354
+  status: review_due
+- record_id: RKI-2026-0005
+  problem: Users cannot find Hamilton HSL documentation despite installed reference
+    material.
+  bottleneck_codes:
+  - B10
+  systems_context: Hamilton VENUS/HSL learning workflow
+  root_cause_status: Confirmed
+  resolution: Use the editor help/reference and bundled examples; distinguish built-in
+    reference access from paid training and source-file review.
+  validation_stage: Documentation / interface
+  evidence_grade: 3
+  public_artifact: Public forum answer
+  known_limitations:
+  - Reference completeness and current-version coverage are not assessed.
+  maintainer: Hamilton community/vendor participants
+  last_verified: '2026-07-28'
+  forum_provenance: https://labautomation.io/t/ways-to-learn-hamilton-hsl-code/1156
+  status: active
+- record_id: RKI-2026-0006
+  problem: A scheduling toy problem cannot be evaluated because scientific and operating
+    constraints are missing.
+  bottleneck_codes:
+  - B7
+  systems_context: Multi-user lab scheduling scenario
+  root_cause_status: Confirmed
+  resolution: Specify stability windows, interruptibility, terminal disposition, priorities,
+    storage eligibility, and failure policy before comparing schedules.
+  validation_stage: Requirements
+  evidence_grade: 3
+  public_artifact: Public toy problem and constraint-elicitation discussion
+  known_limitations:
+  - The thread does not produce a fully resolved benchmark instance.
+  maintainer: Forum scheduler community
+  last_verified: '2026-07-28'
+  forum_provenance: https://labautomation.io/t/scheduling-software-toy-problem/1580
+  status: active
+- record_id: RKI-2026-0007
+  problem: A Tecan driver exists but cannot be used without Driver Framework licensing.
+  bottleneck_codes:
+  - B2
+  systems_context: Tecan LPT220 / Fluent Driver Framework
+  root_cause_status: Confirmed
+  resolution: Verify licence availability separately from driver installation; consider
+    an external RS-232 wrapper and plan state synchronization explicitly.
+  validation_stage: Interface / deployment
+  evidence_grade: 3
+  public_artifact: Public licensing and workaround discussion
+  known_limitations:
+  - Price estimates are unofficial; external control may not update internal platform
+    state.
+  maintainer: Tecan community/vendor participants
+  last_verified: '2026-07-28'
+  forum_provenance: https://labautomation.io/t/tecan-driver-framework-licence/7297
+  status: active
+- record_id: RKI-2026-0008
+  problem: Pressure curves differ between aspiration cycles and are treated as possible
+    transfer failures.
+  bottleneck_codes:
+  - B5
+  systems_context: Hamilton TADM aspiration telemetry
+  root_cause_status: Competing
+  resolution: Record starting volume, tip reuse, liquid class, aspiration settings,
+    and independent transfer measurement before attributing curve differences to failure.
+  validation_stage: Runtime telemetry
+  evidence_grade: 2
+  public_artifact: Public expert interpretation
+  known_limitations:
+  - Curve shape alone does not establish transferred volume or root cause.
+  maintainer: Hamilton liquid-handling community
+  last_verified: '2026-07-28'
+  forum_provenance: https://labautomation.io/t/atypical-hamilton-tadm-curves/7165
+  status: active
+- record_id: RKI-2026-0009
+  problem: AI-generated HSL methods are described with a 92% success rate.
+  bottleneck_codes:
+  - B8
+  systems_context: VerisFlow v0.4, 100 random worklists
+  root_cause_status: Confirmed for scoped claim
+  resolution: Describe the result as 92/100 simulation-trace agreement; report dry,
+    wet, assay, artifact-generation, and error-handling evidence separately.
+  validation_stage: Simulation trace
+  evidence_grade: 2
+  public_artifact: Public test data and trace-comparison description
+  known_limitations:
+  - No independent wet or assay replication is reported.
+  maintainer: VerisFlow developers/community reviewers
+  last_verified: '2026-07-28'
+  forum_provenance: https://labautomation.io/t/verisflow-v0-4-release-ai-powered-hsl-method-generation-achieves-92-success-rate/6593
+  status: active
+- record_id: RKI-2026-0010
+  problem: Contributors do not know how to update PyLabRobot documentation.
+  bottleneck_codes:
+  - B10
+  systems_context: PyLabRobot documentation contribution workflow
+  root_cause_status: Confirmed
+  resolution: Provide local build commands and a page-level edit path that opens a
+    GitHub contribution flow.
+  validation_stage: Documentation process
+  evidence_grade: 3
+  public_artifact: Public contribution instructions
+  known_limitations:
+  - A contribution path does not establish complete documentation coverage.
+  maintainer: PyLabRobot maintainers
+  last_verified: '2026-07-28'
+  forum_provenance: https://labautomation.io/t/contributing-to-plr-documentation/3054
+  status: active

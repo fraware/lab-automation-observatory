@@ -1,0 +1,13 @@
+version = 1
+
+[[annotations]]
+path = ["src/**", "scripts/**", "tests/**", ".github/**", "Makefile", "pyproject.toml"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Matéo H. Petel"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = ["paper/**", "docs/**", "data/**", "schemas/**", "README.md", "CONTRIBUTING.md", "GOVERNANCE.md", "ETHICS.md", "DATA_USE.md", "REPRODUCIBILITY.md", "CHANGELOG.md", "CITATION.cff", "codemeta.json", ".zenodo.json", "GITHUB_PUBLISH.md", "artifacts/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Matéo H. Petel"
+SPDX-License-Identifier = "CC-BY-4.0"

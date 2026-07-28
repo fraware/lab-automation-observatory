@@ -1,0 +1,31 @@
+name: Evidence correction
+about: Correct a code, source, claim, metric input, or knowledge record
+title: "[evidence] "
+labels: [evidence, correction]
+body:
+  - type: input
+    id: record
+    attributes:
+      label: Affected record, claim, or metric
+      placeholder: RKI-2026-0001, C07, B5-C3, or a file path
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Proposed correction
+      description: Separate the observed evidence from the interpretation.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Public supporting source
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Effect on denominators, figures, schemas, or manuscript claims
+    validations:
+      required: true

@@ -1,0 +1,26 @@
+objective: Move ten plates from a hotel to a reader, read them once, and return them.
+system_identity: Tecan Fluent 1080 with FCA and LPT220 integration
+software_identity: FluentControl 3.x on Windows 11
+firmware_identity: null
+interface_path: Fluent Driver Framework for the reader; native Fluent control for the workcell
+licence_access: Driver installed; feature licence status uncertain
+method_identity: Method v1.7.2, commit 1a2b3c4
+dependency_identity: Labware definitions rev 3; reader driver 2.1
+physical_layout: Hotel at grid 12; reader transfer station at grid 18
+resource_identity: Corning 3603, lot X
+geometry_evidence: Vendor dimensions; no independent measurement
+liquid_context: null
+scientific_constraints: Read each plate within 15 minutes of incubation
+expected_behavior: Each plate should be transferred, read, and returned with state updated.
+observed_behavior: Transfer succeeds, but the reader command is rejected before the first read.
+error_evidence: "2026-07-28T14:02:11Z DriverFrameworkLicenceError"
+run_configuration_linkage: Run R-00412 used manifest M-1.7.2
+partial_execution: true
+physical_state_after_failure: Plate 1 is at the reader transfer station; plates 2–10 remain in the hotel.
+intervention_recovery: Operator returned plate 1 manually and stopped the run.
+tests_performed: Driver installation verified; no isolated simulator is available.
+acceptance_criterion: All ten plates are read once and returned without manual intervention.
+changes_since_last_success: Second-hand reader added; licence state has never been confirmed.
+reproduction_scope: Reproduces on two methods using the same reader.
+safety_confidentiality: Sample identifiers are confidential; no hazardous material is involved.
+requested_help: Confirm the licence requirement and identify a testable integration path.

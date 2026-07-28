@@ -1,0 +1,6 @@
+$pdf_mode = 1;
+$bibtex_use = 2;
+$bibtex = 'bibtex.original %O %B';
+$interaction = 'nonstopmode';
+$halt_on_error = 1;
+$max_repeat = 5;

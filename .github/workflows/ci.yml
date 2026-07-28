@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: true
+          python-version: ${{ matrix.python-version }}
+      - run: uv sync --all-extras
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      - run: uv run mypy src/labauto_observatory
+      - run: uv run python scripts/validate_release.py
+      - run: uv run pytest
+      - run: uv run python scripts/reproduce_results.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reproduced-results-py${{ matrix.python-version }}
+          path: build/

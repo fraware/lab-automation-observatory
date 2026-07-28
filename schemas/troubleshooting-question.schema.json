@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/fraware/lab-automation-observatory/schemas/troubleshooting-question.schema.json",
+  "title": "Minimum reproducible laboratory-automation question",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "objective",
+    "system_identity",
+    "software_identity",
+    "interface_path",
+    "method_identity",
+    "expected_behavior",
+    "observed_behavior",
+    "error_evidence",
+    "tests_performed",
+    "acceptance_criterion",
+    "changes_since_last_success",
+    "requested_help",
+    "partial_execution"
+  ],
+  "properties": {
+    "objective": {"type": "string", "minLength": 10},
+    "system_identity": {"type": "string", "minLength": 5},
+    "software_identity": {"type": "string", "minLength": 3},
+    "firmware_identity": {"type": ["string", "null"]},
+    "interface_path": {"type": "string", "minLength": 3},
+    "licence_access": {"type": ["string", "null"]},
+    "method_identity": {"type": "string", "minLength": 3},
+    "dependency_identity": {"type": ["string", "null"]},
+    "physical_layout": {"type": ["string", "null"]},
+    "resource_identity": {"type": ["string", "null"]},
+    "geometry_evidence": {"type": ["string", "null"]},
+    "liquid_context": {"type": ["string", "null"]},
+    "scientific_constraints": {"type": ["string", "null"]},
+    "expected_behavior": {"type": "string", "minLength": 10},
+    "observed_behavior": {"type": "string", "minLength": 10},
+    "error_evidence": {"type": "string", "minLength": 3},
+    "run_configuration_linkage": {"type": ["string", "null"]},
+    "partial_execution": {"type": "boolean"},
+    "physical_state_after_failure": {"type": ["string", "null"]},
+    "intervention_recovery": {"type": ["string", "null"]},
+    "tests_performed": {"type": "string", "minLength": 3},
+    "acceptance_criterion": {"type": "string", "minLength": 3},
+    "changes_since_last_success": {"type": "string", "minLength": 3},
+    "reproduction_scope": {"type": ["string", "null"]},
+    "safety_confidentiality": {"type": ["string", "null"]},
+    "requested_help": {"type": "string", "minLength": 3}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"partial_execution": {"const": true}}, "required": ["partial_execution"]},
+      "then": {
+        "required": ["physical_state_after_failure", "intervention_recovery"],
+        "properties": {
+          "physical_state_after_failure": {"type": "string", "minLength": 10},
+          "intervention_recovery": {"type": "string", "minLength": 3}
+        }
+      }
+    }
+  ]
+}

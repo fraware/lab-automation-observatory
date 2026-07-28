@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Build the boundary-centered graphical abstract."""
+"""Build the boundary-centered graphical abstract.
+
+Output metadata is suppressed so that repeated runs on a pinned environment
+produce byte-identical files and the committed assets stay diff-free.
+"""
 
 from pathlib import Path
 
@@ -11,7 +15,9 @@ OUTPUT_PNG = ROOT / "paper" / "graphical_abstract.png"
 OUTPUT_PDF = ROOT / "paper" / "graphical_abstract.pdf"
 
 
-def _box(ax: plt.Axes, x: float, y: float, width: float, height: float, title: str, body: str) -> None:
+def _box(
+    ax: plt.Axes, x: float, y: float, width: float, height: float, title: str, body: str
+) -> None:
     patch = FancyBboxPatch(
         (x, y),
         width,
@@ -101,8 +107,8 @@ def main() -> None:
         fontsize=11.5,
     )
     OUTPUT_PNG.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(OUTPUT_PNG, dpi=180, bbox_inches="tight")
-    fig.savefig(OUTPUT_PDF, bbox_inches="tight")
+    fig.savefig(OUTPUT_PNG, dpi=180, bbox_inches="tight", metadata={"Software": None})
+    fig.savefig(OUTPUT_PDF, bbox_inches="tight", metadata={"CreationDate": None})
     plt.close(fig)
 
 

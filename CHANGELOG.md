@@ -4,6 +4,13 @@ All notable changes follow Keep a Changelog principles.
 
 ## [Unreleased]
 
+### Changed
+
+- Retargeted the submission package to the SLAS Technology special issue `NexusXp: The Connected Lab`, with regular-journal transfer preference.
+- Added complete submission metadata, journal-compliance checklist, Editorial Manager copy-paste metadata, and Zenodo deposit instructions.
+- Added author degree to the manuscript and complete correspondence metadata to the submission package.
+- Condensed the cover letter to one page and aligned it with the connected-laboratory scope.
+
 ## [0.1.0] - 2026-07-28
 
 ### Added

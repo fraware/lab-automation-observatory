@@ -14,7 +14,9 @@ def validate_instance(instance: Any, schema: dict[str, Any]) -> None:
     validator = Draft202012Validator(schema)
     errors = sorted(validator.iter_errors(instance), key=lambda error: list(error.path))
     if errors:
-        details = "\n".join(f"- {'/'.join(map(str, error.path))}: {error.message}" for error in errors)
+        details = "\n".join(
+            f"- {'/'.join(map(str, error.path))}: {error.message}" for error in errors
+        )
         raise ValueError(f"schema validation failed:\n{details}")
 
 

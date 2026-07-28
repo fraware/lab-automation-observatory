@@ -43,17 +43,38 @@ check, cite, reuse, and disagree with: a coded evidence base, metrics with
 explicit denominators, and ready-to-use artifacts for asking better technical
 questions and keeping the answers.
 
-## What this repository establishes
+## What you get
 
-The retained pilot covers **55 purposively selected public threads** and **45 analytical episodes** from a deliberately difficult subset. It identifies ten bottlenecks across five layers:
+- **A coded evidence base.** 55 purposively selected public threads and 45
+  analytical episodes drawn from a deliberately difficult 14-thread subset, coded
+  against written inclusion, exclusion, and boundary rules.
+- **Ten named bottlenecks** across five layers of the automation stack, each with
+  a definition you can argue with rather than a label you have to accept.
+- **Bounded metrics** with the unit and denominator attached to every number, plus
+  the raw field-level inputs behind them.
+- **Artifacts you can adopt today** — a minimum reproducible question template, a
+  governed record format for resolved knowledge, and ten seeded records.
+- **A pipeline that reproduces itself.** One command recomputes every published
+  value; the test suite fails if any of them drifts.
 
-1. ecosystem knowledge and support;
-2. interfaces and representations;
-3. runtime coordination;
-4. evaluation semantics;
-5. AI-specific context and physical feedback.
+## Ten bottlenecks, five layers
 
-The analysis reports only bounded case-study metrics with explicit units and denominators. It does **not** estimate industry prevalence, vendor reliability, market share, or comparative failure rates.
+| Layer | Code | Bottleneck |
+|---|---|---|
+| Ecosystem knowledge and support | B1 | Knowledge packaging and canonicalization |
+| | B10 | Documentation, training, and support dependence |
+| Interfaces and representations | B2 | Driver and interface accessibility |
+| | B3 | Method, configuration, calibration, and runtime entanglement |
+| | B4 | Incomplete physical-resource definitions |
+| Runtime coordination | B5 | Fragmented observability and evidence semantics |
+| | B6 | Partial execution and recovery |
+| | B7 | Scheduling requirements and capability ambiguity |
+| Evaluation semantics | B8 | Testing and validation semantics |
+| AI context and physical feedback | B9 | AI context and physical-feedback gap |
+
+Full inclusion rules, exclusion rules, and boundary tests live in
+`data/derived/taxonomy_rules.csv` and are summarized in
+[docs/methods.md](docs/methods.md).
 
 ## Principal results
 

@@ -1,4 +1,4 @@
-.PHONY: sync reproduce figures tables graphical-abstract validate claims test lint typecheck paper paper-only supplement cover-letter docs docs-build ci clean
+.PHONY: sync reproduce figures tables graphical-abstract validate claims test lint typecheck paper paper-only supplement cover-letter docs docs-build links ci clean
 
 sync:
 	uv sync --all-extras
@@ -37,6 +37,12 @@ docs:
 docs-build:
 	uv run mkdocs build --strict
 
+# Mirrors the scope of .github/workflows/link-check.yml. Requires the
+# `lychee` binary (https://github.com/lycheeverse/lychee) on PATH; it is not
+# vendored through uv/npx.
+links:
+	lychee --no-progress --accept 200,206,429 --exclude-mail --max-retries 3 README.md docs paper data/derived data/knowledge_index
+
 # `paper` refreshes the generated inputs first and therefore needs the Python
 # environment. Committed figures and tables let `paper-only` build with a TeX
 # distribution alone.
@@ -52,7 +58,7 @@ supplement: reproduce figures tables
 cover-letter:
 	cd paper && latexmk -pdf -interaction=nonstopmode -halt-on-error cover_letter.tex
 
-ci: lint typecheck validate test paper supplement cover-letter graphical-abstract
+ci: lint typecheck validate test docs-build paper supplement cover-letter graphical-abstract
 
 clean:
 	cd paper && latexmk -C main.tex && latexmk -C supplement.tex && latexmk -C cover_letter.tex

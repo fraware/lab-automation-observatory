@@ -7,6 +7,7 @@ import csv
 from pathlib import Path
 
 from labauto_observatory.io import read_yaml
+from labauto_observatory.traceability import check_traceability
 from labauto_observatory.validation import validate_file
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,13 +33,21 @@ def main() -> None:
     if len(record_ids) != len(set(record_ids)):
         raise SystemExit("knowledge-index record IDs are not unique")
 
-    with (ROOT / "data/derived/publication_claim_ledger.csv").open(encoding="utf-8", newline="") as handle:
+    with (ROOT / "data/derived/publication_claim_ledger.csv").open(
+        encoding="utf-8", newline=""
+    ) as handle:
         claims = list(csv.DictReader(handle))
     approved = [claim for claim in claims if claim["Status"] == "Approved"]
     if not approved:
         raise SystemExit("claim ledger contains no approved claims")
     if any(not claim["Prohibited overclaim"].strip() for claim in approved):
         raise SystemExit("every approved claim must specify a prohibited overclaim")
+
+    traceability = check_traceability(ROOT)
+    if not traceability.ok:
+        for problem in traceability.problems:
+            print(f"claim traceability failure: {problem}")
+        raise SystemExit("approved claims are not traceable to the manuscript sources")
 
     for relative in [
         "paper/main.tex",
@@ -48,12 +57,16 @@ def main() -> None:
         "data/derived/evidence_register_part_02.csv",
         "data/derived/episode_register_part_01.csv",
         "data/derived/episode_register_part_02.csv",
+        "data/derived/reliability_subset.csv",
         "schemas/knowledge-index.schema.json",
         "schemas/troubleshooting-question.schema.json",
     ]:
         require(ROOT / relative)
 
-    print(f"validated {len(records)} knowledge records and {len(approved)} approved claims")
+    print(
+        f"validated {len(records)} knowledge records and {len(approved)} approved claims; "
+        f"traced {len(traceability.approved)} approved claims to the manuscript"
+    )
 
 
 if __name__ == "__main__":

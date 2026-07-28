@@ -1,8 +1,47 @@
-# Lab Automation Forum Bottleneck Observatory
+```
+                                    __    ___    ____
+                                 / /   /   |  / __ )
+                                / /   / /| | / __  |
+                                / /___/ ___ |/ /_/ /
+                               /_____/_/  |_/_____/
 
-[![REUSE status](https://api.reuse.software/badge/github.com/fraware/lab-automation-observatory)](https://api.reuse.software/info/github.com/fraware/lab-automation-observatory)
+              ___   __  ____________  __  ______  ______________  _   __
+             /   | / / / /_  __/ __ \/  |/  /   |/_  __/  _/ __ \/ | / /
+             / /| |/ / / / / / / / / / /|_/ / /| | / /  / // / / /  |/ /
+            / ___ / /_/ / / / / /_/ / /  / / ___ |/ / _/ // /_/ / /|  /
+            /_/  |_\____/ /_/  \____/_/  /_/_/  |_/_/ /___/\____/_/ |_/
 
-A reproducible mixed-methods study of public practitioner discussions about laboratory automation. The repository contains the LaTeX manuscript, derived coded data, bounded metric implementations, publication claim controls, and community artifacts designed to improve technical question quality and knowledge retention.
+            ____  ____ _____ __________ _    _____  __________  ______  __
+           / __ \/ __ ) ___// ____/ __ \ |  / /   |/_  __/ __ \/ __ \ \/ /
+          / / / / __  \__ \/ __/ / /_/ / | / / /| | / / / / / / /_/ /\  /
+          / /_/ / /_/ /__/ / /___/ _, _/| |/ / ___ |/ / / /_/ / _, _/ / /
+          \____/_____/____/_____/_/ |_| |___/_/  |_/_/  \____/_/ |_| /_/
+
+          where laboratory automation work breaks - measured, not guessed
+```
+
+<p align="center">
+  <a href="https://api.reuse.software/info/github.com/fraware/lab-automation-observatory"><img alt="REUSE status" src="https://api.reuse.software/badge/github.com/fraware/lab-automation-observatory"></a>
+</p>
+
+<p align="center">
+  <a href="#what-you-get">What you get</a> &middot;
+  <a href="#ten-bottlenecks-five-layers">Bottlenecks</a> &middot;
+  <a href="#principal-results">Results</a> &middot;
+  <a href="#reproduce-it">Reproduce</a> &middot;
+  <a href="#contribute">Contribute</a>
+</p>
+
+Laboratory automation fails in specific, repeatable places: a driver that will not
+talk to a device, a deck definition that omits a physical property, a run that
+half-finishes and leaves no record you can reconstruct. Practitioners describe
+those failures in public, in operational detail, and then the detail is lost in
+the thread that produced it.
+
+This repository turns a set of those public discussions into something you can
+check, cite, reuse, and disagree with: a coded evidence base, metrics with
+explicit denominators, and ready-to-use artifacts for asking better technical
+questions and keeping the answers.
 
 ## What this repository establishes
 

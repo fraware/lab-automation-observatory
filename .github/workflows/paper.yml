@@ -27,7 +27,7 @@ jobs:
             paper/supplement.tex
           work_in_root_file_dir: true
           latexmk_use_xelatex: false
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: manuscript
           path: |

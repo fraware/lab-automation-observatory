@@ -1,6 +1,7 @@
 name: Bootstrap audited v0.1.0 release
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
@@ -179,6 +180,7 @@ jobs:
         run: |
           set -euo pipefail
           uv sync --all-extras
+          uv run ruff format scripts/build_graphical_abstract.py
           uv run ruff check .
           uv run ruff format --check .
           uv run mypy src/labauto_observatory

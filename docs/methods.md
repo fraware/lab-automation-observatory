@@ -14,6 +14,16 @@ The release uses ten constructs. B1 and B10 are ecosystem conditions. B2–B4 co
 
 The study is a single-coder pilot. It reports no inter-rater statistic. Reliability is supported through explicit inclusion and exclusion rules, hard-case adjudication, retained counterexamples, machine-checked published values, and a claim ledger.
 
+## Hard-case adjudication set
+
+`data/derived/reliability_subset.csv` is the prepared instrument for an independent second coding pass. It covers the same fourteen threads that were segmented into episodes and records, for each thread, the expected primary code, the most plausible competing code, why disagreement is likely, the specific adjudication question, whether episode segmentation is required, and an adjudication priority.
+
+The file is an instrument, not a result. Publishing the expected disagreement surface before any second pass is what would make a later agreement statistic meaningful, and it prevents agreement from being computed on the unambiguous threads only. No agreement coefficient appears in this release because no independent second coding exists. See [Contributing evidence and coding changes](contributing-evidence.md) for how to submit one.
+
+## Claim traceability
+
+Every approved claim in `data/derived/publication_claim_ledger.csv` is bound to the LaTeX sources twice: by a `% claim: Cnn` marker next to the supporting passage, and by a `Manuscript anchor` substring that must appear in that passage. `make claims` fails if either binding is lost.
+
 ## Public-data handling
 
 The release contains derived coding, short anonymized quotations, and source links. It excludes a verbatim corpus and user handles. No automated forum collection is required to reproduce the published results.

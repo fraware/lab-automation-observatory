@@ -29,7 +29,10 @@ paper/*.spl
 # distribution can build the manuscript. `make figures` and
 # `make graphical-abstract` regenerate them byte-identically on the locked
 # environment. The raster figure previews are convenience outputs and are not
-# committed.
+# committed. `paper/graphical_abstract.png` is the one raster exception: it is
+# tracked alongside `paper/graphical_abstract.pdf` (neither is matched by the
+# `paper/figures/*.png` ignore rule below) because the submission package
+# requires a raster graphical abstract.
 !paper/graphical_abstract.pdf
 paper/figures/*.png
 artifacts/*.xlsx

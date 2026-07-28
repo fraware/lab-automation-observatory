@@ -27,15 +27,35 @@ def main() -> None:
     results = compute_release_results(ROOT)
     m = results["metrics"]
     metric_rows = [
-        ("B2 Integration accessibility", pct(m["integration_accessibility_mean"]), "6 device--interface cases"),
+        (
+            "B2 Integration accessibility",
+            pct(m["integration_accessibility_mean"]),
+            "6 device--interface cases",
+        ),
         ("B3 Deployment manifest", pct(m["reproducibility_manifest_mean"]), "3 deployment objects"),
         ("B4 Physical definitions", pct(m["physical_definition_mean"]), "4 resource definitions"),
         ("B5 Observability", pct(m["observability_mean"]), "4 execution/diagnostic cases"),
-        ("B6 Preflight preventability", pct(m["preflight_preventability_complete_case"]), "3 definite scenarios"),
-        ("B7 Constraint discovery", pct(m["scheduling_constraint_discovery"]), "8 incomplete fields"),
+        (
+            "B6 Preflight preventability",
+            pct(m["preflight_preventability_complete_case"]),
+            "3 definite scenarios",
+        ),
+        (
+            "B7 Constraint discovery",
+            pct(m["scheduling_constraint_discovery"]),
+            "8 incomplete fields",
+        ),
         ("B8 Fully aligned claims", pct(m["test_claim_aligned"]), "6 bounded claims"),
-        ("B9 Core context expansion", f"{m['context_expansion_core']:.1f}$\\times$", "5 opening classes"),
-        ("B10 Actionable public outcome", pct(m["documentation_actionable_public_resolution"]), "12 documentation cases"),
+        (
+            "B9 Core context expansion",
+            f"{m['context_expansion_core']:.1f}$\\times$",
+            "5 opening classes",
+        ),
+        (
+            "B10 Actionable public outcome",
+            pct(m["documentation_actionable_public_resolution"]),
+            "12 documentation cases",
+        ),
     ]
     body = "\n".join(f"{label} & {result} & {unit} \\\\" for label, result, unit in metric_rows)
     write(
@@ -89,7 +109,9 @@ Pair & Overlap & $\phi$ & Lift \\
 """,
     )
 
-    evidence = pd.DataFrame(read_csv_many(sorted((ROOT / "data/derived").glob("evidence_register_part_*.csv"))))
+    evidence = pd.DataFrame(
+        read_csv_many(sorted((ROOT / "data/derived").glob("evidence_register_part_*.csv")))
+    )
     for column in [f"B{i}" for i in range(1, 11)]:
         evidence[column] = evidence[column].astype(int)
     support_rows = "\n".join(

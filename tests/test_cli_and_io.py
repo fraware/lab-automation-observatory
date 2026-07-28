@@ -8,7 +8,12 @@ from typer.testing import CliRunner
 
 from labauto_observatory.cli import app
 from labauto_observatory.io import integer, numeric, read_csv_many, read_json, read_yaml
-from labauto_observatory.metrics import association_from_counts, mean_score, phi_coefficient, wilson_interval
+from labauto_observatory.metrics import (
+    association_from_counts,
+    mean_score,
+    phi_coefficient,
+    wilson_interval,
+)
 from labauto_observatory.validation import validate_file
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,7 +21,10 @@ runner = CliRunner()
 
 
 def test_io_helpers() -> None:
-    assert len(read_csv_many(sorted((ROOT / "data/derived").glob("evidence_register_part_*.csv")))) == 55
+    assert (
+        len(read_csv_many(sorted((ROOT / "data/derived").glob("evidence_register_part_*.csv"))))
+        == 55
+    )
     assert isinstance(read_json(ROOT / "data/knowledge_index/seed_records.json"), list)
     assert isinstance(read_yaml(ROOT / "data/knowledge_index/seed_records.yaml"), list)
     assert numeric(" 0.5 ") == 0.5

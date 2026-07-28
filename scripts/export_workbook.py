@@ -4,6 +4,7 @@
 The workbook is a retained research artifact.  Downstream analyses consume the
 CSV/YAML files committed under ``data/`` and do not require this exporter.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -61,7 +62,9 @@ def _normalise(value: Any) -> Any:
     return value
 
 
-def export_sheet(workbook: Any, sheet_name: str, header_row: int, last_row: int, destination: Path) -> None:
+def export_sheet(
+    workbook: Any, sheet_name: str, header_row: int, last_row: int, destination: Path
+) -> None:
     sheet = workbook.worksheets.get_item(sheet_name)
     values = sheet.get_range(sheet.get_used_range().address).values
     header = [_normalise(v) for v in values[header_row]]
@@ -101,7 +104,9 @@ def seed_records_to_yaml(csv_path: Path, yaml_path: Path) -> None:
                 }
             )
     yaml_path.parent.mkdir(parents=True, exist_ok=True)
-    yaml_path.write_text(yaml.safe_dump(records, sort_keys=False, allow_unicode=True), encoding="utf-8")
+    yaml_path.write_text(
+        yaml.safe_dump(records, sort_keys=False, allow_unicode=True), encoding="utf-8"
+    )
     (yaml_path.with_suffix(".json")).write_text(
         json.dumps(records, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )

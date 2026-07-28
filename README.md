@@ -228,10 +228,21 @@ artifacts/                Archive and provenance notes
 | [REPRODUCIBILITY.md](REPRODUCIBILITY.md) | Environment, generated outputs, and Windows notes |
 | [ROADMAP.md](ROADMAP.md), [GOVERNANCE.md](GOVERNANCE.md) | Where this is going and how decisions get made |
 
-## Data scope and ethics
+## Data, ethics, and licensing
 
-This repository contains derived codes, short anonymized quotations, and source links. It does not redistribute a verbatim forum corpus or user handles. Public outcomes can be censored when work moves to private support, direct messages, meetings, or local implementations. See [ETHICS.md](ETHICS.md), [DATA_USE.md](DATA_USE.md), and [docs/methods.md](docs/methods.md).
+This repository contains derived codes, short anonymized quotations, and links to
+the public sources. It does not redistribute a verbatim forum corpus or user
+handles. Outcomes are treated as censored when a discussion moves to private
+support, direct messages, meetings, or local implementations, because a thread
+going quiet is not the same as a problem being solved. See
+[ETHICS.md](ETHICS.md) and [DATA_USE.md](DATA_USE.md).
 
-## Citation and licensing
+Code is Apache-2.0. Original documentation and derived data are CC BY 4.0. Forum
+content remains owned by the people who wrote it. Per-file licensing follows
+[REUSE](https://reuse.software/); see [LICENSES/](LICENSES).
 
-See [CITATION.cff](CITATION.cff) and `paper/references.bib`. Code is Apache-2.0. Original documentation and derived data are CC BY 4.0. Forum content remains owned by its original contributors.
+## Citation
+
+Cite the paper and this repository using the metadata in
+[CITATION.cff](CITATION.cff). Related work is collected in
+`paper/references.bib`.

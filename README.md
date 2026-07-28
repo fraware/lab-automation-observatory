@@ -56,7 +56,7 @@ uv sync --all-extras
 make ci
 ```
 
-The v0.1.0 release candidate passed 17 tests, 98.21% branch-aware coverage, schema validation, metric reproduction, figure generation, and the main and supplementary LaTeX builds before publication; the audit record is [artifacts/submission_audit_v0.1.0.md](artifacts/submission_audit_v0.1.0.md). The suite has since been extended, and `pyproject.toml` enforces a 90% branch-aware coverage floor.
+The current `v0.1.1` audit record is [artifacts/submission_audit_v0.1.1.md](artifacts/submission_audit_v0.1.1.md): 53 tests passed, 98.51% branch-aware coverage against a 90% floor enforced in `pyproject.toml`, schema and claim-ledger validation, and deterministic figure and table regeneration. The original `v0.1.0` release candidate (17 tests, 98.21% coverage) is preserved as a historical snapshot in [artifacts/submission_audit_v0.1.0.md](artifacts/submission_audit_v0.1.0.md) and is not the live bar.
 
 On Windows, GNU Make is not available by default. See the [PowerShell equivalents](REPRODUCIBILITY.md#windows-and-powershell) for running the same checks without `make`.
 

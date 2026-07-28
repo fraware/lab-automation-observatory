@@ -10,3 +10,13 @@ The central rule is simple. Every quantitative result must identify its unit, de
 - [Data dictionary](data-dictionary.md)
 - [Community artifacts](community-artifacts.md)
 - [Claim discipline](claim-discipline.md)
+- [Contributing evidence and coding changes](contributing-evidence.md)
+
+## Build these docs
+
+```bash
+uv sync --all-extras
+make docs
+```
+
+`make docs` serves the site locally and `make docs-build` builds it with `--strict`.

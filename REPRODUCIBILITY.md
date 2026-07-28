@@ -2,6 +2,8 @@
 
 The committed CSV, JSON, and YAML files are the release inputs. Reproduction does not query LabAutomation.io.
 
+## Bootstrap
+
 ```bash
 uv sync --all-extras
 make reproduce
@@ -9,6 +11,51 @@ make test
 make paper
 ```
 
+`uv sync --all-extras` installs from `uv.lock`, which pins the full transitive dependency set. `requirements.environment.txt` records the interpreter environment used for the v0.1.0 release run; the lockfile is the authoritative install path.
+
 Expected headline values are asserted in `tests/test_published_values.py`. JSON Schemas are checked against the seeded records. Figures, the graphical abstract, and LaTeX tables are regenerated from committed data.
 
-The retained XLSX workbook and compiled submission files are distributed through the versioned archival package and future DOI record. They are not required for ordinary analysis.
+## Generated artifacts and what is committed
+
+| Artifact | Command | Committed |
+|---|---|---|
+| `build/results.json`, `build/RESULTS.md` | `make reproduce` | no |
+| `paper/generated/*.tex` | `make tables` | yes |
+| `paper/figures/*.pdf` | `make figures` | yes |
+| `paper/figures/*.png` | `make figures` | no |
+| `paper/graphical_abstract.{pdf,png}` | `make graphical-abstract` | yes |
+| `build/claim_traceability.md` | `make claims` | no |
+| `paper/*.pdf` | `make paper`, `make supplement` | no |
+
+The vector figures and generated tables are committed so that a fresh clone with only a TeX distribution can build the manuscript through `make paper-only`, with no Python step. The figure scripts suppress output timestamps, so regenerating on the locked environment reproduces the committed bytes exactly and produces no diff. Regenerating under a different `matplotlib` version can change the bytes; that is expected and is the reason the lockfile is committed. `tests/test_build_outputs.py` fails if the committed tables drift from a fresh build.
+
+Only the raster previews `paper/figures/*.png` are excluded, because nothing in the repository consumes them.
+
+## Claim traceability
+
+`make claims` checks that every approved claim in `data/derived/publication_claim_ledger.csv` is bound to the manuscript by a `% claim: Cxx` marker and by its `Manuscript anchor` substring. `make validate` runs the same check as part of the release validation, and writes a review table to `build/claim_traceability.md`.
+
+## Windows and PowerShell
+
+The commands above assume a POSIX shell with GNU Make. On Windows, `uv` works unchanged, but `make` and `rm` are not available by default. Either install GNU Make (for example through `winget install GnuWin32.Make` or a Git Bash / WSL shell) or run the underlying commands directly in PowerShell:
+
+```powershell
+uv sync --all-extras
+uv run python scripts/reproduce_results.py
+uv run python scripts/build_figures.py
+uv run python scripts/build_tables.py
+uv run python scripts/build_graphical_abstract.py
+uv run python scripts/validate_release.py
+uv run python scripts/check_claim_traceability.py
+uv run pytest
+uv run ruff check .
+uv run mypy src/labauto_observatory
+```
+
+PowerShell separates sequential commands with `;` rather than `&&`, and `;` does not stop on failure. To stop at the first failure, run the commands one per line as above, or check `$LASTEXITCODE` between them.
+
+Building the PDFs on Windows additionally requires a TeX distribution with a working `latexmk`. MiKTeX needs Perl on `PATH` for `latexmk`; installing Strawberry Perl or using TeX Live avoids that dependency.
+
+## Release archives
+
+The retained XLSX workbook and compiled submission files are distributed through GitHub release tags when published. They are not required for ordinary analysis.

@@ -78,7 +78,7 @@ Full inclusion rules, exclusion rules, and boundary tests live in
 
 ## Principal results
 
-| Result | Pilot estimate | Unit |
+| Metric | Pilot value | Measured over |
 |---|---:|---|
 | Integration Accessibility Score | 63.9% | six device–interface cases |
 | Reproducibility Manifest Completeness | 54.2% | three deployment objects |
@@ -90,7 +90,17 @@ Full inclusion rules, exclusion rules, and boundary tests live in
 | Core AI context-expansion ratio | 2.0× | five opening context classes |
 | Fully actionable documentation outcomes | 41.7% | twelve documentation-centered cases |
 
-The strongest technical association connects observability and recovery (`phi = 0.452`, `lift = 2.353`). The repository treats this as a prospective mechanism hypothesis, not a causal estimate.
+**How to read this table.** Every figure describes the named set of cases in the
+right-hand column and nothing else. The denominators are small on purpose: each
+case was scored field by field against a written rubric, and the inputs are
+committed so you can re-score them yourself. Read `54.2%` as "mean manifest
+completeness across the three deployment objects we examined," not as a rate for
+the field.
+
+The strongest technical association in the pilot links fragmented observability
+(B5) to partial execution and recovery (B6), with `phi = 0.452` and
+`lift = 2.353`. We publish it as a mechanism hypothesis worth testing, not as a
+causal estimate.
 
 ## Repository map
 

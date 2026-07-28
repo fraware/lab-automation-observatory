@@ -116,21 +116,6 @@ Being useful here depends on being clear about the limits.
   disagree, so that a real agreement number becomes possible later — see
   [Contribute](#contribute).
 
-## Repository map
-
-```text
-paper/                    LaTeX manuscript, supplement, generated tables
-src/labauto_observatory/  Metric and validation library
-data/derived/             Public derived coding records
-data/metrics/             Field-level metric inputs and association results
-data/knowledge_index/     Seed resolved-knowledge records
-schemas/                  JSON Schemas for community artifacts
-scripts/                  Reproduction, figure, table, and validation commands
-tests/                    Published-value, schema, and metric tests
-docs/                     Methods, data dictionary, ethics, and artifact guides
-artifacts/                Archive and provenance notes
-```
-
 ## Reproduce it
 
 Reproduction reads only the derived data committed in this repository. Nothing
@@ -216,6 +201,32 @@ Hosted CI is deliberately not triggered on pull requests, so `make ci` on your
 own machine is the authoritative check. Run it before you open one.
 
 Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) before opening a discussion.
+
+## Repository map
+
+```text
+paper/                    LaTeX manuscript, supplement, generated tables
+src/labauto_observatory/  Metric and validation library
+data/derived/             Public derived coding records
+data/metrics/             Field-level metric inputs and association results
+data/knowledge_index/     Seed resolved-knowledge records
+schemas/                  JSON Schemas for community artifacts
+scripts/                  Reproduction, figure, table, and validation commands
+tests/                    Published-value, schema, and metric tests
+docs/                     Methods, data dictionary, and artifact guides
+artifacts/                Archive and provenance notes
+```
+
+## Documentation
+
+| Read this | For |
+|---|---|
+| [docs/methods.md](docs/methods.md) | Corpus, episode segmentation, coding, and what reliability rests on |
+| [docs/data-dictionary.md](docs/data-dictionary.md) | Every column in every derived file |
+| [docs/community-artifacts.md](docs/community-artifacts.md) | The artifacts above and how they should be evaluated |
+| [docs/claim-discipline.md](docs/claim-discipline.md) | How published numbers stay bound to the text that cites them |
+| [REPRODUCIBILITY.md](REPRODUCIBILITY.md) | Environment, generated outputs, and Windows notes |
+| [ROADMAP.md](ROADMAP.md), [GOVERNANCE.md](GOVERNANCE.md) | Where this is going and how decisions get made |
 
 ## Data scope and ethics
 

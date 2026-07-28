@@ -4,12 +4,28 @@ All notable changes follow Keep a Changelog principles.
 
 ## [Unreleased]
 
+### Added
+
+- `uv.lock` pinning the full transitive dependency set, and a `docs` extra with MkDocs plus `make docs` and `make docs-build`.
+- Machine-checked claim traceability: `labauto_observatory.traceability`, `scripts/check_claim_traceability.py`, and a `make claims` target. Every approved claim now needs a `% claim: Cnn` marker in the LaTeX source and a `Manuscript anchor` substring in the ledger.
+- Golden tests for the secondary headline fields and the stable key set of `build/results.json`, content tests for the generated LaTeX tables, and smoke and determinism tests for the figure scripts.
+- Supplementary section, methods pointer, and documentation for the hard-case adjudication set `data/derived/reliability_subset.csv`.
+- Per-column definitions for every committed CSV in `docs/data-dictionary.md`, and a coding and evidence contribution guide at `docs/contributing-evidence.md`.
+- Windows and PowerShell instructions in `REPRODUCIBILITY.md`, and a `make paper-only` target that builds the manuscript from committed figures without Python.
+
 ### Changed
 
+- Ran `ruff format` across the repository and aligned the pre-commit `ruff-pre-commit` hook with Ruff 0.16.0 from `uv.lock`.
 - Retargeted the submission package to the SLAS Technology special issue `NexusXp: The Connected Lab`, with regular-journal transfer preference.
-- Added complete submission metadata, journal-compliance checklist, Editorial Manager copy-paste metadata, and Zenodo deposit instructions.
+- Added complete submission metadata, journal-compliance checklist, and Editorial Manager copy-paste metadata.
 - Added author degree to the manuscript and complete correspondence metadata to the submission package.
 - Condensed the cover letter to one page and aligned it with the connected-laboratory scope.
+- Committed the vector figures and the graphical abstract; the figure scripts now suppress output timestamps so regeneration on the locked environment is byte-identical. Only the raster previews `paper/figures/*.png` remain untracked.
+- Drove the discovery--resolution and validation-funnel figures and the workflow figure counts from `compute_release_results` and `data/metrics/ai_validation_funnel.csv` instead of hardcoded arrays.
+- Reused the shared `mean_score` and `weighted_completeness` helpers in `analysis.py` so unknown scores stay distinguishable from zero.
+- Extended `build/results.json` with `episode_threads`, `adjudication_threads`, and `constructs` counts.
+- Removed the unused `scipy` pin from `requirements.environment.txt` and documented that `uv.lock` is the authoritative install path.
+- Aligned the coverage figure quoted in `README.md` with `artifacts/submission_audit_v0.1.0.md`.
 
 ## [0.1.0] - 2026-07-28
 

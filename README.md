@@ -183,13 +183,39 @@ question from returning, keep records from going stale silently, and get final
 outcomes recorded. Details in
 [docs/community-artifacts.md](docs/community-artifacts.md).
 
-## Claim control
+## Contribute
 
-Every approved claim in `data/derived/publication_claim_ledger.csv` carries a `% claim: Cnn` marker next to the manuscript passage it supports and a `Manuscript anchor` substring that must appear in that passage. `make claims` fails if a claim loses its manuscript binding and writes a review table to `build/claim_traceability.md`. See [docs/claim-discipline.md](docs/claim-discipline.md).
+Contributions are welcome, and the most valuable ones are not code. Pick a lane:
 
-## Contributing
+- **Run a second coding pass.** This is the highest-value contribution in the
+  repository. Code the threads in `data/derived/reliability_subset.csv` from the
+  public sources without reading the expected codes, answer the recorded
+  adjudication questions, and submit your codes. That is what turns a
+  single-coder pilot into a measured one.
+- **Correct a coded row.** If a thread was read wrong, say which boundary test it
+  fails and why. Counterexamples are kept, not quietly dropped.
+- **Propose a taxonomy change.** Splits, merges, and additions are expected. Say
+  what your version predicts that the current one does not.
+- **Bring a hard case.** A public thread that the taxonomy handles badly is more
+  useful than one that fits.
+- **Add or refresh a knowledge record.** Records need an owner and a verification
+  date, or they rot.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for pull-request requirements and [docs/contributing-evidence.md](docs/contributing-evidence.md) for how to propose register, metric, claim-ledger, or knowledge-index changes.
+Two documents cover everything you need:
+[CONTRIBUTING.md](CONTRIBUTING.md) for pull-request mechanics, and
+[docs/contributing-evidence.md](docs/contributing-evidence.md) for a
+step-by-step walkthrough of each change type above.
+
+The ground rules, in one breath: link a public source; keep "unknown" distinct
+from "absent"; claim only what your evidence reached; and update the tests when a
+published number moves. Published numbers are also wired to the exact manuscript
+passages that depend on them, so `make claims` will tell you if a change breaks
+that link ([how it works](docs/claim-discipline.md)).
+
+Hosted CI is deliberately not triggered on pull requests, so `make ci` on your
+own machine is the authoritative check. Run it before you open one.
+
+Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) before opening a discussion.
 
 ## Data scope and ethics
 

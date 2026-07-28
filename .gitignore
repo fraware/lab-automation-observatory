@@ -8,6 +8,7 @@ __pycache__/
 htmlcov/
 build/
 dist/
+site/
 *.egg-info/
 .DS_Store
 paper/*.aux
@@ -23,8 +24,12 @@ paper/*.synctex.gz
 paper/*.toc
 paper/*.pdf
 paper/*.spl
+# Figure policy: the vector figures consumed by LaTeX (paper/figures/*.pdf) and
+# the graphical abstract are committed so that a fresh clone with only a TeX
+# distribution can build the manuscript. `make figures` and
+# `make graphical-abstract` regenerate them byte-identically on the locked
+# environment. The raster figure previews are convenience outputs and are not
+# committed.
+!paper/graphical_abstract.pdf
 paper/figures/*.png
-paper/figures/*.pdf
-paper/graphical_abstract.png
-paper/graphical_abstract.pdf
 artifacts/*.xlsx

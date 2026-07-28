@@ -6,6 +6,7 @@ from .metrics import (
     context_expansion_ratio,
     mean_score,
     phi_coefficient,
+    weighted_completeness,
     wilson_interval,
 )
 
@@ -15,6 +16,7 @@ __all__ = [
     "context_expansion_ratio",
     "mean_score",
     "phi_coefficient",
+    "weighted_completeness",
     "wilson_interval",
 ]
 

@@ -18,7 +18,7 @@ directly with `uv run python scripts/build_atlas_summary.py`.
 - **Primary-code threads:** 1
 - **Bounded quantitative result:** Not separately quantified; cross-cutting modifier with direct support in 29 of 55 selected threads
 - **Evidence maturity:** Qualitative and count evidence only; no bounded metric
-- **Pilot interpretation:** Cross-cutting modifier; frequent co-code should not be interpreted as an independent failure count.
+- **Pilot interpretation:** Cross-cutting modifier when it accompanies a technical failure; primary when the thread's object is the artifact, corpus, or governance itself. Frequent co-code should not be interpreted as an independent failure count.
 - **Strongest descriptive relationship:** Not part of the B2--B9 pairwise set
 - **Illustrative quotation:** Every aspect of lab automation is closed off from the outside world.
 - **Quotation source:** Welcome to Lab Automation Forums

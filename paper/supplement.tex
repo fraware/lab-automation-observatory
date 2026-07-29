@@ -19,15 +19,15 @@ The public derived register contains 55 threads. It records titles, dates, prima
 \input{generated/code_counts.tex}
 
 \section{Episode register}
-The difficult subset contains 45 episodes from 14 threads. Each episode records its lifecycle stage, primary code, modifiers, evidence form, detectability, consequence, public artifact, counterexample status, and coding confidence.
+The difficult subset contains 45 episodes from 14 threads. Each episode records its lifecycle stage, primary code, modifiers, evidence form, detectability, consequence, public artifact, the construct it is a counterexample to, its first post anchor where the thread exposes one, and coding confidence. An episode is a contiguous run of posts that either raises a new initiating problem or moves to a new lifecycle stage; two adjacent runs sharing both are one episode.
 
 \section{Hard-case adjudication set}
 \label{sec:s-adjudication}
-All coding was performed by one analyst, so no inter-rater statistic is reported. The release instead publishes the prepared adjudication set in \path{data/derived/reliability_subset.csv}. It covers the same 14 threads that were segmented into episodes and records, for each thread, the expected primary code, the most plausible competing code, why disagreement is likely, the specific adjudication question, whether episode segmentation is required, and a priority. Twelve threads are marked critical and two high.
+All coding was performed by one analyst, so no inter-rater statistic is reported. The release instead publishes the prepared adjudication set in \path{data/derived/reliability_subset.csv}. It covers the same 14 threads that were segmented into episodes and records, for each thread, the expected primary code, the most plausible competing code, why disagreement is likely, the specific adjudication question, the exact number of episodes the segmentation is expected to yield, the coded read scope, and a priority. Twelve threads are marked critical and two high.
 
 The file is an instrument rather than a result. A second coder can code the listed threads independently, answer the recorded adjudication questions, and then compute agreement on the primary code and on episode boundaries without renegotiating the coding task. Publishing the expected disagreement surface before any second pass also prevents a later agreement statistic from being computed only on the unambiguous threads. No agreement coefficient appears anywhere in this release because no independent second coding exists.
 
-Because the expected primary code sits in the same row as the source URL, the key cannot itself be used for a blind pass: a coder who opens it to find the thread has already read the answer. The release therefore also publishes the generated projection \path{data/derived/reliability_subset_blind.csv}, which carries only the thread, its source URL, the adjudication question, the expected episode count, and the priority. A second coding pass uses the blind sheet; the key is reserved for adjudicating the result afterwards.
+Because the expected primary code sits in the same row as the source URL, the key cannot itself be used for a blind pass: a coder who opens it to find the thread has already read the answer. The release therefore also publishes the generated projection \path{data/derived/reliability_subset_blind.csv}, which carries only the thread, its source URL, the coded read scope, the adjudication question, the expected episode count, and the priority. A second coding pass uses the blind sheet; the key is reserved for adjudicating the result afterwards.
 
 \section{Metric definitions}
 \subsection{Integration Accessibility Score}

@@ -21,12 +21,14 @@ from labauto_observatory.register_validation import (
     check_categoricals,
     check_derived_scores,
     check_episode_and_adjudication_subsets,
+    check_episode_provenance,
     check_evidence_register,
     check_funnel_intervals,
     check_matched_cases,
     check_release_data,
     check_row_counts,
     check_score_cells,
+    check_segmentation_targets,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -169,6 +171,66 @@ def test_non_construct_episode_code_is_reported(
     edit_csv(data_root / EPISODES, 0, **{"Primary technical code": "B42"})
     problems = check_episode_and_adjudication_subsets(data_root)
     assert any("is not a construct" in problem for problem in problems)
+
+
+def test_vague_segmentation_target_is_reported(
+    data_root: Path, edit_csv: Callable[..., None]
+) -> None:
+    """A target no segmentation can contradict is not a target."""
+
+    edit_csv(
+        data_root / ADJUDICATION, 0, **{"Episode segmentation required": "Yes — at least three"}
+    )
+    problems = check_segmentation_targets(data_root)
+    assert any("states no exact episode count" in problem for problem in problems)
+
+
+def test_segmentation_target_that_disagrees_with_the_register_is_reported(
+    data_root: Path, edit_csv: Callable[..., None]
+) -> None:
+    edit_csv(data_root / ADJUDICATION, 0, **{"Episode segmentation required": "Yes — 9 episodes"})
+    assert check_segmentation_targets(data_root) == [
+        "adjudication thread 2: expects 9 episodes but the episode register holds 3"
+    ]
+
+
+def test_dropping_an_episode_contradicts_its_thread_target(
+    data_root: Path, drop_csv_row: Callable[[Path, int], None]
+) -> None:
+    drop_csv_row(data_root / EPISODES, 0)
+    assert check_segmentation_targets(data_root) == [
+        "adjudication thread 2: expects 3 episodes but the episode register holds 2"
+    ]
+
+
+def test_empty_read_scope_is_reported(data_root: Path, edit_csv: Callable[..., None]) -> None:
+    edit_csv(data_root / ADJUDICATION, 0, **{"Read scope": " "})
+    assert check_segmentation_targets(data_root) == ["adjudication thread 2: read scope is empty"]
+
+
+def test_non_construct_counterexample_scope_is_reported(
+    data_root: Path, edit_csv: Callable[..., None]
+) -> None:
+    edit_csv(data_root / EPISODES, 0, **{"Counterexample to": "B4; B42"})
+    assert check_episode_provenance(data_root) == [
+        "episode T02-E1: counterexample scope 'B42' is not a construct"
+    ]
+
+
+def test_first_post_anchor_must_be_post_anchored(
+    data_root: Path, edit_csv: Callable[..., None]
+) -> None:
+    """An empty anchor is allowed; a page URL masquerading as one is not."""
+
+    edit_csv(data_root / EPISODES, 0, **{"First post anchor": ""})
+    assert check_episode_provenance(data_root) == []
+    edit_csv(
+        data_root / EPISODES,
+        0,
+        **{"First post anchor": "https://labautomation.io/t/thread/103?page=2"},
+    )
+    problems = check_episode_provenance(data_root)
+    assert any("is not a post-anchored discussion URL" in problem for problem in problems)
 
 
 def test_b2_unknown_component_bookkeeping_is_reported(

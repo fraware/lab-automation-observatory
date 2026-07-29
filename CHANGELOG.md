@@ -8,9 +8,18 @@ All notable changes follow Keep a Changelog principles.
 
 - `data/derived/reliability_subset_blind.csv`, the coder-facing projection of the hard-case adjudication set, together with `labauto_observatory.blind_subset`, `scripts/build_blind_subset.py`, a drift check in `make validate`, and its own tests. The published key states `Expected primary`, `Plausible alternative`, and `Why disagreement is likely` in the same row as the source URL, so a coder could not reach a thread without reading the answer; that is finding F1 of `artifacts/adjudication_pilot_v0.1.2.md`. The key is unchanged and stays the maintainer-facing instrument.
 
+- A `Primary-code tie-break` rule in `data/derived/codebook.csv`. Two codes could both be primary-eligible with nothing to choose between them; the primary is now the code whose boundary test fails for the request made in the initiating post, satisfying a code's required evidence makes it direct support rather than primary, and the rejected candidate is recorded in `Analytical note`.
+- A `Read scope` column on the adjudication key and the blind sheet, naming the pages or posts that constitute the coded material for each of the 14 hard threads. A coder who stops at the landing page of a sixty-five-post thread codes a different thread.
+- A `First post anchor` column on the episode registers, filled where the public thread exposes a post anchor, so that two segmentations can be compared post by post rather than only counted. Empty is allowed; a populated cell is checked for post-anchor URL shape.
+- An episode-unit definition in `docs/contributing-evidence.md`, and validation that each thread's expected episode count matches the episode register.
+
 ### Changed
 
 - The second-coder path in `README.md`, `docs/contributing-evidence.md`, `docs/community-artifacts.md`, `docs/methods.md`, and supplement section S4 now names the blind sheet as the only file a second coder should open.
+- B1's `Pilot interpretation` in `data/derived/taxonomy_rules.csv` no longer contradicts its own `Primary-code eligibility`: it is a cross-cutting modifier when it accompanies a technical failure and primary when the thread's object is the artifact, corpus, or governance itself.
+- B7 now excludes purchasing lead time, installation schedule, and component supply, and B2 now excludes claims about vendor market structure rather than a specific integration attempt. Procurement and installation lead time is declared outside the taxonomy instead of each coder improvising a home for it.
+- Episode `Counterexample` became `Counterexample to`, holding the construct or constructs the episode runs against. The scope previously survived only in free text, so a coder could agree with the boolean while disagreeing about what was contradicted. `T04-E3` is now recorded as a counterexample to B1 alone, since the recommended procedure still ends in contacting named collaborators and remains positive evidence for B10.
+- `Episode segmentation required` states an exact episode count instead of "at least three episodes", which no segmentation could contradict.
 
 ## [0.1.2] - 2026-07-29
 

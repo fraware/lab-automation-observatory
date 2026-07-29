@@ -3,23 +3,25 @@
 \caption{Bounded pilot metrics. Each row has a distinct unit and denominator.}
 \label{tab:headline-metrics}
 \begin{threeparttable}
-\begin{tabularx}{\linewidth}{@{}L R L@{}}
+\begin{tabularx}{\linewidth}{@{}L r l L@{}}
 \toprule
-Construct & Result & Unit \\
+Construct & Result & 95\% Wilson & Unit and denominator \\
 \midrule
-B2 Integration accessibility & 63.9\% & 6 device--interface cases \\
-B3 Deployment manifest & 54.2\% & 3 deployment objects \\
-B4 Physical definitions & 67.0\% & 4 resource definitions \\
-B5 Observability & 52.5\% & 4 execution/diagnostic cases \\
-B6 Preflight preventability & 66.7\% & 3 definite scenarios \\
-B7 Constraint discovery & 87.5\% & 8 incomplete fields \\
-B8 Fully aligned claims & 33.3\% & 6 bounded claims \\
-B9 Core context expansion & 2.0$\times$ & 5 opening classes \\
-B10 Actionable public outcome & 41.7\% & 12 documentation cases \\
+B2 Integration accessibility & 63.9\% & -- & 6 device--interface cases \\
+B3 Deployment manifest & 54.2\% & -- & 3 deployment objects; 24 applicable cells \\
+B4 Physical definitions & 67.0\% & -- & 4 resource definitions \\
+B5 Observability & 52.5\% & -- & 4 execution/diagnostic cases \\
+B6 Preflight preventability & 66.7\% & 20.8--93.9\% & 3 definite scenarios of 4 eligible \\
+B7 Constraint discovery & 87.5\% & 52.9--97.8\% & 8 incomplete fields of 13 \\
+B8 Fully aligned claims & 33.3\% & 9.7--70.0\% & 6 bounded claims \\
+B9 Core context expansion & 2.0$\times$ & -- & 5 opening classes \\
+B10 Actionable public outcome & 41.7\% & 19.3--68.0\% & 12 documentation cases \\
 \bottomrule
 \end{tabularx}
 \begin{tablenotes}[flushleft]\footnotesize
 \item Results demonstrate operationalization in selected cases. They do not estimate forum-wide or industry-wide rates.
+\item Wilson intervals are descriptive uncertainty for the stated denominator, not population inference. A dash marks a row whose result is a mean of ordinal component scores or a ratio rather than a proportion, for which a binomial interval would be undefined.
+\item Component means are taken over known cells only; unknown cells are excluded rather than scored as zero.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}

@@ -2,6 +2,7 @@
 \centering
 \caption{Direct-support and primary-code counts in the selected 55-thread register.}
 \label{tab:code-counts}
+\begin{threeparttable}
 \begin{tabular}{@{}lrr@{}}
 \toprule
 Code & Direct support & Primary \\
@@ -18,4 +19,9 @@ B9 & 5 & 3 \\
 B10 & 48 & 5 \\
 \bottomrule
 \end{tabular}
+\begin{tablenotes}[flushleft]\footnotesize
+\item Coding is multi-label by design, so direct-support counts sum to more than 55. Exactly one primary code is assigned per thread, so the primary column sums to 55.
+\item B1 and B10 are cross-cutting ecosystem conditions. Their high direct-support counts reflect deliberate modifier coding and purposive selection, not prevalence.
+\end{tablenotes}
+\end{threeparttable}
 \end{table}

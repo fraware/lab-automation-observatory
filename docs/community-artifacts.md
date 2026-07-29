@@ -24,7 +24,8 @@ Each record contains applicability, evidence, root-cause status, resolution, val
 
 ## Planned registries
 
-- device-integration accessibility;
+- device-integration accessibility: schema draft and worked examples exist, see
+  [Device-interface accessibility registry](device-interface-registry.md);
 - physical-resource definitions with evidence grades;
 - minimal laboratory event schema;
 - scheduling benchmarks with scientific constraints.

@@ -492,6 +492,28 @@ Ten validated resolved-knowledge records. The YAML and JSON files contain identi
 
 One worked instance of the minimum reproducible automation question, validated against `schemas/troubleshooting-question.schema.json`. Partial execution activates the conditional `physical_state_after_failure` and intervention requirements.
 
+## `data/registry_examples/`
+
+### `device_interface_registry_examples.yaml` (3 records)
+
+Design-draft examples for the Roadmap 0.2 device-interface accessibility registry, not
+wired into `make validate` or `make reproduce`. Validated against
+`schemas/device-interface-registry.schema.json`. See
+[Device-interface accessibility registry](device-interface-registry.md) for the field
+groups and their rationale.
+
+| Column | Definition |
+|---|---|
+| `record_id` | Stable identifier, pattern `DIR-YYYY-NNNN`. |
+| `vendor`, `product`, `interface_identity`, `interface_class` | Identity of the device/interface case. |
+| `documentation`, `api_protocol`, `licence_clarity`, `simulator_isolated_testing`, `examples_reference_implementation`, `maintainer_support_declared` | The six fixed accessibility-fact components, `0 / 0.5 / 1 / null` as elsewhere in this repository. |
+| `unknown_components`, `accessibility_score` | Null-component count and the mean over known components. |
+| `maintenance_status`, `last_activity_observed`, `last_verified`, `correction_status`, `record_steward` | Living maintenance facts, kept separate from the fixed accessibility snapshot. |
+| `evidence_grade`, `evidence_confidence`, `evidence_note` | Evidence depth, coder confidence, and the supporting rationale. |
+| `evidence_sources` | Public source URLs. |
+| `known_limitations`, `prohibited_claims` | Explicit bounds and the downstream claims the record must not be used to support. |
+| `supersedes`, `superseded_by` | Record lineage. |
+
 ## `docs/generated/`
 
 ### `evidence_atlas_summary.md`

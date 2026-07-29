@@ -1,0 +1,117 @@
+# Draft example records for the device-interface accessibility registry (Roadmap 0.2).
+# Design draft only: see docs/device-interface-registry.md and
+# schemas/device-interface-registry.schema.json. Not wired into make validate or
+# make reproduce. Derived from the existing B2 cases in
+# data/metrics/b2_integration_access.csv; accessibility_score values match the
+# corresponding IAS values in that file exactly, because both are the mean over
+# the same six known components.
+- record_id: DIR-2026-0001
+  vendor: Hamilton
+  product: VENUS method-control software
+  interface_identity: VENUS 6.x REST API (disabled by default)
+  interface_class: rest_api
+  documentation: 1
+  api_protocol: 1
+  licence_clarity: 0.5
+  simulator_isolated_testing: 0.5
+  examples_reference_implementation: 0.5
+  maintainer_support_declared: 0.5
+  unknown_components: 0
+  accessibility_score: 0.6666666666666666
+  maintenance_status: active
+  last_activity_observed: '2025'
+  last_verified: '2026-07-29'
+  correction_status: active
+  evidence_grade: 1
+  evidence_confidence: High
+  evidence_note: A public forum answer identifies a REST API that ships disabled
+    by default in VENUS 6 and gives explicit activation steps; no independent
+    hardware reproduction is reported in the thread.
+  evidence_sources:
+  - https://labautomation.io/t/hamilton-venus-6-com-interface-different-from-venus-4/5834
+  known_limitations:
+  - Applies to the VENUS 6.x REST API path only; does not describe VENUS 4 COM
+    behavior or later VENUS releases.
+  - Full API method coverage beyond method-control activation is not established
+    by this thread.
+  prohibited_claims:
+  - Must not be used to rank Hamilton against other vendors on interface
+    accessibility or reliability.
+  - Must not be read as confirmation that the REST API is officially supported
+    for production use.
+  record_steward: Lab Automation Observatory maintainers
+  supersedes: []
+  superseded_by: []
+- record_id: DIR-2026-0002
+  vendor: PyLabRobot (community backend for BMG CLARIOStar hardware)
+  product: CLARIOStar plate reader
+  interface_identity: Direct USB interface via PyLabRobot backend
+  interface_class: community_reimplementation
+  documentation: 1
+  api_protocol: 1
+  licence_clarity: 1
+  simulator_isolated_testing: 0
+  examples_reference_implementation: 1
+  maintainer_support_declared: 1
+  unknown_components: 0
+  accessibility_score: 0.8333333333333334
+  maintenance_status: active
+  last_activity_observed: '2022-2023'
+  last_verified: '2026-07-29'
+  correction_status: active
+  evidence_grade: 3
+  evidence_confidence: High
+  evidence_note: PyLabRobot's public release includes a direct USB backend, a
+    runnable example, and a contribution guide; feature coverage is explicitly
+    described as partial in the same release notes.
+  evidence_sources:
+  - https://labautomation.io/t/release-plate-reader-support-in-pylabrobot-starting-with-clariostar/881
+  known_limitations:
+  - Feature coverage is limited to what the cited release documents; later
+    CLARIOStar firmware or protocol revisions are not covered.
+  - Host-OS-agnostic behavior is reported for the tested platform only.
+  prohibited_claims:
+  - Must not be used to rank PyLabRobot-supported devices against vendor-native
+    software on completeness or reliability.
+  - Must not be read as confirming full CLARIOStar feature parity with vendor
+    software.
+  record_steward: Lab Automation Observatory maintainers
+  supersedes: []
+  superseded_by: []
+- record_id: DIR-2026-0003
+  vendor: LiCONiC
+  product: STR240/STX plate transfer station
+  interface_identity: RS-232 link to PLC firmware
+  interface_class: serial_protocol
+  documentation: 0.5
+  api_protocol: 0.5
+  licence_clarity: 0.5
+  simulator_isolated_testing: 0
+  examples_reference_implementation: 0.5
+  maintainer_support_declared: 0
+  unknown_components: 0
+  accessibility_score: 0.3333333333333333
+  maintenance_status: unmaintained
+  last_activity_observed: '2026'
+  last_verified: '2026-07-29'
+  correction_status: active
+  evidence_grade: 2
+  evidence_confidence: High
+  evidence_note: The thread documents registers, sensors, firmware tools, and
+    decompiled driver logic on physical hardware, but the configuration differs
+    by model and the reporter states vendor support was not reachable.
+  evidence_sources:
+  - https://labautomation.io/t/how-to-configure-liconic-plate-transfer-nests/7245
+  known_limitations:
+  - The reverse-engineered register map is specific to the hardware and firmware
+    revision discussed; other STR240/STX units or firmware versions may differ.
+  - The hardware in this case had been physically modified before the
+    reverse-engineering work described.
+  prohibited_claims:
+  - Must not be used to rank LiCONiC against other vendors on interface
+    accessibility or reliability.
+  - Must not be read as a general statement about LiCONiC support quality; the
+    case reflects one modified unit and one support interaction.
+  record_steward: Lab Automation Observatory maintainers
+  supersedes: []
+  superseded_by: []

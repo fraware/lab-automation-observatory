@@ -12,6 +12,7 @@ The central rule is simple. Every quantitative result must identify its unit, de
 - [Community artifacts](community-artifacts.md)
 - [Claim discipline](claim-discipline.md)
 - [Contributing evidence and coding changes](contributing-evidence.md)
+- [Device-interface accessibility registry (design draft)](device-interface-registry.md)
 - [Correction workflow](correction-workflow.md)
 
 ## Build these docs

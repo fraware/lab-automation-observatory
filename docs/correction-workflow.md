@@ -53,7 +53,8 @@ applies to corrections exactly as it applies to new material.
    closed if any of them has drifted.
 2. `make validate`, always. It checks documented row counts, the `0 / 0.5 / 1 / empty` score
    domain, categorical vocabularies, derived-score recomputation, the cross-file invariants
-   (primary implies direct support, the adjudication set equals the episode-segmented subset,
+   (primary implies direct support, an episode's codes are a subset of its thread's
+   direct-support flags, the adjudication set equals the episode-segmented subset,
    the B8 alignment class agrees with numerator eligibility, funnel intervals recompute), schema
    validation for the knowledge index, record-ID uniqueness, and claim traceability.
 3. `make test` (`uv run pytest`), always. If the correction moves a published number,
@@ -118,7 +119,8 @@ a table, a figure, or manuscript prose.
 The correction is required because leaving the current state unfixed breaks an invariant that
 `scripts/validate_release.py`, `labauto_observatory.register_validation`, or
 `tests/test_published_values.py::test_result_schema_is_stable` enforces. Examples: a row-count
-mismatch, a primary code with no matching direct-support flag, the adjudication set diverging from
+mismatch, a primary code with no matching direct-support flag, an episode primary code or
+ecosystem modifier with no direct-support flag on its own thread, the adjudication set diverging from
 the episode-segmented subset, an approved claim with an empty `Prohibited overclaim` or a missing
 manuscript anchor, a duplicate knowledge-index `record_id`, or a generated CSV that has drifted
 from `make derived`.

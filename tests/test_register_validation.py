@@ -22,6 +22,7 @@ from labauto_observatory.register_validation import (
     check_derived_scores,
     check_episode_and_adjudication_subsets,
     check_episode_provenance,
+    check_episode_thread_coherence,
     check_evidence_register,
     check_funnel_intervals,
     check_matched_cases,
@@ -171,6 +172,36 @@ def test_non_construct_episode_code_is_reported(
     edit_csv(data_root / EPISODES, 0, **{"Primary technical code": "B42"})
     problems = check_episode_and_adjudication_subsets(data_root)
     assert any("is not a construct" in problem for problem in problems)
+
+
+def test_episode_code_without_a_thread_flag_is_reported(
+    data_root: Path, edit_csv: Callable[..., None]
+) -> None:
+    """An episode may not evidence a code its own thread records as unsupported."""
+
+    edit_csv(data_root / EPISODES, 0, **{"Ecosystem modifiers": "B1; B5; B10"})
+    assert check_episode_thread_coherence(data_root) == [
+        "episode T02-E1: modifier B5 has no direct-support flag on thread 2, so the episode "
+        "asserts a condition the thread-level coding denies"
+    ]
+    edit_csv(data_root / EPISODES, 0, **{"Primary technical code": "B5"})
+    assert any(
+        "primary technical code B5 has no direct-support flag" in problem
+        for problem in check_episode_thread_coherence(data_root)
+    )
+
+
+def test_coherence_leaves_a_dangling_thread_reference_to_the_subset_check(
+    data_root: Path, edit_csv: Callable[..., None]
+) -> None:
+    """A thread ID absent from the register is one check's problem, not two."""
+
+    edit_csv(data_root / EPISODES, 0, **{"Thread ID": "999"})
+    assert check_episode_thread_coherence(data_root) == []
+    assert any(
+        "absent from the evidence register" in problem
+        for problem in check_episode_and_adjudication_subsets(data_root)
+    )
 
 
 def test_vague_segmentation_target_is_reported(

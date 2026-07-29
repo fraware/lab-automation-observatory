@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate schemas, records, claims, and release invariants."""
+"""Validate schemas, records, claims, robustness outputs, and release invariants."""
 
 from __future__ import annotations
 
@@ -8,6 +8,7 @@ from pathlib import Path
 
 from labauto_observatory.io import read_yaml
 from labauto_observatory.register_validation import check_release_data
+from labauto_observatory.robustness import robustness_drift
 from labauto_observatory.traceability import check_traceability
 from labauto_observatory.validation import validate_file
 
@@ -56,10 +57,18 @@ def main() -> None:
             print(f"release data failure: {problem}")
         raise SystemExit("committed register and metric data failed validation")
 
+    robustness = robustness_drift(ROOT)
+    if robustness:
+        for problem in robustness:
+            print(f"robustness artifact failure: {problem}")
+        raise SystemExit("committed robustness outputs have drifted from release data")
+
     for relative in [
         "paper/main.tex",
         "paper/supplement.tex",
         "paper/references.bib",
+        "paper/generated/partial_score_sensitivity.tex",
+        "paper/generated/association_leave_one_out.tex",
         "data/derived/evidence_register_part_01.csv",
         "data/derived/evidence_register_part_02.csv",
         "data/derived/episode_register_part_01.csv",
@@ -67,6 +76,8 @@ def main() -> None:
         "data/derived/reliability_subset.csv",
         "data/derived/reliability_subset_blind.csv",
         "data/derived/evidence_atlas.csv",
+        "data/metrics/partial_score_sensitivity.csv",
+        "data/metrics/association_leave_one_out.csv",
         "schemas/knowledge-index.schema.json",
         "schemas/troubleshooting-question.schema.json",
     ]:
@@ -75,7 +86,7 @@ def main() -> None:
     print(
         f"validated {len(records)} knowledge records and {len(approved)} approved claims; "
         f"traced {len(traceability.approved)} approved claims to the manuscript; "
-        f"checked {len(data.checked_files)} release CSVs"
+        f"checked {len(data.checked_files)} release CSVs and 2 robustness artifacts"
     )
 
 

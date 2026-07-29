@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/fraware/lab-automation-observatory/schemas/run-event.schema.json",
+  "title": "Laboratory run-event stream (design proposal, unreleased)",
+  "description": "Draft schema for Roadmap 0.2. A run-event stream records what a laboratory run issued, what the hardware acknowledged, what was physically observed, what a human did, and where the material ended up, as an ordered sequence of typed events rather than as prose reconstructed afterwards. The event types are one-to-one with the ten Observability Coverage fields in data/metrics/b5_observability.csv, and the failure fields are the ones data/metrics/b6_preflight_preventability.csv had to code by hand. This is a proposal: no published metric reads from it, and it is not a standard.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "run_id", "events"],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0-draft",
+      "description": "Pinned so an early consumer cannot mistake a proposal for a stable contract."
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Immutable identifier for one execution of one method. Every event in the stream belongs to this run."
+    },
+    "method_identity": {
+      "type": ["string", "null"],
+      "description": "Version-bound identity of the executed method, ideally a content digest. null when the emitting system cannot bind one, which is itself the finding rather than a formatting problem."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free text about the stream as a whole. Never a substitute for an event."
+    },
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/event" },
+      "description": "Ordered events. `sequence` must be strictly increasing; ordering is carried explicitly because wall-clock timestamps from a scheduler and a device are not reliably comparable."
+    }
+  },
+  "$defs": {
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["event_id", "sequence", "event_type", "actor"],
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Unique within the stream. Referenced by `acknowledges` and `restores`."
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Strictly increasing position in the run."
+        },
+        "recorded_at": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "Emitter clock time. Optional and explicitly nullable: an event whose time is unknown must still be recordable in order, because dropping it is worse than admitting the gap."
+        },
+        "event_type": {
+          "enum": [
+            "run_started",
+            "config_bound",
+            "resource_bound",
+            "command_issued",
+            "command_acknowledged",
+            "physical_observation",
+            "modeled_state_changed",
+            "warning_raised",
+            "failure_raised",
+            "human_intervention",
+            "recovery_action",
+            "disposition_recorded",
+            "run_finished"
+          ],
+          "description": "One of thirteen types covering the ten Observability Coverage fields. The mapping is tabulated in docs/event-schema.md."
+        },
+        "actor": {
+          "enum": ["scheduler", "device", "operator", "analysis"],
+          "description": "Which participant emitted the event. A modeled state change asserted by a scheduler and a physical observation reported by a device are different kinds of evidence and must not be merged."
+        },
+        "command": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The operation requested, at the granularity the control system dispatches."
+        },
+        "physically_irreversible": {
+          "type": "boolean",
+          "description": "Whether completing this command changes material or hardware state in a way no later software action undoes. This single flag is what makes the completed irreversible prefix computable after an abort, which is the reconstruction data/metrics/b6_preflight_preventability.csv had to perform by reading a thread."
+        },
+        "preflight_checkable": {
+          "type": ["boolean", "null"],
+          "description": "Whether the preconditions of this command were fully knowable before dispatch. null when the emitter cannot determine it; null is not false."
+        },
+        "acknowledges": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The `event_id` of the command this event acknowledges."
+        },
+        "outcome": {
+          "enum": ["accepted", "rejected", "completed", "aborted", "unknown"],
+          "description": "What became of the acknowledged command. `unknown` is available on purpose: three of the four coded observability cases scored zero on acknowledgment, and an honest unknown is the finding."
+        },
+        "observation": {
+          "type": "string",
+          "minLength": 1,
+          "description": "What was physically sensed or seen, stated as the measurement rather than as its interpretation."
+        },
+        "modeled_state": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The control system's own belief about state after this event. Recorded separately from `observation` so a divergence between model and reality is visible instead of averaged away."
+        },
+        "severity": {
+          "enum": ["info", "warning", "error"],
+          "description": "Severity of a warning or failure event."
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Emitter-supplied text for a warning or failure."
+        },
+        "failure_class": {
+          "enum": [
+            "modeled_state_incompatibility",
+            "argument_shape_validation",
+            "post_execution_software_error",
+            "hardware_failure",
+            "other"
+          ],
+          "description": "Coarse failure kind, using the classes already coded in data/metrics/b6_preflight_preventability.csv."
+        },
+        "preflight_detectable": {
+          "enum": ["yes", "no", "indeterminate"],
+          "description": "Whether this failure was knowable before the run began. `indeterminate` is a required member of the vocabulary, not a convenience: one of the four coded preflight scenarios is genuinely indeterminate, and a two-valued field would have forced it to a wrong answer."
+        },
+        "intervention": {
+          "type": "string",
+          "minLength": 1,
+          "description": "What a human physically or logically did. Recorded as an event rather than inferred from a gap in the log."
+        },
+        "recovery": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The action taken to return the system or the material to a defined state."
+        },
+        "restores": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "The `event_id`s of the irreversible commands this recovery addresses. Empty means the recovery addressed none of them, which is a claim the stream should have to make explicitly."
+        },
+        "material_disposition": {
+          "enum": [
+            "delivered_to_destination",
+            "returned_to_source",
+            "discarded",
+            "retained_in_tips",
+            "partially_accounted",
+            "unknown"
+          ],
+          "description": "Where the material actually ended up. The weakest field in the coded corpus: no case fully recorded it, and `unknown` must remain expressible so a stream cannot imply an accounting it does not have."
+        },
+        "disposition_evidence": {
+          "type": ["string", "null"],
+          "description": "What independently supports the stated disposition, for example a mass or volume measurement. null when the disposition is asserted by the control system alone."
+        },
+        "run_result": {
+          "enum": ["completed", "failed", "aborted", "completed_with_intervention", "unknown"],
+          "description": "Terminal state of the run."
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "event_type": { "const": "command_issued" } }, "required": ["event_type"] },
+          "then": { "required": ["command", "physically_irreversible"] }
+        },
+        {
+          "if": { "properties": { "event_type": { "const": "command_acknowledged" } }, "required": ["event_type"] },
+          "then": { "required": ["acknowledges", "outcome"] }
+        },
+        {
+          "if": { "properties": { "event_type": { "const": "physical_observation" } }, "required": ["event_type"] },
+          "then": { "required": ["observation"] }
+        },
+        {
+          "if": { "properties": { "event_type": { "const": "modeled_state_changed" } }, "required": ["event_type"] },
+          "then": { "required": ["modeled_state"] }
+        },
+        {
+          "if": { "properties": { "event_type": { "const": "warning_raised" } }, "required": ["event_type"] },
+          "then": { "required": ["severity", "message"] }
+        },
+        {
+          "if": { "properties": { "event_type": { "const": "failure_raised" } }, "required": ["event_type"] },
+          "then": { "required": ["severity", "message", "failure_class", "preflight_detectable"] }
+        },
+        {
+          "if": { "properties": { "event_type": { "const": "human_intervention" } }, "required": ["event_type"] },
+          "then": { "required": ["intervention"] }
+        },
+        {
+          "if": { "properties": { "event_type": { "const": "recovery_action" } }, "required": ["event_type"] },
+          "then": { "required": ["recovery", "restores"] }
+        },
+        {
+          "if": { "properties": { "event_type": { "const": "disposition_recorded" } }, "required": ["event_type"] },
+          "then": { "required": ["material_disposition", "disposition_evidence"] }
+        },
+        {
+          "if": { "properties": { "event_type": { "const": "run_finished" } }, "required": ["event_type"] },
+          "then": { "required": ["run_result"] }
+        }
+      ]
+    }
+  }
+}

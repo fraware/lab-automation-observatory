@@ -1,0 +1,73 @@
+# Illustrative stream grounded in B5-C3 and the first two B6 scenarios in
+# data/metrics/b6_preflight_preventability.csv (composite transfer thread).
+# Not manuscript evidence; demonstrates how OC and preflight fields become
+# computable once a run exports typed events.
+schema_version: "0.1.0-draft"
+run_id: RUN-B5C3-3354
+method_identity: null
+notes: Destination plate retains lid assignment after pickup and aspiration.
+events:
+  - event_id: e0
+    sequence: 0
+    event_type: run_started
+    actor: scheduler
+  - event_id: e1
+    sequence: 1
+    event_type: resource_bound
+    actor: scheduler
+  - event_id: e2
+    sequence: 2
+    event_type: command_issued
+    actor: scheduler
+    command: pick up tips from rack A1
+    physically_irreversible: true
+    preflight_checkable: true
+  - event_id: e3
+    sequence: 3
+    event_type: command_acknowledged
+    actor: device
+    acknowledges: e2
+    outcome: completed
+  - event_id: e4
+    sequence: 4
+    event_type: command_issued
+    actor: scheduler
+    command: aspirate 100 uL from source B2
+    physically_irreversible: true
+    preflight_checkable: true
+  - event_id: e5
+    sequence: 5
+    event_type: command_acknowledged
+    actor: device
+    acknowledges: e4
+    outcome: completed
+  - event_id: e6
+    sequence: 6
+    event_type: modeled_state_changed
+    actor: scheduler
+    modeled_state: destination plate still has lid assigned
+  - event_id: e7
+    sequence: 7
+    event_type: failure_raised
+    actor: scheduler
+    severity: error
+    message: destination plate lid state incompatible with dispense
+    failure_class: modeled_state_incompatibility
+    preflight_detectable: "yes"
+  - event_id: e8
+    sequence: 8
+    event_type: human_intervention
+    actor: operator
+    intervention: manually cleared lid assignment in software state
+  - event_id: e9
+    sequence: 9
+    event_type: recovery_action
+    actor: operator
+    recovery: restored destination plate state to lid-removed
+    restores:
+      - e4
+  - event_id: e10
+    sequence: 10
+    event_type: run_finished
+    actor: scheduler
+    run_result: aborted

@@ -2,7 +2,7 @@
 
 This page defines every committed CSV column. Two files are normative and should be read first:
 
-- `data/derived/codebook.csv` defines the coding variables and rules (primary versus secondary codes, evidence strength, resolution classes, external migration, quote eligibility).
+- `data/derived/codebook.csv` defines the coding variables and rules (primary versus secondary codes, the primary-code tie-break, evidence strength, resolution classes, external migration, quote eligibility).
 - `data/derived/taxonomy_rules.csv` defines the ten constructs with inclusion rules, exclusion rules, primary-code eligibility, adjacent codes, required evidence, and a boundary test.
 
 ## Shared conventions
@@ -17,7 +17,7 @@ This page defines every committed CSV column. Two files are normative and should
 | `Confidence`, `Coding confidence`, `Evidence confidence` | Coder confidence in the row, not statistical uncertainty. |
 | `Interpretation` | The bounded reading the row supports. |
 | `Invalid inference` | The specific overclaim the row must not be used to support. |
-| `Positive case`, `Counterexample` | Marks evidence that runs against the expected bottleneck, retained to prevent a failure-only catalogue. |
+| `Positive case`, `Counterexample to` | Marks evidence that runs against an expected bottleneck, retained to prevent a failure-only catalogue. In the episode register the construct it runs against is named, not just flagged. |
 
 Percentages derived from these files are bounded case-study results with explicit denominators. They do not estimate forum prevalence, operational incidence, industry frequency, or vendor reliability.
 
@@ -40,13 +40,15 @@ B1 and B10 are ecosystem conditions and become primary codes only when knowledge
 
 ## `data/derived/`
 
-### `codebook.csv` (12 rows)
+### `codebook.csv` (13 rows)
 
 | Column | Definition |
 |---|---|
 | `Variable / rule` | The coding variable or rule being defined. |
 | `Type` | Its form: exactly one, multi-label, ordinal, categorical, binary, or rule. |
 | `Definition` | The operational definition applied during coding. |
+
+`Primary-code tie-break` is the rule that decides between two primary-eligible codes: the primary is the code whose boundary test fails for the request made in the initiating post, satisfying a code's required evidence makes it direct support rather than primary, and the rejected candidate is recorded in `Analytical note`.
 
 ### `taxonomy_rules.csv` (10 rows)
 
@@ -101,10 +103,13 @@ One row per analytical episode from the 14-thread difficult subset.
 | `Consequence / analytical outcome` | What the episode established. |
 | `Resolution class` | Public outcome class, using the same vocabulary as the evidence register. |
 | `Public artifact` | Reusable artifact produced by the episode. |
-| `Counterexample` | Whether the episode challenges the expected bottleneck. |
+| `Counterexample to` | The construct or constructs this episode runs against, as a code list, or empty when it runs against none. An episode can be a counterexample to one construct while remaining positive evidence for another, which a boolean could not express. |
 | `Source URL` | Canonical discussion link. |
+| `First post anchor` | Link to the first post of the episode, where the public thread exposes a post anchor. Empty is allowed; a populated cell must be a post-anchored discussion URL, so that two segmentations can be compared post by post. |
 | `Coding confidence` | Coder confidence for the episode. |
 | `Coding note` | Segmentation and boundary rationale. |
+
+An episode is a contiguous run of posts that either raises a new initiating problem or moves to a new lifecycle stage; see [Contributing evidence and coding changes](contributing-evidence.md) for the full definition and for how a retrospective post is segmented.
 
 ### `reliability_subset.csv` (14 rows)
 
@@ -118,13 +123,14 @@ The prepared hard-case adjudication set. It covers exactly the 14 threads that w
 | `Plausible alternative` | The competing code or codes a second coder is most likely to choose. |
 | `Why disagreement is likely` | The specific ambiguity in the thread. |
 | `Specific adjudication question` | The question a second coder must answer to resolve the disagreement. |
-| `Episode segmentation required` | Whether the thread must be split, and the expected number of episodes. |
+| `Episode segmentation required` | Whether the thread must be split and the exact number of episodes expected, followed by a thematic hint per episode. The count is checked against the episode register by `make validate`, so an independent segmentation can contradict it. |
 | `Priority` | Adjudication priority: critical or high. |
 | `Source URL` | Canonical discussion link. |
+| `Read scope` | The pages or posts that constitute the coded material for this thread. A coder who stops at the landing page of a long thread codes it differently from one who reads to the end, so the scope is stated rather than left to the URL. |
 
 ### `reliability_subset_blind.csv` (14 rows)
 
-The coder-facing projection of the adjudication set, and the only file a second coder should open. **Generated file.** Every cell is copied verbatim from `reliability_subset.csv` by `make derived`, which `make validate` then checks for drift. It carries `Thread ID`, `Thread`, `Source URL`, `Specific adjudication question`, `Episode segmentation required`, and `Priority`, with the definitions given above.
+The coder-facing projection of the adjudication set, and the only file a second coder should open. **Generated file.** Every cell is copied verbatim from `reliability_subset.csv` by `make derived`, which `make validate` then checks for drift. It carries `Thread ID`, `Thread`, `Source URL`, `Read scope`, `Specific adjudication question`, `Episode segmentation required`, and `Priority`, with the definitions given above.
 
 `Expected primary`, `Plausible alternative`, and `Why disagreement is likely` are deliberately withheld. In the published key those three columns sit in the same row as the source URL, so a coder cannot reach the thread without reading the expected code, and no pass over the key can support an agreement statistic. See [Contributing evidence and coding changes](contributing-evidence.md) for the second-coder path.
 

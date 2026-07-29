@@ -24,6 +24,14 @@ Applies to `data/derived/evidence_register_part_*.csv` and `data/derived/episode
 
 State the selection rationale. The register is a purposive frame built for conceptual coverage and metric design, so an addition should extend coverage, add a hard case, or add a counterexample. It should not be justified by frequency, because the register does not estimate prevalence. Episodes are only added for threads in the difficult subset; each episode needs its own initiating problem, lifecycle stage, and primary code.
 
+#### What counts as one episode
+
+An episode is a contiguous run of posts, identified by the anchor of its first post, that either raises a new initiating problem or moves to a new lifecycle stage. Two adjacent runs that share both their initiating problem and their primary code are one episode. A single retrospective post that narrates several stages is one episode unless the separate stages are independently evidenced elsewhere in the thread.
+
+Without this definition an independent coder's episode count is unpredictable rather than merely uncertain, which is what the adjudication pilot found. Applying it to the committed 45 episodes leaves the segmentation unchanged: wherever two adjacent runs carry the same primary code, they differ in initiating problem, in lifecycle stage, or in both. Record the anchor of the first post in `First post anchor` when the public thread exposes one, so that two segmentations can be compared post by post rather than only counted.
+
+The expected number of episodes for each of the 14 hard threads is stated as an exact count in the `Episode segmentation required` column of `data/derived/reliability_subset.csv`, and `make validate` fails if that count and the episode register disagree. A re-segmentation therefore has to move both.
+
 ### Change a metric input
 
 Applies to `data/metrics/*.csv`.

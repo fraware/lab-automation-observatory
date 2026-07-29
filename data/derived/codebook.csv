@@ -1,5 +1,6 @@
 Variable / rule,Type,Definition
 Primary bottleneck,Exactly one,The proximate obstacle that best explains the thread's central technical or community problem.
+Primary-code tie-break,Rule,"When more than one code is primary-eligible, the primary is the code whose boundary test fails for the request made in the initiating post. A thread that proposes creating a shared artifact in order to prevent a class of defect takes the ecosystem-condition code; a thread reporting an instance of that defect takes the technical code. Satisfying a code's required evidence makes it direct support, not primary. Record the rejected candidate and the reason in Analytical note."
 Secondary bottleneck code,Multi-label,Directly evidenced mechanisms or consequences; not inferred merely because they are generally related.
 Evidence strength 1,Ordinal,Contextual mention or thin product claim.
 Evidence strength 2,Ordinal,Relevant discussion with limited technical detail or outcome evidence.

@@ -11,8 +11,9 @@ finding F1.
 This module keeps the key exactly as published and derives the coder-facing
 projection ``data/derived/reliability_subset_blind.csv`` from it. Column order
 follows the pilot's recommendation rather than the key's own order: the coder
-first learns which thread to read, then the question to answer, then how many
-episodes the segmentation is expected to yield. No cell is authored here, so the
+first learns which thread to read and how much of it, then the question to
+answer, then how many episodes the segmentation is expected to yield. No cell is
+authored here, so the
 blind sheet cannot state anything the key does not, and
 :func:`blind_subset_drift` fails ``make validate`` if the committed projection
 falls out of step with the key.
@@ -34,6 +35,7 @@ BLIND_COLUMNS: tuple[str, ...] = (
     "Thread ID",
     "Thread",
     "Source URL",
+    "Read scope",
     "Specific adjudication question",
     "Episode segmentation required",
     "Priority",

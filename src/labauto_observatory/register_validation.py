@@ -9,9 +9,10 @@ hand edit cannot silently change a published number:
 * categorical columns only contain their documented vocabulary;
 * every derived score column recomputes from its own component columns;
 * the cross-file invariants hold (primary code implies direct support, the
-  adjudication set is exactly the episode-segmented subset, the B8 alignment
-  class agrees with numerator eligibility, and the funnel's Wilson columns
-  agree with :func:`labauto_observatory.metrics.wilson_interval`);
+  adjudication set is exactly the episode-segmented subset, each thread's
+  expected episode count matches the episode register, the B8 alignment class
+  agrees with numerator eligibility, and the funnel's Wilson columns agree with
+  :func:`labauto_observatory.metrics.wilson_interval`);
 * the generated ``pairwise_associations.csv``, ``evidence_atlas.csv``,
   ``reliability_subset_blind.csv``, and
   ``docs/generated/evidence_atlas_summary.md`` have not drifted from the
@@ -23,6 +24,8 @@ failure it can find.
 
 from __future__ import annotations
 
+import re
+from collections import Counter
 from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 from math import isclose
@@ -50,7 +53,7 @@ TOLERANCE = 1e-9
 
 EXPECTED_ROW_COUNTS: dict[str, int] = {
     "data/derived/association_annotations.csv": 28,
-    "data/derived/codebook.csv": 12,
+    "data/derived/codebook.csv": 13,
     "data/derived/episode_register_part_01.csv": 23,
     "data/derived/episode_register_part_02.csv": 22,
     "data/derived/evidence_atlas.csv": 10,
@@ -84,6 +87,12 @@ EXPECTED_ROW_COUNTS: dict[str, int] = {
 EXPECTED_THREADS = 55
 EXPECTED_EPISODES = 45
 EXPECTED_EPISODE_THREADS = 14
+
+# "Yes — 3 episodes: ..." with the released em dash. The count is what a second
+# segmentation can contradict; the trailing prose is a thematic hint.
+SEGMENTATION_TARGET = re.compile(r"^Yes\s+\u2014\s+(\d+) episodes\b")
+# A post anchor is the thread URL followed by the post number, not `?page=N`.
+POST_ANCHOR = re.compile(r"^https://\S+/\d+/\d+$")
 
 YES_NO = frozenset({"Yes", "No"})
 YES_PARTIAL_NO = frozenset({"Yes", "Partial", "No"})
@@ -156,6 +165,12 @@ def _register(root: Path) -> list[dict[str, str]]:
 
 def _episodes(root: Path) -> list[dict[str, str]]:
     return read_csv_many(sorted((root / "data/derived").glob("episode_register_part_*.csv")))
+
+
+def _codes(cell: str) -> list[str]:
+    """Split a semicolon-separated code list, tolerating an empty cell."""
+
+    return [code.strip() for code in cell.split(";") if code.strip()]
 
 
 def check_row_counts(root: Path) -> list[str]:
@@ -301,6 +316,60 @@ def check_episode_and_adjudication_subsets(root: Path) -> list[str]:
             problems.append(
                 f"episode {row['Episode ID']}: primary technical code "
                 f"{row['Primary technical code']!r} is not a construct"
+            )
+    return problems
+
+
+def check_segmentation_targets(root: Path) -> list[str]:
+    """Each thread's expected episode count matches the episode register.
+
+    ``Episode segmentation required`` used to say things like "at least three
+    episodes", which no segmentation can contradict. The count is now exact, so
+    an independent segmentation can disagree with it and a re-segmentation has to
+    move both files. Every hard thread also has to declare its coded read scope,
+    because a coder who stops at the landing page codes a different thread.
+    """
+
+    problems: list[str] = []
+    registered = Counter(row["Thread ID"] for row in _episodes(root))
+    for row in read_csv(root / "data/derived/reliability_subset.csv"):
+        thread = row["Thread ID"]
+        target = row["Episode segmentation required"]
+        match = SEGMENTATION_TARGET.match(target)
+        if match is None:
+            problems.append(
+                f"adjudication thread {thread}: 'Episode segmentation required' is {target!r}, "
+                "which states no exact episode count"
+            )
+        elif int(match.group(1)) != registered[thread]:
+            problems.append(
+                f"adjudication thread {thread}: expects {match.group(1)} episodes but the "
+                f"episode register holds {registered[thread]}"
+            )
+        if not row["Read scope"].strip():
+            problems.append(f"adjudication thread {thread}: read scope is empty")
+    return problems
+
+
+def check_episode_provenance(root: Path) -> list[str]:
+    """``Counterexample to`` names constructs and ``First post anchor`` is a post link.
+
+    The counterexample column used to be a boolean, so an episode could be
+    recorded as challenging something without recording what. Both columns may be
+    empty -- not every episode is a counterexample, and not every public thread
+    exposes a usable post anchor -- but a populated cell has to be checkable.
+    """
+
+    problems: list[str] = []
+    for row in _episodes(root):
+        label = f"episode {row['Episode ID']}"
+        for code in _codes(row["Counterexample to"]):
+            if code not in CODES:
+                problems.append(f"{label}: counterexample scope {code!r} is not a construct")
+        anchor = row["First post anchor"].strip()
+        if anchor and not POST_ANCHOR.match(anchor):
+            problems.append(
+                f"{label}: first post anchor {anchor!r} is not a post-anchored discussion URL"
             )
     return problems
 
@@ -474,6 +543,8 @@ CHECKS: tuple[Callable[[Path], list[str]], ...] = (
     check_categoricals,
     check_evidence_register,
     check_episode_and_adjudication_subsets,
+    check_segmentation_targets,
+    check_episode_provenance,
     check_b2_component_bookkeeping,
     check_b3_applicable_fields,
     check_b6_denominator_status,

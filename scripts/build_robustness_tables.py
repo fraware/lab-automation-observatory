@@ -6,7 +6,7 @@ from __future__ import annotations
 from collections import defaultdict
 from pathlib import Path
 
-from labauto_observatory.io import integer, numeric, read_csv
+from labauto_observatory.io import read_csv
 from labauto_observatory.latex import percent
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -54,14 +54,14 @@ def association_loto_table() -> str:
     rows = read_csv(ROOT / "data/metrics/association_leave_one_out.csv")[:5]
     body_lines: list[str] = []
     for row in rows:
-        full_phi = numeric(row["Full phi"])
-        low = numeric(row["Minimum phi"])
-        high = numeric(row["Maximum phi"])
-        rank_low = integer(row["Minimum rank"])
-        rank_high = integer(row["Maximum rank"])
-        top_five = integer(row["Top-five deletions"])
-        threshold = integer(row["Threshold-retained deletions"])
-        total = integer(row["Total deletions"])
+        full_phi = float(row["Full phi"])
+        low = float(row["Minimum phi"])
+        high = float(row["Maximum phi"])
+        rank_low = int(row["Minimum rank"])
+        rank_high = int(row["Maximum rank"])
+        top_five = int(row["Top-five deletions"])
+        threshold = int(row["Threshold-retained deletions"])
+        total = int(row["Total deletions"])
         body_lines.append(
             f"{row['Code A']}--{row['Code B']} & {full_phi:.3f} & {low:.3f}--{high:.3f} & "
             f"{rank_low}--{rank_high} & {top_five}/{total} & {threshold}/{total} \\\\"

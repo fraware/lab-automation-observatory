@@ -19,6 +19,8 @@ Expected headline values are asserted in `tests/test_published_values.py`. JSON 
 
 | Artifact | Command | Committed |
 |---|---|---|
+| `data/metrics/pairwise_associations.csv` | `make derived` | yes |
+| `data/derived/evidence_atlas.csv` | `make derived` | yes |
 | `build/results.json`, `build/RESULTS.md` | `make reproduce` | no |
 | `paper/generated/*.tex` | `make tables` | yes |
 | `paper/figures/*.pdf` | `make figures` | yes |
@@ -31,6 +33,15 @@ The vector figures and generated tables are committed so that a fresh clone with
 
 Only the raster previews `paper/figures/*.png` are excluded, because nothing in the repository consumes them.
 
+## Derived data
+
+Two committed CSVs are computed from other committed files rather than coded by hand:
+
+- `data/metrics/pairwise_associations.csv` recomputes all 28 B2--B9 associations from the evidence register and joins the coder-authored reading of each pair from `data/derived/association_annotations.csv`.
+- `data/derived/evidence_atlas.csv` assembles one row per construct from the taxonomy rules, the register, the quote bank, the negative cases, the pairwise table, and `compute_release_results`.
+
+They are committed so that readers who do not run the pipeline still get them, and `make validate` fails if either has drifted from its sources. After editing the register, the annotations, or any metric CSV, run `make derived` before committing. `make reproduce` runs it first for the same reason.
+
 ## Claim traceability
 
 `make claims` checks that every approved claim in `data/derived/publication_claim_ledger.csv` is bound to the manuscript by a `% claim: Cxx` marker and by its `Manuscript anchor` substring. `make validate` runs the same check as part of the release validation, and writes a review table to `build/claim_traceability.md`.
@@ -41,6 +52,8 @@ The commands above assume a POSIX shell with GNU Make. On Windows, `uv` works un
 
 ```powershell
 uv sync --all-extras
+uv run python scripts/build_associations.py
+uv run python scripts/build_evidence_atlas.py
 uv run python scripts/reproduce_results.py
 uv run python scripts/build_figures.py
 uv run python scripts/build_tables.py

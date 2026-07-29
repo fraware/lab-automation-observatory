@@ -8,9 +8,11 @@ The central rule is simple. Every quantitative result must identify its unit, de
 
 - [Methods](methods.md)
 - [Data dictionary](data-dictionary.md)
+- [Evidence atlas](evidence-atlas.md) and its [generated summary](generated/evidence_atlas_summary.md)
 - [Community artifacts](community-artifacts.md)
 - [Claim discipline](claim-discipline.md)
 - [Contributing evidence and coding changes](contributing-evidence.md)
+- [Correction workflow](correction-workflow.md)
 
 ## Build these docs
 

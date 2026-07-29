@@ -4,6 +4,8 @@ Contributions are welcome when they improve evidence quality, applicability, or 
 
 For coding, register, claim-ledger, and knowledge-index changes, follow the step-by-step guide in [docs/contributing-evidence.md](docs/contributing-evidence.md).
 
+If you are fixing something already in the release rather than adding new material, follow [docs/correction-workflow.md](docs/correction-workflow.md), which defines the accepted correction kinds, the minimum evidence for each, and whether a correction is note-only, claim-affecting, or release-blocking.
+
 ## Pull-request requirements
 
 - Identify the record, metric, schema, or manuscript claim affected.

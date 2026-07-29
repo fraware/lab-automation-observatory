@@ -214,7 +214,7 @@ schemas/                  JSON Schemas for community artifacts
 scripts/                  Reproduction, figure, table, and validation commands
 tests/                    Published-value, schema, and metric tests
 docs/                     Methods, data dictionary, and artifact guides
-artifacts/                Archive and provenance notes
+artifacts/                Audit records, release notes, and provenance
 ```
 
 ## Documentation
@@ -226,6 +226,7 @@ artifacts/                Archive and provenance notes
 | [docs/community-artifacts.md](docs/community-artifacts.md) | The artifacts above and how they should be evaluated |
 | [docs/claim-discipline.md](docs/claim-discipline.md) | How published numbers stay bound to the text that cites them |
 | [REPRODUCIBILITY.md](REPRODUCIBILITY.md) | Environment, generated outputs, and Windows notes |
+| [artifacts/README.md](artifacts/README.md) | Which audit describes the current validated baseline, and what it measured |
 | [ROADMAP.md](ROADMAP.md), [GOVERNANCE.md](GOVERNANCE.md) | Where this is going and how decisions get made |
 
 ## Data, ethics, and licensing

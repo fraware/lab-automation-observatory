@@ -1,6 +1,6 @@
 # Device-interface accessibility registry (design draft)
 
-Status: design draft for Roadmap 0.2, seeded by [issue #12](https://github.com/fraware/lab-automation-observatory/issues/12). This page proposes a schema and shows worked examples. It does not describe a shipped artifact, a validated release input, or a scored product comparison.
+Status: design draft for Roadmap 0.2, seeded by [issue #12](https://github.com/fraware/lab-automation-observatory/issues/12). This page proposes a schema, ships six checked seed records, and states how to contribute a seventh. It is not a scored product comparison, and it is not an input to any published metric: no number in the manuscript reads from this registry, and adding records cannot change one.
 
 ## Why a registry, and why it is not `b2_integration_access.csv`
 
@@ -26,7 +26,10 @@ Every field belongs to exactly one of five groups. Mixing them in a single flat 
 | `interface_identity` | String | Required | The exact, version-bound interface path described by this record. One record describes one interface path, not a whole product line. |
 | `interface_class` | Enum: `native_driver`, `vendor_sdk`, `rest_api`, `serial_protocol`, `plc_firmware`, `community_reimplementation`, `other` | Required | Structural kind of integration path, for grouping and filtering only. |
 | `evidence_sources` | Array of URLs, at least one | Required | Public, stable links the record is derived from. Plays the role `forum_provenance` plays in the knowledge-index schema, generalized to more than one source. |
+| `pilot_case_id` | String, pattern `B2-Cn` | Optional | Provenance link to the published pilot case in `data/metrics/b2_integration_access.csv` that this record re-describes. Present on the six seed records; omitted by any record about a device the pilot never coded. |
 | `supersedes`, `superseded_by` | Arrays of `record_id` | Optional, default empty | Record lineage when a case is re-assessed or split. |
+
+`pilot_case_id` exists so that "the registry agrees with the published metric file" is a check rather than an assurance. When it is present, `make validate` requires the record's six accessibility components, `unknown_components`, and `accessibility_score` to equal that case's published cells, and requires the case's source URL to appear in `evidence_sources`. A seed record may therefore add maintenance, lifecycle, evidence-grade, and prohibited-claim facts to a published case; it may not restate the case's score differently, and it may not introduce a seventh pilot case. Two records cannot claim the same pilot case.
 
 ### 2. Interface accessibility facts
 
@@ -41,7 +44,7 @@ These six fields are a **fixed snapshot** of what the reviewed public material s
 | `examples_reference_implementation` | Whether a runnable example or reference implementation exists. |
 | `maintainer_support_declared` | Whether a public maintainer or support channel was declared and observable at assessment time. |
 
-Each of the six takes `0`, `0.5`, `1`, or `null`. **`null` is not `0`.** `0` means the reviewed material showed the property was explicitly absent; `null` means the material never addressed it at all. This is the same unknown-versus-absent rule already stated as a shared convention in `docs/data-dictionary.md`, carried into the registry rather than reinvented. `unknown_components` counts the `null` values, and `accessibility_score` is the mean over the non-null components only, exactly as `IAS`, `RMC`, `PDC`, and `OC` are computed elsewhere in this repository. None of the three worked examples below need a `null` component, because all six known B2 cases in `b2_integration_access.csv` report zero unknown components; the schema still types every component as nullable so a future community submission can use it honestly instead of guessing `0`.
+Each of the six takes `0`, `0.5`, `1`, or `null`. **`null` is not `0`.** `0` means the reviewed material showed the property was explicitly absent; `null` means the material never addressed it at all. This is the same unknown-versus-absent rule already stated as a shared convention in `docs/data-dictionary.md`, carried into the registry rather than reinvented. `unknown_components` counts the `null` values, and `accessibility_score` is the mean over the non-null components only, exactly as `IAS`, `RMC`, `PDC`, and `OC` are computed elsewhere in this repository. None of the six seed records below need a `null` component, because all six B2 cases in `b2_integration_access.csv` report zero unknown components; the schema still types every component as nullable so a community submission can use it honestly instead of guessing `0`. Both the count and the mean are recomputed in `make validate`, so a record cannot claim a score its own cells do not produce.
 
 `accessibility_score` measures **public accessibility conditions**, not device reliability, completeness, or quality. It is a photograph of what was documented, not an endorsement.
 
@@ -78,21 +81,55 @@ Accessibility facts describe what was true when someone last read the documentat
 
 Every record's `prohibited_claims` must include a statement that the record cannot be used to rank its vendor against other vendors on accessibility or reliability. A registry made of many single-vendor records is exactly the shape of data that gets misread as a league table, so the prohibition is a required field, not a documentation aside. Consistent with `docs/claim-discipline.md`, the registry as a whole also carries no prevalence, market-share, or installed-base claim: a growing count of registry records describes registry coverage, not how common any interface pattern is among laboratories.
 
-## Worked examples
+## Seed records
 
-Three example records are checked into `data/registry_examples/device_interface_registry_examples.yaml` and validate against `schemas/device-interface-registry.schema.json`:
+Seven seed records are checked into `data/registry_examples/device_interface_registry_examples.yaml`. Six cover every B2 case the pilot published, one record per case; the seventh is a community-intake example without `pilot_case_id`:
 
-| `record_id` | Interface | `accessibility_score` | `maintenance_status` | `evidence_grade` |
-|---|---|---|---|---|
-| `DIR-2026-0001` | Hamilton VENUS 6.x REST API | 0.667 | active | 1 (declared) |
-| `DIR-2026-0002` | CLARIOStar plate reader via PyLabRobot | 0.833 | active | 3 (device-validated) |
-| `DIR-2026-0003` | LiCONiC STR240/STX via RS-232/PLC firmware | 0.333 | unmaintained | 2 (measured) |
+| `record_id` | `pilot_case_id` | Interface | `accessibility_score` | `maintenance_status` | `evidence_grade` |
+|---|---|---|---|---|---|
+| `DIR-2026-0001` | `B2-C2` | Hamilton VENUS 6.x REST API | 0.667 | active | 1 (declared) |
+| `DIR-2026-0002` | `B2-C3` | CLARIOStar plate reader via PyLabRobot | 0.833 | active | 3 (device-validated) |
+| `DIR-2026-0003` | `B2-C6` | LiCONiC STR240/STX via RS-232/PLC firmware | 0.333 | unmaintained | 2 (measured) |
+| `DIR-2026-0004` | `B2-C1` | Hamilton HHS/HHC via Heater Shaker Box and PyLabRobot | 0.583 | dormant | 1 (declared) |
+| `DIR-2026-0005` | `B2-C4` | Tecan LPT220 via Driver Framework and RS-232 wrapper | 0.583 | active | 2 (measured) |
+| `DIR-2026-0006` | `B2-C5` | Cellario custom driver via the Driver Development Kit | 0.833 | active | 1 (declared) |
+| `DIR-2026-0007` | — | In-house driver integration (community intake) | 0.400 | active | 2 (measured) |
 
-Each `accessibility_score` is the mean over the same known components as the corresponding case's `IAS` in `data/metrics/b2_integration_access.csv`, so the two numbers match exactly; the registry record adds the maintenance, evidence-grade, and prohibited-claim fields that the fixed metric file has no place for. The three records deliberately span `active` and `unmaintained` maintenance states and three different evidence grades, so the schema's separations are visible in real data rather than only in the field table above.
+Each `accessibility_score` is the mean over the same known components as the corresponding case's `IAS` in `data/metrics/b2_integration_access.csv`, and `make validate` fails if the two ever disagree. What each record adds is the maintenance, lifecycle, evidence-grade, and prohibited-claim structure that the fixed metric file has no place for. The set deliberately spans four maintenance states and three evidence grades, so the schema's separations are visible in real data rather than only in the field tables above. `DIR-2026-0004` is the clearest illustration of why maintenance is a separate field group: its accessibility facts are mid-range and unchanged, and the thing that makes it unusable today is that development stopped.
+
+Six records is coverage of the pilot, not coverage of laboratory automation. The seventh record shows the community-intake shape: no `pilot_case_id`, one public source, explicit limitations, and a vendor-ranking prohibition. The registry does not become useful by growing; it becomes useful when records arrive from people who integrated the hardware themselves.
+
+## Contributing a record
+
+The contribution path is deliberately narrow, because the failure mode for a registry is not too few records but records that cannot be checked.
+
+**What a submission needs.** One record, describing one version-bound interface path, with:
+
+1. a public, stable URL in `evidence_sources` that a reader can open without an account;
+2. the six accessibility components scored `0`, `0.5`, `1`, or `null`, where `null` means the source never addressed the component — never a stand-in for `0`;
+3. `unknown_components` and `accessibility_score` consistent with those six cells;
+4. `maintenance_status` and `last_verified` describing the state *you* observed, and `last_activity_observed` left `null` if the source gives no independent activity signal;
+5. an `evidence_grade` you can defend from the source alone: `1` if the interface is only described, `2` if something was measured, `3` if it ran on the device, `4` if someone else reproduced it independently;
+6. at least one `known_limitations` entry and at least one `prohibited_claims` entry, and the prohibitions must include that the record cannot be used to rank its vendor against others.
+
+Omit `pilot_case_id` unless the record re-describes one of the six published pilot cases; you cannot add a seventh.
+
+**How to submit.** Open a pull request adding your record to `data/registry_examples/device_interface_registry_examples.yaml`, or open an issue with the same fields if you would rather not edit YAML. Then run:
+
+```bash
+make validate
+make test
+```
+
+`make validate` runs the registry checks in `labauto_observatory.registry`: schema conformance, the component arithmetic, unique and internally consistent record IDs and lineage, the vendor-ranking prohibition, and agreement with the published pilot case when `pilot_case_id` is present. `make test` adds the mutation tests in `tests/test_registry.py`, which break each of those properties in a scratch copy and assert that the check fires. A submission that fails either is not rejected on taste; it is failing a stated rule you can read.
+
+**What review looks at.** Whether the record's claims are traceable to the cited source, whether `interface_identity` is specific enough that a reader knows which version was assessed, and whether the limitations and prohibitions match what the evidence actually supports. Reviewers do not adjust scores to make records comparable to each other; two records assessed from different sources are not meant to be comparable.
+
+**Correcting a record.** Use the process in [Correction workflow](correction-workflow.md). Record IDs are immutable: a correction changes fields and `last_verified`, and a re-assessment that reaches a materially different conclusion is a new record joined to the old one through `supersedes` and `superseded_by`, with the old record's `correction_status` set to `superseded`.
 
 ## What this design does not do
 
-- It does not define an ingestion process, a submission form, or a review SLA. That is implementation, not schema.
+- It does not promise a review turnaround. The contribution section above states what a submission must contain and what is checked mechanically; it deliberately states no SLA, because a single-maintainer project cannot honour one.
 - It does not compute or publish any aggregate across records (count by vendor, mean accessibility by interface class, or similar). Aggregation policy is out of scope until the registry has enough independently contributed records for aggregation to mean something, and even then it must not become a vendor comparison.
 - It does not touch `data/metrics/b2_integration_access.csv`, the published IAS values, or any claim in `docs/claim-discipline.md`. The two files describe the same underlying cases from different angles and are expected to stay in agreement on the numbers they share, not to be merged.
 

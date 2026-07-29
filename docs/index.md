@@ -14,6 +14,7 @@ The central rule is simple. Every quantitative result must identify its unit, de
 - [Contributing evidence and coding changes](contributing-evidence.md)
 - [Correction workflow](correction-workflow.md)
 - [Device-interface accessibility registry (design draft)](device-interface-registry.md)
+- [Run-event schema (design draft)](event-schema.md)
 
 ## Build these docs
 

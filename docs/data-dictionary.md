@@ -143,23 +143,36 @@ The review boundary for the project. `scripts/validate_release.py` and `scripts/
 
 ### `evidence_atlas.csv` (10 rows)
 
-One row per construct, summarising the pilot evidence.
+One row per construct, summarising the pilot evidence. **Generated file.** Every cell is
+either copied from another committed file or computed by `compute_release_results`; no cell
+is authored in the atlas itself. Rebuild it with `make derived`, which `make validate`
+then checks for drift.
 
 | Column | Definition |
 |---|---|
-| `Code`, `Bottleneck`, `Analytical layer` | Construct identity and layer. |
-| `Qualitative finding` | The qualitative result for the construct. |
-| `Bounded quantitative result` | The bounded metric result, with its unit. |
-| `Strongest relationship` | The construct's strongest descriptive association. |
-| `Short anonymized quotation` | Illustrative quotation; not an independent observation. |
-| `Forum reference` | Discussion the quotation comes from. |
-| `Positive / negative case` | Retained counterexample for the construct. |
-| `Primary community contribution` | Artifact the construct motivates. |
-| `Prospective operational metric` | Metric a prospective study should record. |
-| `Evidence maturity` | How far the current evidence goes. |
-| `Publication-safe claim` | The permitted wording for the construct. |
-| `Main limitation` | The dominant limitation. |
-| `Key source 1` ... `Key source 3` | Principal supporting discussions. |
+| `Code`, `Bottleneck`, `Analytical layer` | Construct identity and layer, from `taxonomy_rules.csv`. |
+| `Direct-support threads`, `Primary-code threads` | Register counts for the construct. |
+| `Pilot interpretation` | What the pilot evidence supports, from `taxonomy_rules.csv`. |
+| `Bounded quantitative result` | The construct's headline result with its denominator, and a Wilson interval where the result is a proportion. |
+| `Strongest descriptive relationship` | The construct's largest phi in `pairwise_associations.csv`, or a note that the construct is outside the B2--B9 pairwise set. |
+| `Short anonymized quotation`, `Quotation source` | Illustrative quotation and its discussion, from `quote_bank.csv`. |
+| `Retained counterexample` | Cases in `negative_cases.csv` that challenge the construct. |
+| `Key sources` | The three highest-evidence-strength supporting discussions. |
+| `Evidence maturity` | How far the current evidence goes, and whether a Wilson interval is meaningful for it. |
+
+### `association_annotations.csv` (28 rows)
+
+The coder-authored reading of each B2--B9 code pair, kept separate from the counts so that
+`pairwise_associations.csv` can be regenerated from the register without losing prose. Every
+one of the 28 pairs must be present; a missing pair fails the build rather than producing a
+blank reading.
+
+| Column | Definition |
+|---|---|
+| `Code A`, `Code B` | The pair, in ascending construct order. |
+| `Relationship class` | The coder's classification of the relationship. |
+| `Interpretation` | The bounded reading the pair supports. |
+| `Invalid inference` | The overclaim the pair must not be used to support. |
 
 ### `hypothesis_map.csv` (8 rows)
 
@@ -351,6 +364,28 @@ Unit: one documentation-centered case. Subtype columns: `Absence`, `Access / res
 | `Private migration` | `Yes`, `Partial`, or `No` for work moving to a restricted channel. |
 | `Interpretation`, `Source URL`, `Date`, `Confidence`, `Invalid inference` | Bounded reading, provenance, date, coder confidence, and the prohibited reading. |
 
+### `b2_b10_matched_cases.csv` (5 rows) -- B2/B10 convergent validity
+
+Unit: one case that appears in both the B2 integration-accessibility set and the B10
+documentation set. The table restates the two source rows side by side so that the
+documentation profile of an integration case can be read without joining files by hand.
+Every column is checked against its source file, so this table cannot drift into a second
+version of either metric. It supports no separate quantitative claim: with five matched
+cases it is a convergent-validity display, not a rate.
+
+| Column | Definition |
+|---|---|
+| `Matched case`, `Thread` | Identifier of the pairing and its discussion. |
+| `B2 case`, `B10 case` | The rows being matched in each source file. |
+| `Device / interface` | Copied from the B2 row. |
+| `IAS` | Integration Accessibility Score, copied from the B2 row. |
+| `Documentation subtypes at full weight` | The B10 subtypes scoring `1` for the case. |
+| `Actionable public resolution`, `Private migration` | Copied from the B10 row. |
+| `Shared instrument components` | The components both instruments score, which is why the pairing cannot be read as independent corroboration. |
+| `Convergent reading` | The bounded reading the pairing supports. |
+| `Invalid inference` | The prohibited reading. |
+| `Source URL` | Canonical discussion link, copied from the B10 row. |
+
 ### `ai_validation_funnel.csv` (7 rows)
 
 One row per validation stage of the source-reported AI method-generation result. `scripts/build_figures.py` reads this file to draw the funnel; the `Generation efficiency` row is excluded from the figure because its denominator differs from the success test.
@@ -368,6 +403,8 @@ One row per validation stage of the source-reported AI method-generation result.
 ### `pairwise_associations.csv` (28 rows)
 
 All 28 pairs among B2 through B9, computed from the 55-thread direct-support matrix. Associations are descriptive; multi-label coding, purposive selection, and thread dependence preclude population or causal interpretation.
+
+**Generated file.** Every numeric column is recomputed from `evidence_register_part_*.csv`, and the three prose columns are joined from `association_annotations.csv`. Rebuild it with `make derived`, which `make validate` then checks for drift.
 
 | Column | Definition |
 |---|---|

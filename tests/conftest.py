@@ -42,14 +42,16 @@ def load_script() -> Callable[[str], ModuleType]:
 
 @pytest.fixture
 def data_root(tmp_path: Path) -> Path:
-    """A scratch repository root holding a private copy of ``data/``.
+    """A scratch repository root holding private copies of ``data/`` and ``schemas/``.
 
-    Validation and drift checks read only from ``data/``, so a test can break one
-    invariant here and assert on the reported problem without touching the
-    committed release.
+    Validation and drift checks read only from those two trees, so a test can
+    break one invariant here and assert on the reported problem without touching
+    the committed release. ``schemas/`` is copied because the registry seeds are
+    validated against their schema as part of ``check_release_data``.
     """
 
     shutil.copytree(ROOT / "data", tmp_path / "data")
+    shutil.copytree(ROOT / "schemas", tmp_path / "schemas")
     return tmp_path
 
 

@@ -65,6 +65,7 @@ def main() -> None:
         "data/derived/episode_register_part_01.csv",
         "data/derived/episode_register_part_02.csv",
         "data/derived/reliability_subset.csv",
+        "data/derived/reliability_subset_blind.csv",
         "data/derived/evidence_atlas.csv",
         "schemas/knowledge-index.schema.json",
         "schemas/troubleshooting-question.schema.json",

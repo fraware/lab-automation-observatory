@@ -27,6 +27,8 @@ All coding was performed by one analyst, so no inter-rater statistic is reported
 
 The file is an instrument rather than a result. A second coder can code the listed threads independently, answer the recorded adjudication questions, and then compute agreement on the primary code and on episode boundaries without renegotiating the coding task. Publishing the expected disagreement surface before any second pass also prevents a later agreement statistic from being computed only on the unambiguous threads. No agreement coefficient appears anywhere in this release because no independent second coding exists.
 
+Because the expected primary code sits in the same row as the source URL, the key cannot itself be used for a blind pass: a coder who opens it to find the thread has already read the answer. The release therefore also publishes the generated projection \path{data/derived/reliability_subset_blind.csv}, which carries only the thread, its source URL, the adjudication question, the expected episode count, and the priority. A second coding pass uses the blind sheet; the key is reserved for adjudicating the result afterwards.
+
 \section{Metric definitions}
 \subsection{Integration Accessibility Score}
 For known component scores $s_j\in\{0,0.5,1\}$,

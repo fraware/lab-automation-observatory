@@ -61,11 +61,18 @@ Taxonomy changes are welcome and expected. A proposal should state which constru
 
 ## Contribute a second coding pass
 
-The pilot is single-coder and reports no inter-rater statistic. `data/derived/reliability_subset.csv` is the prepared instrument for changing that. It names, for each thread in the difficult subset, the expected primary code, the most plausible competing code, why disagreement is likely, and the specific adjudication question.
+The pilot is single-coder and reports no inter-rater statistic. The prepared instrument for changing that is split into two files, and which one you open decides whether your codes can support an agreement statistic at all:
+
+| File | Audience | Contents |
+|---|---|---|
+| `data/derived/reliability_subset_blind.csv` | Second coders | Thread, source URL, adjudication question, expected episode count, priority |
+| `data/derived/reliability_subset.csv` | Maintainers, after the pass | The same rows plus `Expected primary`, `Plausible alternative`, and `Why disagreement is likely` |
+
+**Use the blind sheet only.** The key names the expected primary code in the same row as the source URL, so anyone who opens it to find the thread has already read the answer. That is why the adjudication pilot could not be blind, and it is the reason the blind projection exists. The blind sheet is generated from the key by `make derived`, and `make validate` fails if the two fall out of step, so the blind sheet is never a stale copy.
 
 An independent coder can:
 
-1. code the listed threads from the public sources without reading `Expected primary`;
+1. code the threads listed in `reliability_subset_blind.csv` from the public sources, without opening `reliability_subset.csv`;
 2. answer the recorded adjudication questions;
 3. submit the independent codes and the resulting agreement on primary code and on episode boundaries.
 
@@ -80,6 +87,7 @@ uv sync --all-extras
 uv run python scripts/build_associations.py
 uv run python scripts/build_evidence_atlas.py
 uv run python scripts/build_atlas_summary.py
+uv run python scripts/build_blind_subset.py
 uv run python scripts/validate_release.py
 uv run pytest
 uv run python scripts/reproduce_results.py
@@ -98,7 +106,7 @@ make tables
 make figures
 ```
 
-`make derived` must run first: `data/metrics/pairwise_associations.csv`, `data/derived/evidence_atlas.csv`, and `docs/generated/evidence_atlas_summary.md` are all computed from the register, the metric files, or the atlas itself, and `make validate` fails if any of them is left stale.
+`make derived` must run first: `data/metrics/pairwise_associations.csv`, `data/derived/evidence_atlas.csv`, `data/derived/reliability_subset_blind.csv`, and `docs/generated/evidence_atlas_summary.md` are all computed from the register, the metric files, the adjudication key, or the atlas itself, and `make validate` fails if any of them is left stale.
 
 Commit any resulting changes to the derived CSVs, the generated atlas summary, `paper/generated/`, and `paper/figures/*.pdf`. See [REPRODUCIBILITY.md](https://github.com/fraware/lab-automation-observatory/blob/main/REPRODUCIBILITY.md) for the Windows and PowerShell equivalents.
 

@@ -4,6 +4,14 @@ All notable changes follow Keep a Changelog principles.
 
 ## [Unreleased]
 
+### Added
+
+- `data/derived/reliability_subset_blind.csv`, the coder-facing projection of the hard-case adjudication set, together with `labauto_observatory.blind_subset`, `scripts/build_blind_subset.py`, a drift check in `make validate`, and its own tests. The published key states `Expected primary`, `Plausible alternative`, and `Why disagreement is likely` in the same row as the source URL, so a coder could not reach a thread without reading the answer; that is finding F1 of `artifacts/adjudication_pilot_v0.1.2.md`. The key is unchanged and stays the maintainer-facing instrument.
+
+### Changed
+
+- The second-coder path in `README.md`, `docs/contributing-evidence.md`, `docs/community-artifacts.md`, `docs/methods.md`, and supplement section S4 now names the blind sheet as the only file a second coder should open.
+
 ## [0.1.2] - 2026-07-29
 
 ### Added

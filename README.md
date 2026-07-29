@@ -153,7 +153,7 @@ forum, or internal wiki.
 | Question schema | `schemas/troubleshooting-question.schema.json` | Enforce that template in a form, bot, or CI check |
 | Resolved-knowledge record | `schemas/knowledge-index.schema.json` | Store an answer with its scope, evidence, owner, and expiry |
 | Ten seed records | `data/knowledge_index/seed_records.yaml` | See the format filled in against real discussions |
-| Hard-case adjudication set | `data/derived/reliability_subset.csv` | Re-code the fourteen hardest threads and report agreement |
+| Hard-case adjudication set | `data/derived/reliability_subset_blind.csv` for coding, `data/derived/reliability_subset.csv` for the key | Re-code the fourteen hardest threads and report agreement |
 | Evidence atlas | `data/derived/evidence_atlas.csv`, browsable at [docs/generated/evidence_atlas_summary.md](docs/generated/evidence_atlas_summary.md) | Trace a named bottleneck to its quotes, counterexamples, key sources, and bounded metric |
 
 The question schema requires the universal core of a reproducible problem report
@@ -174,10 +174,13 @@ outcomes recorded. Details in
 Contributions are welcome, and the most valuable ones are not code. Pick a lane:
 
 - **Run a second coding pass.** This is the highest-value contribution in the
-  repository. Code the threads in `data/derived/reliability_subset.csv` from the
-  public sources without reading the expected codes, answer the recorded
-  adjudication questions, and submit your codes. That is what turns a
-  single-coder pilot into a measured one.
+  repository. Code the threads in `data/derived/reliability_subset_blind.csv`
+  from the public sources, answer the recorded adjudication questions, and submit
+  your codes. Use the blind sheet only: the full key
+  `data/derived/reliability_subset.csv` states the expected primary code in the
+  same row as the source URL, so reading it makes the pass unusable for an
+  agreement statistic. That is what turns a single-coder pilot into a measured
+  one.
 - **Correct a coded row.** If a thread was read wrong, say which boundary test it
   fails and why. Counterexamples are kept, not quietly dropped.
 - **Propose a taxonomy change.** Splits, merges, and additions are expected. Say

@@ -10,6 +10,7 @@ derived:
 	uv run python scripts/build_associations.py
 	uv run python scripts/build_evidence_atlas.py
 	uv run python scripts/build_atlas_summary.py
+	uv run python scripts/build_blind_subset.py
 
 # Regenerates only the browsable Markdown rendering of the evidence atlas.
 # Included in `derived` above; kept as its own target so docs-only changes

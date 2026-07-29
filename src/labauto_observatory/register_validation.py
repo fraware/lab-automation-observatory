@@ -12,7 +12,8 @@ hand edit cannot silently change a published number:
   adjudication set is exactly the episode-segmented subset, the B8 alignment
   class agrees with numerator eligibility, and the funnel's Wilson columns
   agree with :func:`labauto_observatory.metrics.wilson_interval`);
-* the generated ``pairwise_associations.csv``, ``evidence_atlas.csv``, and
+* the generated ``pairwise_associations.csv``, ``evidence_atlas.csv``,
+  ``reliability_subset_blind.csv``, and
   ``docs/generated/evidence_atlas_summary.md`` have not drifted from the
   sources they are built from.
 
@@ -40,6 +41,7 @@ from .analysis import (
 from .associations import pairwise_drift
 from .atlas import atlas_drift
 from .atlas_summary import atlas_summary_drift
+from .blind_subset import blind_subset_drift
 from .io import integer, numeric, read_csv, read_csv_many
 from .metrics import wilson_interval
 
@@ -59,6 +61,7 @@ EXPECTED_ROW_COUNTS: dict[str, int] = {
     "data/derived/publication_claim_ledger.csv": 12,
     "data/derived/quote_bank.csv": 20,
     "data/derived/reliability_subset.csv": 14,
+    "data/derived/reliability_subset_blind.csv": 14,
     "data/derived/taxonomy_rules.csv": 10,
     "data/derived/troubleshooting_template.csv": 25,
     "data/knowledge_index/schema_fields.csv": 18,
@@ -481,6 +484,7 @@ CHECKS: tuple[Callable[[Path], list[str]], ...] = (
     pairwise_drift,
     atlas_drift,
     atlas_summary_drift,
+    blind_subset_drift,
 )
 
 

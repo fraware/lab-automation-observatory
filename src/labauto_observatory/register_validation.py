@@ -17,7 +17,9 @@ hand edit cannot silently change a published number:
 * the generated ``pairwise_associations.csv``, ``evidence_atlas.csv``,
   ``reliability_subset_blind.csv``, and
   ``docs/generated/evidence_atlas_summary.md`` have not drifted from the
-  sources they are built from.
+  sources they are built from;
+* the device-interface registry seeds satisfy their schema and their own
+  invariants (see :mod:`labauto_observatory.registry`).
 
 Checks return problem strings rather than raising so that one run reports every
 failure it can find.
@@ -48,6 +50,8 @@ from .atlas_summary import atlas_summary_drift
 from .blind_subset import blind_subset_drift
 from .io import integer, numeric, read_csv, read_csv_many
 from .metrics import wilson_interval
+from .registry import check_registry_examples
+from .run_events import check_example_streams
 
 SCORE_VALUES: frozenset[float] = frozenset({0.0, 0.5, 1.0})
 TOLERANCE = 1e-9
@@ -585,6 +589,8 @@ CHECKS: tuple[Callable[[Path], list[str]], ...] = (
     check_b8_alignment_eligibility,
     check_funnel_intervals,
     check_matched_cases,
+    check_registry_examples,
+    check_example_streams,
     pairwise_drift,
     atlas_drift,
     atlas_summary_drift,

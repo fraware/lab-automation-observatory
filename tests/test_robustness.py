@@ -9,6 +9,7 @@ from labauto_observatory.robustness import (
     ASSOCIATION_LOTO_RELATIVE,
     PARTIAL_SCORE_RELATIVE,
     association_leave_one_out_records,
+    denominator_sensitivity_records,
     partial_score_records,
     robustness_drift,
 )
@@ -26,6 +27,12 @@ def _partial_lookup() -> dict[tuple[str, float], float]:
 def _association_lookup() -> dict[tuple[str, str], dict[str, str]]:
     return {
         (row["Code A"], row["Code B"]): row for row in association_leave_one_out_records(ROOT)
+    }
+
+
+def _denominator_lookup() -> dict[tuple[str, str], dict[str, str]]:
+    return {
+        (row["Metric"], row["Variant"]): row for row in denominator_sensitivity_records(ROOT)
     }
 
 
@@ -71,6 +78,28 @@ def test_leave_one_out_leading_pairs() -> None:
         assert int(row["Top-five deletions"]) == top_five
         assert int(row["Threshold-retained deletions"]) == threshold
         assert int(row["Total deletions"]) == 55
+
+
+def test_adversarial_denominator_results() -> None:
+    rows = _denominator_lookup()
+    expected = {
+        ("B6 preflight preventability", "all discussed partial-execution scenarios"): 2 / 3,
+        (
+            "B6 preflight preventability",
+            "reported or deliberately triggered software scenarios",
+        ): 1.0,
+        ("B7 constraint completeness", "operationally complete scheduler evaluation"): 7 / 13,
+        ("B7 constraint completeness", "nominal scheduling core"): 7 / 12,
+        ("B8 test--claim alignment", "all bounded evaluation objects"): 2 / 6,
+        ("B8 test--claim alignment", "executed-evidence subset"): 2 / 5,
+        ("B9 context expansion", "core execution ontology"): 2.0,
+        ("B9 context expansion", "broad deployment ontology"): 3.4,
+        ("B9 context expansion", "conservative grouped ontology"): 2.2,
+        ("B10 documentation outcome", "all documentation-centered cases"): 5 / 12,
+        ("B10 documentation outcome", "non-migrated public cases"): 5 / 9,
+    }
+    for key, value in expected.items():
+        assert float(rows[key]["Estimate"]) == pytest.approx(value)
 
 
 def test_robustness_outputs_have_no_drift() -> None:

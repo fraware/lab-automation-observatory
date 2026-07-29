@@ -27,10 +27,10 @@ This checklist maps the frozen release candidate to the current SLAS author requ
 - [x] Public-data minimization documented
 - [x] Blind coder projection identified as the only independent-coding entry point
 - [ ] Commit the complete source/quotation audit ledger
-- [ ] Apply and regenerate all source-fidelity quotation corrections
-- [ ] Complete partial-score weighting sensitivity
-- [ ] Complete leave-one-thread-out association stability using the current corrected register
-- [ ] Complete denominator adversarial review
+- [x] Apply and regenerate all seven identified source-fidelity quotation corrections
+- [x] Complete partial-score weighting sensitivity
+- [x] Complete leave-one-thread-out association stability using the current corrected register
+- [x] Complete adversarial denominator sensitivity for B6--B10
 
 ## Computational release gate
 

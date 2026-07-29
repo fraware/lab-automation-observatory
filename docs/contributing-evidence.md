@@ -1,6 +1,6 @@
 # Contributing evidence and coding changes
 
-This guide explains how to propose a change to the coded registers, the metric inputs, the publication claim ledger, or the resolved-knowledge index. It complements [CONTRIBUTING.md](https://github.com/fraware/lab-automation-observatory/blob/main/CONTRIBUTING.md), which covers the pull-request mechanics, and the [data dictionary](data-dictionary.md), which defines every column.
+This guide explains how to propose a change to the coded registers, the metric inputs, the publication claim ledger, or the resolved-knowledge index. It complements [CONTRIBUTING.md](https://github.com/fraware/lab-automation-observatory/blob/main/CONTRIBUTING.md), which covers the pull-request mechanics, and the [data dictionary](data-dictionary.md), which defines every column. If you are correcting something already in the release rather than adding new material, [docs/correction-workflow.md](correction-workflow.md) defines the accepted correction kinds, the minimum evidence for each, which files usually move together, and whether a correction is note-only, claim-affecting, or release-blocking.
 
 ## What counts as admissible evidence
 
@@ -13,7 +13,7 @@ This guide explains how to propose a change to the coded registers, the metric i
 
 ### Correct a coded row
 
-Applies to `data/derived/evidence_register_part_*.csv` and `data/derived/episode_register_part_*.csv`.
+Applies to `data/derived/evidence_register_part_*.csv` and `data/derived/episode_register_part_*.csv`. See [docs/correction-workflow.md](correction-workflow.md) for how this and every other correction kind is classified and checked.
 
 1. Quote the boundary test from `data/derived/taxonomy_rules.csv` for the code you are adding or removing, and say why the thread passes or fails it.
 2. Keep `Primary` to exactly one code. Direct-support flags are multi-label, but a flag requires directly evidenced mechanism or consequence, not topical adjacency.

@@ -5,9 +5,12 @@ nav:
   - Home: index.md
   - Methods: methods.md
   - Data dictionary: data-dictionary.md
+  - Evidence atlas: evidence-atlas.md
+  - Evidence atlas summary: generated/evidence_atlas_summary.md
   - Community artifacts: community-artifacts.md
   - Claim discipline: claim-discipline.md
   - Contributing evidence: contributing-evidence.md
+  - Correction workflow: correction-workflow.md
 theme:
   name: material
 markdown_extensions:

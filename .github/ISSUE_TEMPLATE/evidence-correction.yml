@@ -3,6 +3,28 @@ about: Correct a code, source, claim, metric input, or knowledge record
 title: "[evidence] "
 labels: [evidence, correction]
 body:
+  - type: markdown
+    attributes:
+      value: >
+        See [docs/correction-workflow.md](https://github.com/fraware/lab-automation-observatory/blob/main/docs/correction-workflow.md)
+        for what counts as admissible evidence, which files usually move together, and how a
+        correction is classified. This form is for reporting the correction; the linked pull
+        request is where the required checks run.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Correction kind
+      options:
+        - Coded-row correction (evidence register)
+        - Episode correction
+        - Metric-input correction
+        - Published-claim correction
+        - Knowledge-index correction
+        - Taxonomy or schema correction
+        - Provenance-only correction (source, attribution, date)
+        - Wording or note-only correction
+    validations:
+      required: true
   - type: input
     id: record
     attributes:
@@ -21,11 +43,18 @@ body:
     id: source
     attributes:
       label: Public supporting source
+      description: >
+        Required for every kind except a wording or note-only correction. A URL or the exact
+        boundary test from data/derived/taxonomy_rules.csv.
     validations:
-      required: true
+      required: false
   - type: textarea
     id: impact
     attributes:
       label: Effect on denominators, figures, schemas, or manuscript claims
+      description: >
+        State whether this looks note-only, claim-affecting, or release-blocking, per
+        docs/correction-workflow.md, and name any file you expect to move together with the
+        correction. A maintainer will confirm the classification before merge.
     validations:
       required: true

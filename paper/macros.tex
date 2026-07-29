@@ -26,3 +26,11 @@
 \sisetup{detect-all=true}
 \Urlmuskip=0mu plus 2mu\relax
 \emergencystretch=2em
+% Float placement. The defaults reserve too much of the page for text to admit a
+% multi-panel figure as a top float, and a float that is rejected everywhere is
+% deferred behind every later float until the bibliography. Raising the top
+% fraction keeps the panel figures beside the text that reads them, and raising
+% the float-page threshold stops a single medium figure from claiming a page.
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.8}

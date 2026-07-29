@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
 import pytest
 
 from labauto_observatory.analysis import compute_release_results
+from labauto_observatory.io import read_csv
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -19,27 +21,68 @@ EXPECTED_CORPUS_KEYS = {
     "direct_support_counts",
     "primary_counts",
 }
-EXPECTED_METRIC_KEYS = {
-    "integration_accessibility_mean",
-    "reproducibility_manifest_mean",
-    "physical_definition_mean",
-    "observability_mean",
+# Bounded proportions: each contributes both the point estimate and a
+# descriptive Wilson interval, and each must declare its denominator.
+EXPECTED_PROPORTION_KEYS = {
     "preflight_preventability_complete_case",
-    "preflight_preventability_sensitivity",
-    "preflight_preventability_wilson",
-    "scheduling_opening_weighted_completeness",
+    "reproducibility_manifest_fully_bound_cell_share",
+    "reproducibility_manifest_partial_cell_share",
+    "scheduling_strict_completeness",
+    "scheduling_field_coverage",
     "scheduling_constraint_discovery",
     "scheduling_scenario_resolution",
     "test_claim_aligned",
     "test_claim_partial_or_better",
-    "context_expansion_core",
-    "context_expansion_broad",
-    "context_expansion_conservative",
     "documentation_actionable_public_resolution",
     "documentation_partial_or_better",
     "documentation_private_migration",
     "verisflow_simulation_trace_rate",
-    "verisflow_simulation_trace_wilson",
+}
+# Means of ordinal component scores, ratios, counts, and bounds. A binomial
+# interval is undefined for these, so they carry no `_wilson` companion.
+EXPECTED_SCALAR_KEYS = {
+    "integration_accessibility_mean",
+    "integration_accessibility_cases_at_least_75",
+    "integration_accessibility_positive_cases",
+    "reproducibility_manifest_mean",
+    "physical_definition_mean",
+    "physical_definition_median_evidence_grade",
+    "physical_definition_device_validated_cases",
+    "physical_definition_independently_reproduced_cases",
+    "observability_mean",
+    "observability_first_divergence_localized_cases",
+    "preflight_preventability_sensitivity",
+    "scheduling_opening_weighted_completeness",
+    "scheduling_discovery_resolution_gap_pp",
+    "test_claim_element_mean",
+    "context_expansion_core",
+    "context_expansion_broad",
+    "context_expansion_conservative",
+}
+EXPECTED_METRIC_KEYS = (
+    EXPECTED_SCALAR_KEYS
+    | EXPECTED_PROPORTION_KEYS
+    | {f"{key}_wilson" for key in EXPECTED_PROPORTION_KEYS}
+)
+EXPECTED_COMPONENT_KEYS = {
+    "integration_accessibility",
+    "reproducibility_manifest",
+    "physical_definition",
+    "observability",
+    "test_claim_alignment",
+    "documentation_profile",
+}
+EXPECTED_MEAN_DENOMINATOR_KEYS = {
+    "integration_accessibility_mean",
+    "reproducibility_manifest_mean",
+    "physical_definition_mean",
+    "observability_mean",
+    "test_claim_element_mean",
+    "scheduling_opening_weighted_completeness",
+    "context_expansion_core",
+    "context_expansion_broad",
+    "context_expansion_conservative",
+    "preflight_preventability_sensitivity",
 }
 EXPECTED_ASSOCIATION_KEYS = {
     "pair",
@@ -65,11 +108,66 @@ def results() -> dict[str, Any]:
 def test_result_schema_is_stable(results: dict[str, Any]) -> None:
     """Downstream tables, figures, and the manuscript depend on these key names."""
 
-    assert set(results) == {"corpus", "metrics", "strongest_association"}
+    assert set(results) == {
+        "corpus",
+        "metrics",
+        "components",
+        "denominators",
+        "strongest_association",
+    }
     assert set(results["corpus"]) == EXPECTED_CORPUS_KEYS
     assert set(results["metrics"]) == EXPECTED_METRIC_KEYS
+    assert set(results["components"]) == EXPECTED_COMPONENT_KEYS
     assert set(results["strongest_association"]) == EXPECTED_ASSOCIATION_KEYS
     assert json.loads(json.dumps(results)) == results
+
+
+def test_every_proportion_declares_a_denominator(results: dict[str, Any]) -> None:
+    """A published percentage is only interpretable with its denominator."""
+
+    metrics = results["metrics"]
+    denominators = results["denominators"]
+    assert set(denominators) == EXPECTED_PROPORTION_KEYS | EXPECTED_MEAN_DENOMINATOR_KEYS
+    for key in EXPECTED_PROPORTION_KEYS:
+        counts = denominators[key]
+        assert set(counts) == {"successes", "trials"}
+        assert 0 <= counts["successes"] <= counts["trials"]
+        assert counts["trials"] > 0
+        assert metrics[key] == pytest.approx(counts["successes"] / counts["trials"])
+
+
+def test_every_wilson_interval_brackets_its_point_estimate(results: dict[str, Any]) -> None:
+    metrics = results["metrics"]
+    for key in EXPECTED_PROPORTION_KEYS:
+        low, high = metrics[f"{key}_wilson"]
+        assert 0.0 <= low <= metrics[key] <= high <= 1.0
+
+
+def test_component_means_average_to_their_headline_metric(results: dict[str, Any]) -> None:
+    """The heatmap panels and the headline table must describe the same data."""
+
+    components = results["components"]
+    metrics = results["metrics"]
+    for component_key, metric_key in (
+        ("integration_accessibility", "integration_accessibility_mean"),
+        ("physical_definition", "physical_definition_mean"),
+        ("observability", "observability_mean"),
+        ("test_claim_alignment", "test_claim_element_mean"),
+    ):
+        values = list(components[component_key].values())
+        assert sum(values) / len(values) == pytest.approx(metrics[metric_key])
+
+
+def test_scheduling_rates_refuse_an_empty_denominator(
+    data_root: Path, edit_csv: Callable[..., None]
+) -> None:
+    """If no requirement field is incomplete, the discovery rate has no denominator."""
+
+    target = data_root / "data/metrics/b7_constraint_completeness.csv"
+    for index in range(len(read_csv(target))):
+        edit_csv(target, index, **{"Opening score (0/0.5/1)": "1"})
+    with pytest.raises(ValueError, match="no field scoring below 1 at opening"):
+        compute_release_results(data_root)
 
 
 def test_corpus_size(results: dict[str, Any]) -> None:
@@ -175,12 +273,32 @@ def test_secondary_headline_metrics(results: dict[str, Any]) -> None:
 
 def test_interval_estimates(results: dict[str, Any]) -> None:
     metrics = results["metrics"]
-    assert metrics["preflight_preventability_wilson"] == pytest.approx([0.2076549551, 0.9385096847])
-    assert metrics["verisflow_simulation_trace_wilson"] == pytest.approx(
+    assert metrics["preflight_preventability_complete_case_wilson"] == pytest.approx(
+        [0.2076549551, 0.9385096847]
+    )
+    assert metrics["verisflow_simulation_trace_rate_wilson"] == pytest.approx(
         [0.8500173312, 0.9589070305]
     )
     lower, upper = metrics["preflight_preventability_sensitivity"]
     assert lower <= metrics["preflight_preventability_complete_case"] <= upper
+
+
+def test_additional_published_metrics(results: dict[str, Any]) -> None:
+    """Values the results section quotes beyond the headline table."""
+
+    metrics = results["metrics"]
+    assert metrics["integration_accessibility_cases_at_least_75"] == 2
+    assert metrics["integration_accessibility_positive_cases"] == 3
+    assert metrics["reproducibility_manifest_fully_bound_cell_share"] == pytest.approx(5 / 24)
+    assert metrics["reproducibility_manifest_partial_cell_share"] == pytest.approx(15 / 24)
+    assert metrics["physical_definition_median_evidence_grade"] == pytest.approx(2.5)
+    assert metrics["physical_definition_device_validated_cases"] == 2
+    assert metrics["physical_definition_independently_reproduced_cases"] == 1
+    assert metrics["observability_first_divergence_localized_cases"] == 2
+    assert metrics["scheduling_strict_completeness"] == pytest.approx(5 / 13)
+    assert metrics["scheduling_field_coverage"] == pytest.approx(9 / 13)
+    assert metrics["scheduling_discovery_resolution_gap_pp"] == pytest.approx(87.5)
+    assert metrics["test_claim_element_mean"] == pytest.approx(11 / 15)
 
 
 def test_strongest_association(results: dict[str, Any]) -> None:

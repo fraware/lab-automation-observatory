@@ -65,7 +65,9 @@ For the two-by-two table $(n_{11},n_{10},n_{01},n_{00})$,
 
 \input{generated/association_leave_one_out.tex}
 
-The partial-score analysis changes the numerical level of each rubric summary, as expected, but makes that dependence explicit. It does not create a basis for ranking IAS, RMC, PDC, and OC against one another. The leave-one-thread-out analysis retains B5--B6, B5--B8, and B2--B7 in the leading three positions across all 55 deletions. B4--B8 remains in the top five throughout. B8--B9 falls to rank six under two deletions and retains the pilot attention threshold under 16 of 55 deletions; it is therefore interpreted as exploratory.
+\input{generated/denominator_sensitivity.tex}
+
+The partial-score analysis changes the numerical level of each rubric summary, as expected, but makes that dependence explicit. It does not create a basis for ranking IAS, RMC, PDC, and OC against one another. The leave-one-thread-out analysis retains B5--B6, B5--B8, and B2--B7 in the leading three positions across all 55 deletions. B4--B8 remains in the top five throughout. B8--B9 falls to rank six under two deletions and retains the pilot attention threshold under 16 of 55 deletions; it is therefore interpreted as exploratory. The denominator review preserves the declared primary units and reports nearby defensible alternatives. The largest conceptual sensitivity concerns B7: excluding failure and recovery policy yields a 12-field nominal core, weighted opening completeness of 58.3\%, and discovery of 7/7 incomplete core fields.
 
 \section{Validation-stage representation}
 The AI method-generation result in the analyzed discussion was reported at one stage only. \Cref{fig:s-validation-funnel} separates that stage from the stages that were described without a denominator and from the stages that were not reported at all, so that the depth of the reported evidence is visible without inference. The stage rows and counts come from \path{data/metrics/ai_validation_funnel.csv}, whose interval columns are recomputed by \code{labauto\_observatory.metrics.wilson\_interval}.

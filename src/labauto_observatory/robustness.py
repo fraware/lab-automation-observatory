@@ -32,8 +32,8 @@ from .io import normalised_newlines, numeric, read_csv, read_text_lf
 from .metrics import association_from_counts, mean_score
 
 PARTIAL_WEIGHTS: tuple[float, ...] = (0.0, 0.25, 0.5, 0.75, 1.0)
-PARTIAL_SCORE_RELATIVE = "data/metrics/partial_score_sensitivity.csv"
-ASSOCIATION_LOTO_RELATIVE = "data/metrics/association_leave_one_out.csv"
+PARTIAL_SCORE_RELATIVE = "data/robustness/partial_score_sensitivity.csv"
+ASSOCIATION_LOTO_RELATIVE = "data/robustness/association_leave_one_out.csv"
 
 COMPONENT_SPECS: tuple[tuple[str, str, tuple[str, ...]], ...] = (
     ("IAS", METRIC_FILES["b2"], B2_COMPONENTS),
@@ -196,6 +196,7 @@ def write_robustness_csvs(root: str | Path) -> tuple[Path, Path]:
     root_path = Path(root)
     partial_path = root_path / PARTIAL_SCORE_RELATIVE
     association_path = root_path / ASSOCIATION_LOTO_RELATIVE
+    partial_path.parent.mkdir(parents=True, exist_ok=True)
     partial_path.write_text(render_partial_score_csv(root_path), encoding="utf-8", newline="")
     association_path.write_text(
         render_association_leave_one_out_csv(root_path), encoding="utf-8", newline=""

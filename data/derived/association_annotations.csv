@@ -1,0 +1,29 @@
+Code A,Code B,Relationship class,Interpretation,Invalid inference
+B2,B3,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B2,B4,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B2,B5,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B2,B6,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B2,B7,Enabling condition,A scheduler can allocate only devices whose interfaces can be invoked and whose states can be represented.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B2,B8,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B2,B9,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B3,B4,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B3,B5,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B3,B6,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B3,B7,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B3,B8,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B3,B9,Representation dependency,"AI method generation inherits the configuration, artifact, and deployment boundaries of vendor environments.",Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B4,B5,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B4,B6,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B4,B7,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B4,B8,Mechanism,"Physical-definition defects are often exposed, bounded, or corrected through simulation and hardware validation.",Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B4,B9,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B5,B6,Mechanism,"Partial execution raises the value of state, intervention, recovery, and disposition evidence.",Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B5,B7,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B5,B8,Mechanism,Observations and logs require acceptance rules and scoped interpretation before they support a claim.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B5,B9,Evaluation dependency,AI-assisted physical work requires observations and feedback beyond command generation.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B6,B7,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B6,B8,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B6,B9,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B7,B8,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B7,B9,Exploratory,Descriptive co-occurrence; mechanism requires separate adjudication.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.
+B8,B9,Evaluation dependency,AI-generated methods intensify the need to bind reported performance to a defined validation stage.,Association in a purposive multi-label corpus is not a population correlation or causal estimate.

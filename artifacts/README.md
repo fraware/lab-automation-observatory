@@ -13,5 +13,6 @@ The public repository contains derived data and deterministic generators. The re
 | [submission_audit_v0.1.2.md](submission_audit_v0.1.2.md) | **Current** audit record: 128 tests at 98.84% coverage, 29 validated release CSVs, byte-identical figure/table regeneration, and the first audit with a successful local document build (28-page main text, 8-page supplement). |
 | [release_notes_v0.1.2.md](release_notes_v0.1.2.md) | **Current** release notes, summarizing the data, statistics, and figure hardening since v0.1.1. |
 | [external_submission_actions.md](external_submission_actions.md) | Human/portal follow-ups that stay outside repository automation. |
+| [adjudication_pilot_v0.1.2.md](adjudication_pilot_v0.1.2.md) | Process validation of the adjudication instrument on three critical threads, with [adjudication_pilot_three_threads.csv](adjudication_pilot_three_threads.csv) as the per-thread record. Not a second coding pass and not a source of any agreement statistic. |
 
 When citing "the audit" or "the release checks" for the live state of `main`, point at the highest-numbered `submission_audit_v*.md`; do not treat an older frozen audit as current.

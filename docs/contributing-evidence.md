@@ -69,6 +69,8 @@ An independent coder can:
 2. answer the recorded adjudication questions;
 3. submit the independent codes and the resulting agreement on primary code and on episode boundaries.
 
+Before doing that, read [artifacts/adjudication_pilot_v0.1.2.md](https://github.com/fraware/lab-automation-observatory/blob/main/artifacts/adjudication_pilot_v0.1.2.md). It is a process validation of this instrument on three critical threads, not a second coding pass, and it records the selection and segmentation rules that still need tightening.
+
 Do not add an agreement coefficient to the repository or the manuscript until an independent second coding exists. Publishing the disagreement surface in advance is what makes a later statistic meaningful, and it prevents agreement from being computed on the unambiguous threads only.
 
 ## Checks to run

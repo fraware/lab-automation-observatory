@@ -1,9 +1,16 @@
-.PHONY: sync reproduce figures tables graphical-abstract validate claims test lint typecheck paper paper-only supplement cover-letter docs docs-build links ci clean
+.PHONY: sync derived reproduce figures tables graphical-abstract validate claims test lint typecheck paper paper-only supplement cover-letter docs docs-build links ci clean
 
 sync:
 	uv sync --all-extras
 
-reproduce:
+# Rebuilds the two committed CSVs that are derived from other committed data.
+# `make validate` fails if either has drifted, so this target is what a data
+# change must run before committing.
+derived:
+	uv run python scripts/build_associations.py
+	uv run python scripts/build_evidence_atlas.py
+
+reproduce: derived
 	uv run python scripts/reproduce_results.py
 
 figures:

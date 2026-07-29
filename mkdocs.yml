@@ -12,6 +12,7 @@ nav:
   - Contributing evidence: contributing-evidence.md
   - Correction workflow: correction-workflow.md
   - Device-interface registry: device-interface-registry.md
+  - Run-event schema: event-schema.md
 theme:
   name: material
 markdown_extensions:

@@ -10,6 +10,12 @@ If you just want to browse the ten rows, read the generated
 [Evidence atlas summary](generated/evidence_atlas_summary.md) instead. It
 renders the same CSV as Markdown so you do not need a spreadsheet.
 
+Both pages are readable three ways: as Markdown in `docs/` on GitHub, as a
+locally served site through `make docs`, and as a published site once a
+maintainer dispatches the `Docs site` workflow that builds this documentation
+for GitHub Pages. No deployment has happened yet, so this page does not link a
+hosted URL; use `make docs` in the meantime.
+
 ## What the atlas is
 
 Ten rows, one per construct (`B1` through `B10`), each summarizing the pilot

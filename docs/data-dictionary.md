@@ -517,18 +517,22 @@ checks for drift. See [Evidence atlas](evidence-atlas.md) for what a row means.
 
 ## `data/registry_examples/`
 
-### `device_interface_registry_examples.yaml` (3 records)
+### `device_interface_registry_examples.yaml` (6 records)
 
-Design-draft examples for the Roadmap 0.2 device-interface accessibility registry, not
-wired into `make validate` or `make reproduce`. Validated against
-`schemas/device-interface-registry.schema.json`. See
+Seed records for the Roadmap 0.2 device-interface accessibility registry, one per published
+B2 case. The registry is still a design draft, but the seeds are checked: `make validate`
+runs `labauto_observatory.registry` over them for schema conformance, component arithmetic,
+unique IDs and resolvable lineage, the vendor-ranking prohibition, and agreement with the
+pilot case named in `pilot_case_id`. They are not an input to `make reproduce`, and no
+published metric reads from them. See
 [Device-interface accessibility registry](device-interface-registry.md) for the field
-groups and their rationale.
+groups, their rationale, and the contribution path.
 
 | Column | Definition |
 |---|---|
 | `record_id` | Stable identifier, pattern `DIR-YYYY-NNNN`. |
 | `vendor`, `product`, `interface_identity`, `interface_class` | Identity of the device/interface case. |
+| `pilot_case_id` | Optional link to the `Case` in `data/metrics/b2_integration_access.csv` this record re-describes. When present, the six components, `unknown_components`, `accessibility_score`, and the case's source URL must match that published row. |
 | `documentation`, `api_protocol`, `licence_clarity`, `simulator_isolated_testing`, `examples_reference_implementation`, `maintainer_support_declared` | The six fixed accessibility-fact components, `0 / 0.5 / 1 / null` as elsewhere in this repository. |
 | `unknown_components`, `accessibility_score` | Null-component count and the mean over known components. |
 | `maintenance_status`, `last_activity_observed`, `last_verified`, `correction_status`, `record_steward` | Living maintenance facts, kept separate from the fixed accessibility snapshot. |

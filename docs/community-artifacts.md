@@ -26,10 +26,11 @@ A second coder works from the generated projection `data/derived/reliability_sub
 
 ## Planned registries
 
-- device-integration accessibility: schema draft and worked examples exist, see
+- device-integration accessibility: schema draft, seven checked seed records, and a stated contribution path — see
   [Device-interface accessibility registry](device-interface-registry.md);
 - physical-resource definitions with evidence grades;
-- minimal laboratory event schema;
+- minimal laboratory event schema: design proposal, JSON Schema, example streams, and a reference scoring path at
+  [Run-event schema](event-schema.md) (`schemas/run-event.schema.json`, `data/run_event_examples/`, `labauto_observatory.run_events`);
 - scheduling benchmarks with scientific constraints.
 
 Each artifact has an evaluation plan. Publication alone is not treated as success.

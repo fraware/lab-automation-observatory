@@ -29,6 +29,7 @@ Expected headline values are asserted in `tests/test_published_values.py`. JSON 
 | `paper/figures/*.png` | `make figures` | no |
 | `paper/graphical_abstract.{pdf,png}` | `make graphical-abstract` | yes |
 | `build/claim_traceability.md` | `make claims` | no |
+| `data/run_event_examples/*.yaml` | hand-authored illustrations | yes |
 | `paper/*.pdf` | `make paper`, `make supplement` | no |
 
 The vector figures and generated tables are committed so that a fresh clone with only a TeX distribution can build the manuscript through `make paper-only`, with no Python step. The figure scripts suppress output timestamps, so regenerating on the locked environment reproduces the committed bytes exactly and produces no diff. Regenerating under a different `matplotlib` version can change the bytes; that is expected and is the reason the lockfile is committed. `tests/test_build_outputs.py` fails if the committed tables drift from a fresh build.

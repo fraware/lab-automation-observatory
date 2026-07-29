@@ -189,10 +189,14 @@ Contributions are welcome, and the most valuable ones are not code. Pick a lane:
   useful than one that fits.
 - **Add or refresh a knowledge record.** Records need an owner and a verification
   date, or they rot.
-- **Discuss the device-interface registry schema.** A design draft with worked
-  examples is at [docs/device-interface-registry.md](docs/device-interface-registry.md);
-  comment on [issue #12](https://github.com/fraware/lab-automation-observatory/issues/12)
-  or open a draft pull request against the schema.
+- **Add a device-interface registry record.** The schema, seven checked seed
+  records (six pilot cases plus one community-intake example), and a stated
+  contribution path are at
+  [docs/device-interface-registry.md](docs/device-interface-registry.md). One
+  interface path, one public source, and the limitations and prohibited claims
+  the evidence actually supports; `make validate` checks the rest. Schema
+  questions belong on
+  [issue #12](https://github.com/fraware/lab-automation-observatory/issues/12).
 
 Two documents cover everything you need:
 [CONTRIBUTING.md](CONTRIBUTING.md) for pull-request mechanics, and
@@ -236,7 +240,20 @@ artifacts/                Audit records, release notes, and provenance
 | [docs/claim-discipline.md](docs/claim-discipline.md) | How published numbers stay bound to the text that cites them |
 | [REPRODUCIBILITY.md](REPRODUCIBILITY.md) | Environment, generated outputs, and Windows notes |
 | [artifacts/README.md](artifacts/README.md) | Which audit describes the current validated baseline, and what it measured |
+| [docs/device-interface-registry.md](docs/device-interface-registry.md) | Device-interface registry draft with seven checked seed records |
+| `schemas/run-event.schema.json` | Proposed run-event schema for making B5/B6 observability measurable at the source |
+| `data/run_event_examples/` | Illustrative streams grounded in the B5-C3 and B6 pilot cases |
+| [docs/event-schema.md](docs/event-schema.md) | Proposed run-event schema, example streams, and B5/B6 scoring path |
 | [ROADMAP.md](ROADMAP.md), [GOVERNANCE.md](GOVERNANCE.md) | Where this is going and how decisions get made |
+
+Every page above is also a page of the MkDocs site. `make docs` serves it at
+`http://127.0.0.1:8000`, and `make docs-build` renders it into `site/` with
+warnings escalated to errors. The site is not published yet: the
+`Docs site` workflow (`.github/workflows/pages.yml`) deploys it to GitHub Pages
+on manual dispatch, and this section will name the published URL once a
+maintainer has dispatched it and enabled Pages for the repository. Until then,
+read the Markdown in `docs/` directly or serve it locally; nothing in the site
+is generated from anything the repository does not already commit.
 
 ## Data, ethics, and licensing
 

@@ -10,8 +10,10 @@ The public repository contains derived data and deterministic generators. The re
 | [release_notes_v0.1.0.md](release_notes_v0.1.0.md) | Frozen v0.1.0 release notes. |
 | [submission_audit_v0.1.1.md](submission_audit_v0.1.1.md) | Frozen v0.1.1 snapshot (53 tests, local TeX build blocked). Not updated after the v0.1.1 tag. |
 | [release_notes_v0.1.1.md](release_notes_v0.1.1.md) | Frozen v0.1.1 release notes. |
-| [submission_audit_v0.1.2.md](submission_audit_v0.1.2.md) | **Current** audit record: 128 tests at 98.84% coverage, 29 validated release CSVs, byte-identical figure/table regeneration, and the first audit with a successful local document build (28-page main text, 8-page supplement). |
-| [release_notes_v0.1.2.md](release_notes_v0.1.2.md) | **Current** release notes, summarizing the data, statistics, and figure hardening since v0.1.1. |
+| [submission_audit_v0.1.2.md](submission_audit_v0.1.2.md) | Frozen v0.1.2 snapshot (128 tests, 29 validated release CSVs, first audit with a successful local document build). Not updated after the v0.1.2 tag. |
+| [release_notes_v0.1.2.md](release_notes_v0.1.2.md) | Frozen v0.1.2 release notes. |
+| [submission_audit_v0.1.3.md](submission_audit_v0.1.3.md) | **Current** audit record: 184 tests at 99.15% coverage, 30 validated release CSVs, blind-subset and registry checks, episode-to-thread coherence, and one claim-affecting association update (B2--B7 phi 0.382). |
+| [release_notes_v0.1.3.md](release_notes_v0.1.3.md) | **Current** release notes: adjudication instrument fixes, coherence corrections, and 0.2 scaffolding. |
 | [external_submission_actions.md](external_submission_actions.md) | Human/portal follow-ups that stay outside repository automation. |
 | [adjudication_pilot_v0.1.2.md](adjudication_pilot_v0.1.2.md) | Process validation of the adjudication instrument on three critical threads, with [adjudication_pilot_three_threads.csv](adjudication_pilot_three_threads.csv) as the per-thread record. Not a second coding pass and not a source of any agreement statistic. |
 

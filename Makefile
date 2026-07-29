@@ -1,14 +1,21 @@
-.PHONY: sync derived reproduce figures tables graphical-abstract validate claims test lint typecheck paper paper-only supplement cover-letter docs docs-build links ci clean
+.PHONY: sync derived atlas-summary reproduce figures tables graphical-abstract validate claims test lint typecheck paper paper-only supplement cover-letter docs docs-build links ci clean
 
 sync:
 	uv sync --all-extras
 
-# Rebuilds the two committed CSVs that are derived from other committed data.
-# `make validate` fails if either has drifted, so this target is what a data
-# change must run before committing.
+# Rebuilds the committed CSVs and the atlas summary that are derived from
+# other committed data. `make validate` fails if any of them has drifted, so
+# this target is what a data change must run before committing.
 derived:
 	uv run python scripts/build_associations.py
 	uv run python scripts/build_evidence_atlas.py
+	uv run python scripts/build_atlas_summary.py
+
+# Regenerates only the browsable Markdown rendering of the evidence atlas.
+# Included in `derived` above; kept as its own target so docs-only changes
+# don't need to think about the association table.
+atlas-summary:
+	uv run python scripts/build_atlas_summary.py
 
 reproduce: derived
 	uv run python scripts/reproduce_results.py
@@ -38,10 +45,10 @@ typecheck:
 test:
 	uv run pytest
 
-docs:
+docs: atlas-summary
 	uv run mkdocs serve
 
-docs-build:
+docs-build: atlas-summary
 	uv run mkdocs build --strict
 
 # Mirrors the scope of .github/workflows/link-check.yml. Requires the

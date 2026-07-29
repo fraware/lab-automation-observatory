@@ -1,5 +1,15 @@
 # Community artifacts
 
+## Evidence atlas
+
+`data/derived/evidence_atlas.csv` and its generated
+[Markdown summary](generated/evidence_atlas_summary.md) are a community
+artifact in their own right: a scannable, one-row-per-construct entry point
+into the coded evidence, with a bounded metric, a quotation, a retained
+counterexample, and the key supporting threads for each of the ten named
+bottlenecks. See [Evidence atlas](evidence-atlas.md) for what a row means,
+how to trace it back to the primary evidence, and what it does not support.
+
 ## Troubleshooting question
 
 The JSON Schema defines the universal core of a reproducible technical question and conditionally requires physical-state and intervention fields after partial execution.

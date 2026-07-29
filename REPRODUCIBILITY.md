@@ -21,6 +21,7 @@ Expected headline values are asserted in `tests/test_published_values.py`. JSON 
 |---|---|---|
 | `data/metrics/pairwise_associations.csv` | `make derived` | yes |
 | `data/derived/evidence_atlas.csv` | `make derived` | yes |
+| `docs/generated/evidence_atlas_summary.md` | `make derived` or `make atlas-summary` | yes |
 | `build/results.json`, `build/RESULTS.md` | `make reproduce` | no |
 | `paper/generated/*.tex` | `make tables` | yes |
 | `paper/figures/*.pdf` | `make figures` | yes |
@@ -35,12 +36,13 @@ Only the raster previews `paper/figures/*.png` are excluded, because nothing in 
 
 ## Derived data
 
-Two committed CSVs are computed from other committed files rather than coded by hand:
+Three committed files are computed from other committed files rather than coded by hand:
 
 - `data/metrics/pairwise_associations.csv` recomputes all 28 B2--B9 associations from the evidence register and joins the coder-authored reading of each pair from `data/derived/association_annotations.csv`.
 - `data/derived/evidence_atlas.csv` assembles one row per construct from the taxonomy rules, the register, the quote bank, the negative cases, the pairwise table, and `compute_release_results`.
+- `docs/generated/evidence_atlas_summary.md` renders every column of `evidence_atlas.csv` as Markdown, one section per construct, so a reader can browse the atlas without a spreadsheet.
 
-They are committed so that readers who do not run the pipeline still get them, and `make validate` fails if either has drifted from its sources. After editing the register, the annotations, or any metric CSV, run `make derived` before committing. `make reproduce` runs it first for the same reason.
+They are committed so that readers who do not run the pipeline still get them, and `make validate` fails if any of them has drifted from its sources. After editing the register, the annotations, or any metric CSV, run `make derived` before committing. `make reproduce` runs it first for the same reason.
 
 ## Claim traceability
 
@@ -54,6 +56,7 @@ The commands above assume a POSIX shell with GNU Make. On Windows, `uv` works un
 uv sync --all-extras
 uv run python scripts/build_associations.py
 uv run python scripts/build_evidence_atlas.py
+uv run python scripts/build_atlas_summary.py
 uv run python scripts/reproduce_results.py
 uv run python scripts/build_figures.py
 uv run python scripts/build_tables.py

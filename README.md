@@ -154,6 +154,7 @@ forum, or internal wiki.
 | Resolved-knowledge record | `schemas/knowledge-index.schema.json` | Store an answer with its scope, evidence, owner, and expiry |
 | Ten seed records | `data/knowledge_index/seed_records.yaml` | See the format filled in against real discussions |
 | Hard-case adjudication set | `data/derived/reliability_subset.csv` | Re-code the fourteen hardest threads and report agreement |
+| Evidence atlas | `data/derived/evidence_atlas.csv`, browsable at [docs/generated/evidence_atlas_summary.md](docs/generated/evidence_atlas_summary.md) | Trace a named bottleneck to its quotes, counterexamples, key sources, and bounded metric |
 
 The question schema requires the universal core of a reproducible problem report
 and adds physical-state and intervention fields once a run has partially
@@ -223,6 +224,7 @@ artifacts/                Audit records, release notes, and provenance
 |---|---|
 | [docs/methods.md](docs/methods.md) | Corpus, episode segmentation, coding, and what reliability rests on |
 | [docs/data-dictionary.md](docs/data-dictionary.md) | Every column in every derived file |
+| [docs/evidence-atlas.md](docs/evidence-atlas.md) | What one evidence-atlas row means, how to trace it to quotes/cases/metrics, and what it does not support |
 | [docs/community-artifacts.md](docs/community-artifacts.md) | The artifacts above and how they should be evaluated |
 | [docs/claim-discipline.md](docs/claim-discipline.md) | How published numbers stay bound to the text that cites them |
 | [REPRODUCIBILITY.md](REPRODUCIBILITY.md) | Environment, generated outputs, and Windows notes |

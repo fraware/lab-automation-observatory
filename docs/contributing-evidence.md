@@ -79,6 +79,7 @@ Do not add an agreement coefficient to the repository or the manuscript until an
 uv sync --all-extras
 uv run python scripts/build_associations.py
 uv run python scripts/build_evidence_atlas.py
+uv run python scripts/build_atlas_summary.py
 uv run python scripts/validate_release.py
 uv run pytest
 uv run python scripts/reproduce_results.py
@@ -97,9 +98,9 @@ make tables
 make figures
 ```
 
-`make derived` must run first: `data/metrics/pairwise_associations.csv` and `data/derived/evidence_atlas.csv` are computed from the register and the metric files, and `make validate` fails if either is left stale.
+`make derived` must run first: `data/metrics/pairwise_associations.csv`, `data/derived/evidence_atlas.csv`, and `docs/generated/evidence_atlas_summary.md` are all computed from the register, the metric files, or the atlas itself, and `make validate` fails if any of them is left stale.
 
-Commit any resulting changes to the two derived CSVs, `paper/generated/`, and `paper/figures/*.pdf`. See [REPRODUCIBILITY.md](https://github.com/fraware/lab-automation-observatory/blob/main/REPRODUCIBILITY.md) for the Windows and PowerShell equivalents.
+Commit any resulting changes to the derived CSVs, the generated atlas summary, `paper/generated/`, and `paper/figures/*.pdf`. See [REPRODUCIBILITY.md](https://github.com/fraware/lab-automation-observatory/blob/main/REPRODUCIBILITY.md) for the Windows and PowerShell equivalents.
 
 ## What will be declined
 

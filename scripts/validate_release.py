@@ -7,6 +7,7 @@ import csv
 from pathlib import Path
 
 from labauto_observatory.io import read_yaml
+from labauto_observatory.register_validation import check_release_data
 from labauto_observatory.traceability import check_traceability
 from labauto_observatory.validation import validate_file
 
@@ -49,6 +50,12 @@ def main() -> None:
             print(f"claim traceability failure: {problem}")
         raise SystemExit("approved claims are not traceable to the manuscript sources")
 
+    data = check_release_data(ROOT)
+    if not data.ok:
+        for problem in data.problems:
+            print(f"release data failure: {problem}")
+        raise SystemExit("committed register and metric data failed validation")
+
     for relative in [
         "paper/main.tex",
         "paper/supplement.tex",
@@ -58,6 +65,7 @@ def main() -> None:
         "data/derived/episode_register_part_01.csv",
         "data/derived/episode_register_part_02.csv",
         "data/derived/reliability_subset.csv",
+        "data/derived/evidence_atlas.csv",
         "schemas/knowledge-index.schema.json",
         "schemas/troubleshooting-question.schema.json",
     ]:
@@ -65,7 +73,8 @@ def main() -> None:
 
     print(
         f"validated {len(records)} knowledge records and {len(approved)} approved claims; "
-        f"traced {len(traceability.approved)} approved claims to the manuscript"
+        f"traced {len(traceability.approved)} approved claims to the manuscript; "
+        f"checked {len(data.checked_files)} release CSVs"
     )
 
 

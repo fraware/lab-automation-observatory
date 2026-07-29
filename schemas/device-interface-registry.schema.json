@@ -74,6 +74,11 @@
           ],
           "description": "The structural kind of integration path, used for grouping and filtering, not for ranking."
         },
+        "pilot_case_id": {
+          "type": "string",
+          "pattern": "^B2-C[0-9]+$",
+          "description": "Optional provenance link to the published pilot case in data/metrics/b2_integration_access.csv that this record re-describes. Present only on the seed records derived from the pilot; a community submission about a device the pilot never coded omits it. When present, `make validate` requires the six accessibility components, unknown_components, and accessibility_score to equal that case's published cells, and requires the case's source URL to appear in evidence_sources. The link is what stops a seed record from quietly restating a published metric with different numbers; it deliberately does not make the registry a second home for the pilot's metric values, because the registry may not add, remove, or rescore a pilot case."
+        },
         "documentation": { "$ref": "#/$defs/component_score" },
         "api_protocol": { "$ref": "#/$defs/component_score" },
         "licence_clarity": { "$ref": "#/$defs/component_score" },

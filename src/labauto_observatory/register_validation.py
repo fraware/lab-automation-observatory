@@ -12,8 +12,9 @@ hand edit cannot silently change a published number:
   adjudication set is exactly the episode-segmented subset, the B8 alignment
   class agrees with numerator eligibility, and the funnel's Wilson columns
   agree with :func:`labauto_observatory.metrics.wilson_interval`);
-* the generated ``pairwise_associations.csv`` and ``evidence_atlas.csv`` have
-  not drifted from the sources they are built from.
+* the generated ``pairwise_associations.csv``, ``evidence_atlas.csv``, and
+  ``docs/generated/evidence_atlas_summary.md`` have not drifted from the
+  sources they are built from.
 
 Checks return problem strings rather than raising so that one run reports every
 failure it can find.
@@ -38,6 +39,7 @@ from .analysis import (
 )
 from .associations import pairwise_drift
 from .atlas import atlas_drift
+from .atlas_summary import atlas_summary_drift
 from .io import integer, numeric, read_csv, read_csv_many
 from .metrics import wilson_interval
 
@@ -478,6 +480,7 @@ CHECKS: tuple[Callable[[Path], list[str]], ...] = (
     check_matched_cases,
     pairwise_drift,
     atlas_drift,
+    atlas_summary_drift,
 )
 
 

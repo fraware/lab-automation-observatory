@@ -148,6 +148,12 @@ either copied from another committed file or computed by `compute_release_result
 is authored in the atlas itself. Rebuild it with `make derived`, which `make validate`
 then checks for drift.
 
+For what a row means, how to trace a construct to its quotes, cases, and metrics, and what
+the atlas does not support, read [Evidence atlas](evidence-atlas.md). For a browsable
+rendering of all ten rows without a spreadsheet, read the generated
+[Evidence atlas summary](generated/evidence_atlas_summary.md) (`docs/generated/evidence_atlas_summary.md`,
+rebuilt with `make atlas-summary` and also checked for drift by `make validate`).
+
 | Column | Definition |
 |---|---|
 | `Code`, `Bottleneck`, `Analytical layer` | Construct identity and layer, from `taxonomy_rules.csv`. |
@@ -485,6 +491,15 @@ Ten validated resolved-knowledge records. The YAML and JSON files contain identi
 ### `example_question.yaml`
 
 One worked instance of the minimum reproducible automation question, validated against `schemas/troubleshooting-question.schema.json`. Partial execution activates the conditional `physical_state_after_failure` and intervention requirements.
+
+## `docs/generated/`
+
+### `evidence_atlas_summary.md`
+
+A Markdown rendering of every row in `data/derived/evidence_atlas.csv`, one section per
+construct. **Generated file.** Every value is copied verbatim from the atlas; rebuild it
+with `make atlas-summary` (also run as part of `make derived`), which `make validate` then
+checks for drift. See [Evidence atlas](evidence-atlas.md) for what a row means.
 
 ## Proposing changes
 

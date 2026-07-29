@@ -69,6 +69,7 @@ def main() -> None:
         "paper/references.bib",
         "paper/generated/partial_score_sensitivity.tex",
         "paper/generated/association_leave_one_out.tex",
+        "paper/generated/denominator_sensitivity.tex",
         "data/derived/evidence_register_part_01.csv",
         "data/derived/evidence_register_part_02.csv",
         "data/derived/episode_register_part_01.csv",
@@ -78,6 +79,7 @@ def main() -> None:
         "data/derived/evidence_atlas.csv",
         "data/robustness/partial_score_sensitivity.csv",
         "data/robustness/association_leave_one_out.csv",
+        "data/robustness/denominator_sensitivity.csv",
         "schemas/knowledge-index.schema.json",
         "schemas/troubleshooting-question.schema.json",
     ]:
@@ -86,7 +88,7 @@ def main() -> None:
     print(
         f"validated {len(records)} knowledge records and {len(approved)} approved claims; "
         f"traced {len(traceability.approved)} approved claims to the manuscript; "
-        f"checked {len(data.checked_files)} release CSVs and 2 robustness artifacts"
+        f"checked {len(data.checked_files)} release CSVs and 3 robustness artifacts"
     )
 
 

@@ -11,6 +11,7 @@ from labauto_observatory.latex import percent
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "paper" / "generated"
+ROBUSTNESS = ROOT / "data" / "robustness"
 
 
 def write(name: str, content: str) -> None:
@@ -19,7 +20,7 @@ def write(name: str, content: str) -> None:
 
 
 def partial_score_table() -> str:
-    rows = read_csv(ROOT / "data/metrics/partial_score_sensitivity.csv")
+    rows = read_csv(ROBUSTNESS / "partial_score_sensitivity.csv")
     by_metric: dict[str, dict[str, str]] = defaultdict(dict)
     for row in rows:
         by_metric[row["Metric"]][row["Partial weight"]] = percent(float(row["Mean"]))
@@ -51,7 +52,7 @@ Metric & Partial $=0$ & Partial $=0.25$ & Partial $=0.5$ & Partial $=0.75$ & Par
 
 
 def association_loto_table() -> str:
-    rows = read_csv(ROOT / "data/metrics/association_leave_one_out.csv")[:5]
+    rows = read_csv(ROBUSTNESS / "association_leave_one_out.csv")[:5]
     body_lines: list[str] = []
     for row in rows:
         full_phi = float(row["Full phi"])

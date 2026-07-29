@@ -47,9 +47,10 @@ applies to corrections exactly as it applies to new material.
 ## Checks that must pass
 
 1. `make derived` first, whenever the corrected file is `evidence_register_part_*.csv`,
-   `episode_register_part_*.csv`, `association_annotations.csv`, or any `data/metrics/*.csv`.
-   `pairwise_associations.csv` and `evidence_atlas.csv` are computed from those sources, and
-   `make validate` fails closed if either has drifted.
+   `episode_register_part_*.csv`, `reliability_subset.csv`, `association_annotations.csv`, or any
+   `data/metrics/*.csv`. `pairwise_associations.csv`, `evidence_atlas.csv`, and
+   `reliability_subset_blind.csv` are computed from those sources, and `make validate` fails
+   closed if any of them has drifted.
 2. `make validate`, always. It checks documented row counts, the `0 / 0.5 / 1 / empty` score
    domain, categorical vocabularies, derived-score recomputation, the cross-file invariants
    (primary implies direct support, the adjudication set equals the episode-segmented subset,

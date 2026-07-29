@@ -22,6 +22,8 @@ Each record contains applicability, evidence, root-cause status, resolution, val
 
 `data/derived/reliability_subset.csv` is released as a community artifact in its own right. It fixes the competing codes and adjudication questions for the fourteen hardest threads so that an independent coder can repeat those decisions and report agreement. It carries no agreement statistic, because none exists yet.
 
+A second coder works from the generated projection `data/derived/reliability_subset_blind.csv` instead, which withholds the expected primary code, the plausible alternative, and the reason disagreement is likely. The key states all three in the same row as the source URL, so it cannot be used for a blind pass. See [Contributing evidence and coding changes](contributing-evidence.md).
+
 ## Planned registries
 
 - device-integration accessibility: schema draft and worked examples exist, see

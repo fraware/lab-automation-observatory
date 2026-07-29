@@ -122,6 +122,12 @@ The prepared hard-case adjudication set. It covers exactly the 14 threads that w
 | `Priority` | Adjudication priority: critical or high. |
 | `Source URL` | Canonical discussion link. |
 
+### `reliability_subset_blind.csv` (14 rows)
+
+The coder-facing projection of the adjudication set, and the only file a second coder should open. **Generated file.** Every cell is copied verbatim from `reliability_subset.csv` by `make derived`, which `make validate` then checks for drift. It carries `Thread ID`, `Thread`, `Source URL`, `Specific adjudication question`, `Episode segmentation required`, and `Priority`, with the definitions given above.
+
+`Expected primary`, `Plausible alternative`, and `Why disagreement is likely` are deliberately withheld. In the published key those three columns sit in the same row as the source URL, so a coder cannot reach the thread without reading the expected code, and no pass over the key can support an agreement statistic. See [Contributing evidence and coding changes](contributing-evidence.md) for the second-coder path.
+
 ### `publication_claim_ledger.csv` (12 rows)
 
 The review boundary for the project. `scripts/validate_release.py` and `scripts/check_claim_traceability.py` both read this file.
@@ -492,6 +498,15 @@ Ten validated resolved-knowledge records. The YAML and JSON files contain identi
 
 One worked instance of the minimum reproducible automation question, validated against `schemas/troubleshooting-question.schema.json`. Partial execution activates the conditional `physical_state_after_failure` and intervention requirements.
 
+## `docs/generated/`
+
+### `evidence_atlas_summary.md`
+
+A Markdown rendering of every row in `data/derived/evidence_atlas.csv`, one section per
+construct. **Generated file.** Every value is copied verbatim from the atlas; rebuild it
+with `make atlas-summary` (also run as part of `make derived`), which `make validate` then
+checks for drift. See [Evidence atlas](evidence-atlas.md) for what a row means.
+
 ## `data/registry_examples/`
 
 ### `device_interface_registry_examples.yaml` (3 records)
@@ -513,15 +528,6 @@ groups and their rationale.
 | `evidence_sources` | Public source URLs. |
 | `known_limitations`, `prohibited_claims` | Explicit bounds and the downstream claims the record must not be used to support. |
 | `supersedes`, `superseded_by` | Record lineage. |
-
-## `docs/generated/`
-
-### `evidence_atlas_summary.md`
-
-A Markdown rendering of every row in `data/derived/evidence_atlas.csv`, one section per
-construct. **Generated file.** Every value is copied verbatim from the atlas; rebuild it
-with `make atlas-summary` (also run as part of `make derived`), which `make validate` then
-checks for drift. See [Evidence atlas](evidence-atlas.md) for what a row means.
 
 ## Proposing changes
 

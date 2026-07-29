@@ -20,6 +20,8 @@ The study is a single-coder pilot. It reports no inter-rater statistic. Reliabil
 
 The file is an instrument, not a result. Publishing the expected disagreement surface before any second pass is what would make a later agreement statistic meaningful, and it prevents agreement from being computed on the unambiguous threads only. No agreement coefficient appears in this release because no independent second coding exists. See [Contributing evidence and coding changes](contributing-evidence.md) for how to submit one.
 
+Because the key states the expected primary code in the same row as the source URL, a coder cannot reach the thread without reading the answer. `data/derived/reliability_subset_blind.csv` is the generated coder-facing projection that withholds it, and it is the file a second coding pass uses.
+
 ## Claim traceability
 
 Every approved claim in `data/derived/publication_claim_ledger.csv` is bound to the LaTeX sources twice: by a `% claim: Cnn` marker next to the supporting passage, and by a `Manuscript anchor` substring that must appear in that passage. `make claims` fails if either binding is lost.

@@ -10,6 +10,7 @@ nav:
   - Community artifacts: community-artifacts.md
   - Claim discipline: claim-discipline.md
   - Contributing evidence: contributing-evidence.md
+  - Device-interface registry: device-interface-registry.md
   - Correction workflow: correction-workflow.md
 theme:
   name: material

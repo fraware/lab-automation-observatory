@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/fraware/lab-automation-observatory/schemas/device-interface-registry.schema.json",
+  "title": "Device-interface accessibility registry (design draft, unreleased)",
+  "description": "Draft schema for Roadmap 0.2. Each record describes one version-bound device/interface integration path. A record is a durable, updatable entry, not a frozen metric row: fields are grouped so that a fixed accessibility snapshot, a living maintenance state, an evidence grade, and the claims the record must not be used to support can never be confused with one another.",
+  "type": "array",
+  "items": { "$ref": "#/$defs/record" },
+  "$defs": {
+    "component_score": {
+      "description": "0 = property explicitly absent from the reviewed public material. 0.5 = partially represented or only indirectly evidenced. 1 = explicitly and completely evidenced. null = unknown: the reviewed material never addressed this component, so it is excluded from accessibility_score and counted in unknown_components. Unknown must never be silently written as 0.",
+      "enum": [0, 0.5, 1, null]
+    },
+    "record_id_ref": {
+      "type": "string",
+      "pattern": "^DIR-[0-9]{4}-[0-9]{4}$"
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_id",
+        "vendor",
+        "product",
+        "interface_identity",
+        "interface_class",
+        "documentation",
+        "api_protocol",
+        "licence_clarity",
+        "simulator_isolated_testing",
+        "examples_reference_implementation",
+        "maintainer_support_declared",
+        "unknown_components",
+        "accessibility_score",
+        "maintenance_status",
+        "last_verified",
+        "correction_status",
+        "evidence_grade",
+        "evidence_confidence",
+        "evidence_note",
+        "evidence_sources",
+        "known_limitations",
+        "prohibited_claims",
+        "record_steward"
+      ],
+      "properties": {
+        "record_id": {
+          "$ref": "#/$defs/record_id_ref",
+          "description": "Stable identifier for the registry record. Immutable once published; corrections change fields, not the ID."
+        },
+        "vendor": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The organization that manufactures or originally publishes the device or control software. Public and factual, never used to derive a cross-vendor ranking."
+        },
+        "product": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The specific product or platform line the interface belongs to."
+        },
+        "interface_identity": {
+          "type": "string",
+          "minLength": 3,
+          "description": "The specific, version-bound interface path being described, for example a named API, driver framework, protocol, or firmware path. A record describes one interface path, not a whole product line."
+        },
+        "interface_class": {
+          "enum": [
+            "native_driver",
+            "vendor_sdk",
+            "rest_api",
+            "serial_protocol",
+            "plc_firmware",
+            "community_reimplementation",
+            "other"
+          ],
+          "description": "The structural kind of integration path, used for grouping and filtering, not for ranking."
+        },
+        "documentation": { "$ref": "#/$defs/component_score" },
+        "api_protocol": { "$ref": "#/$defs/component_score" },
+        "licence_clarity": { "$ref": "#/$defs/component_score" },
+        "simulator_isolated_testing": { "$ref": "#/$defs/component_score" },
+        "examples_reference_implementation": { "$ref": "#/$defs/component_score" },
+        "maintainer_support_declared": {
+          "$ref": "#/$defs/component_score",
+          "description": "Whether a public maintainer or support channel was declared and observable at the time of assessment. This is a fixed accessibility fact about what was publicly stated; it is distinct from maintenance_status, which tracks whether that support is still current."
+        },
+        "unknown_components": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6,
+          "description": "Count of the six accessibility components above that are null (unknown). Must equal the number of null values among documentation, api_protocol, licence_clarity, simulator_isolated_testing, examples_reference_implementation, and maintainer_support_declared."
+        },
+        "accessibility_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Mean of the six accessibility components, over known (non-null) components only. Measures public interface accessibility conditions at the time of assessment; it is not a device reliability, quality, or completeness score, and it decays into staleness independently of the score's numeric value, which is why maintenance_status and last_verified exist as separate fields."
+        },
+        "maintenance_status": {
+          "enum": ["active", "intermittent", "dormant", "unmaintained", "unknown"],
+          "description": "Current maintenance fact: whether the interface path (vendor or community) shows ongoing upkeep as of last_verified. This is the field that ages a record even when accessibility_score has not changed, and is why the registry is a living artifact rather than a repost of the fixed b2_integration_access.csv snapshot."
+        },
+        "last_activity_observed": {
+          "type": ["string", "null"],
+          "description": "Coarse, source-bound date or date range of the most recent publicly observed maintenance or usage activity (for example '2025' or '2022-2023'), using the same non-precise convention as the underlying metric file's date-relevance column. null when the reviewed material gives no independent activity signal beyond the assessment itself."
+        },
+        "last_verified": {
+          "type": "string",
+          "format": "date",
+          "description": "Date this record's fields were last checked by a maintainer against public sources. Drives staleness review, independent of last_activity_observed."
+        },
+        "correction_status": {
+          "enum": ["active", "review_due", "disputed", "superseded", "archived"],
+          "description": "Record lifecycle state, using the same vocabulary as schemas/knowledge-index.schema.json so the two registries stay operationally consistent."
+        },
+        "evidence_grade": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4,
+          "description": "0 unspecified, 1 declared, 2 measured, 3 device-validated, 4 independently reproduced. Same ordinal ladder used elsewhere in this repository (see data/knowledge_index/schema_fields.csv). Reported independently of accessibility_score, because field completeness and evidence depth are distinct."
+        },
+        "evidence_confidence": {
+          "enum": ["High", "Medium", "Low"],
+          "description": "Submitter or reviewer confidence in the row as coded, not a statistical uncertainty interval."
+        },
+        "evidence_note": {
+          "type": "string",
+          "minLength": 10,
+          "description": "Short rationale grounding the component scores, evidence_grade, and maintenance_status in what the source material actually said."
+        },
+        "evidence_sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "format": "uri" },
+          "description": "Public, stable URLs the record is derived from. Comparable in role to forum_provenance in the knowledge-index schema, generalized to allow more than one source."
+        },
+        "known_limitations": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 5 },
+          "description": "Explicit bounds on what this specific record does and does not establish, for example partial feature coverage or a single hardware generation."
+        },
+        "prohibited_claims": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 5 },
+          "description": "Downstream claims this record must not be used to support. Every record must prohibit cross-vendor reliability or market-share ranking; additional prohibitions are record-specific."
+        },
+        "record_steward": {
+          "type": "string",
+          "minLength": 3,
+          "description": "Public role or project accountable for keeping this record current. Distinct from maintainer_support_declared, which describes the device's own support channel, not the registry record's owner."
+        },
+        "supersedes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/record_id_ref" },
+          "default": []
+        },
+        "superseded_by": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/record_id_ref" },
+          "default": []
+        }
+      }
+    }
+  }
+}

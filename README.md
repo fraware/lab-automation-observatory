@@ -186,6 +186,10 @@ Contributions are welcome, and the most valuable ones are not code. Pick a lane:
   useful than one that fits.
 - **Add or refresh a knowledge record.** Records need an owner and a verification
   date, or they rot.
+- **Discuss the device-interface registry schema.** A design draft with worked
+  examples is at [docs/device-interface-registry.md](docs/device-interface-registry.md);
+  comment on [issue #12](https://github.com/fraware/lab-automation-observatory/issues/12)
+  or open a draft pull request against the schema.
 
 Two documents cover everything you need:
 [CONTRIBUTING.md](CONTRIBUTING.md) for pull-request mechanics, and

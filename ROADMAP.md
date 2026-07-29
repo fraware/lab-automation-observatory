@@ -9,7 +9,9 @@
 ## Release 0.2
 
 - Public correction workflow and evidence-atlas site.
-- Device-interface accessibility registry prototype.
+- Device-interface accessibility registry prototype. Schema draft and worked
+  examples: [docs/device-interface-registry.md](docs/device-interface-registry.md)
+  ([issue #12](https://github.com/fraware/lab-automation-observatory/issues/12)).
 - Structured event-schema proposal.
 
 ## Release 0.3

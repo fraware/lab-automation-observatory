@@ -12,7 +12,6 @@ import csv
 import io
 from itertools import combinations
 from pathlib import Path
-from typing import Any
 
 from .analysis import (
     B2_COMPONENTS,
@@ -137,8 +136,13 @@ def association_leave_one_out_records(root: str | Path) -> list[dict[str, str]]:
     for deleted_index in range(len(rows)):
         subset = rows[:deleted_index] + rows[deleted_index + 1 :]
         ranked = _association_rows(subset)
-        rank_map = {(code_a, code_b): rank for rank, (code_a, code_b, _, _) in enumerate(ranked, 1)}
-        value_map = {(code_a, code_b): (phi, lift) for code_a, code_b, phi, lift in ranked}
+        rank_map = {
+            (code_a, code_b): rank
+            for rank, (code_a, code_b, _, _) in enumerate(ranked, 1)
+        }
+        value_map = {
+            (code_a, code_b): (phi, lift) for code_a, code_b, phi, lift in ranked
+        }
         for pair in pairs:
             phi, lift = value_map[pair]
             phis[pair].append(phi)

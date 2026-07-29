@@ -4,18 +4,25 @@ All notable changes follow Keep a Changelog principles.
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-07-29
+
 ### Added
 
+- `docs/correction-workflow.md`, `artifacts/maintainer_correction_checklist.md`, a structured `evidence-correction` issue form, and a `CONTRIBUTING.md` pointer to them. A repository that publishes coded rows and bounded metrics needs a stated route for disputing either; the workflow names what a reporter must supply, which files a maintainer touches, and the rule that a correction changing a published number lands with its regenerated derived outputs, tables, figures, and golden tests in the same change set.
+- `docs/evidence-atlas.md` and the generated `docs/generated/evidence_atlas_summary.md`, built by `labauto_observatory.atlas_summary` and `scripts/build_atlas_summary.py`, with a `make atlas-summary` target, a drift check in `make validate`, and its own tests. `data/derived/evidence_atlas.csv` existed only as a CSV that a reader had to download and open; the atlas is now browsable prose in the documentation site, generated from the same committed source so the two cannot disagree.
+- `docs/device-interface-registry.md`, `schemas/device-interface-registry.schema.json`, and `data/registry_examples/device_interface_registry_examples.yaml`, a design draft for a bounded device-interface accessibility registry seeded from the B2 component structure and validated in the schema tests. This is the Roadmap 0.2 surface and is explicitly a draft: it records interface facts a practitioner can verify, and it carries no vendor ranking, reliability score, or market claim.
+- `artifacts/adjudication_pilot_v0.1.2.md` and `artifacts/adjudication_pilot_three_threads.csv`, a process validation of the adjudication instrument on three critical threads. It is not a second coding pass and it reports no agreement statistic; its purpose was to find where the published rules underdetermine a coding decision. Its eight findings drive most of the rest of this release.
 - `data/derived/reliability_subset_blind.csv`, the coder-facing projection of the hard-case adjudication set, together with `labauto_observatory.blind_subset`, `scripts/build_blind_subset.py`, a drift check in `make validate`, and its own tests. The published key states `Expected primary`, `Plausible alternative`, and `Why disagreement is likely` in the same row as the source URL, so a coder could not reach a thread without reading the answer; that is finding F1 of `artifacts/adjudication_pilot_v0.1.2.md`. The key is unchanged and stays the maintainer-facing instrument.
-
 - A `Primary-code tie-break` rule in `data/derived/codebook.csv`. Two codes could both be primary-eligible with nothing to choose between them; the primary is now the code whose boundary test fails for the request made in the initiating post, satisfying a code's required evidence makes it direct support rather than primary, and the rejected candidate is recorded in `Analytical note`.
 - A `Read scope` column on the adjudication key and the blind sheet, naming the pages or posts that constitute the coded material for each of the 14 hard threads. A coder who stops at the landing page of a sixty-five-post thread codes a different thread.
 - A `First post anchor` column on the episode registers, filled where the public thread exposes a post anchor, so that two segmentations can be compared post by post rather than only counted. Empty is allowed; a populated cell is checked for post-anchor URL shape.
 - An episode-unit definition in `docs/contributing-evidence.md`, and validation that each thread's expected episode count matches the episode register.
 - An episode-to-thread coherence check in `make validate`: every episode `Primary technical code` and every entry in `Ecosystem modifiers` must carry a direct-support flag on that episode's thread. Nothing previously tied episode codes back to the thread-level flags, so an episode could assert a condition its own thread recorded as unsupported. That is finding F8 of `artifacts/adjudication_pilot_v0.1.2.md`, which reported `T05-E3` and deliberately left it unfixed until the check existed.
+- `artifacts/submission_audit_v0.1.3.md` and `artifacts/release_notes_v0.1.3.md`. The audit records the checks measured at this tip rather than carried forward; the v0.1.2 audit is now frozen as the snapshot for its own tag.
 
 ### Changed
 
+- `README.md`, `ROADMAP.md`, `REPRODUCIBILITY.md`, `docs/index.md`, `docs/community-artifacts.md`, and the MkDocs navigation carry the new correction, atlas, and registry surfaces, with the correction workflow listed ahead of the registry draft in both navigations. A reader who finds an error should reach the correction route before the forward-looking design draft.
 - The second-coder path in `README.md`, `docs/contributing-evidence.md`, `docs/community-artifacts.md`, `docs/methods.md`, and supplement section S4 now names the blind sheet as the only file a second coder should open.
 - B1's `Pilot interpretation` in `data/derived/taxonomy_rules.csv` no longer contradicts its own `Primary-code eligibility`: it is a cross-cutting modifier when it accompanies a technical failure and primary when the thread's object is the artifact, corpus, or governance itself.
 - B7 now excludes purchasing lead time, installation schedule, and component supply, and B2 now excludes claims about vendor market structure rather than a specific integration attempt. Procurement and installation lead time is declared outside the taxonomy instead of each coder improvising a home for it.
@@ -24,6 +31,11 @@ All notable changes follow Keep a Changelog principles.
 - Thread 2's `Primary` moved from B4 to B1 under the new tie-break, which is finding F2 of the pilot. Its initiating post asks for a shared labware database rather than reporting a defective representation, and a maintained canonical corpus would satisfy the request, so B1's boundary test is the one that fails; B4 stays as direct support because the thread names real missing physical attributes. Primary counts move B1 1 to 2 and B4 7 to 6, and episode `T02-E2` already carried B1 as its own primary.
 - The eight rows flagged by the new coherence check are adjudicated against each code's `Required evidence`. Threads 5, 13, and 33 gain the thread-level flags their episodes had already evidenced (`B1` for thread 5 and thread 33, `B1` and `B2` for thread 13), and four episodes lose a modifier that no recorded evidence supported (`B3` from `T07-E3` and `T21-E1`, `B5` from `T09-E2`, `B2` from `T32-E3`). Every affected row records the reason in its `Analytical note` or `Coding note`.
 - Direct-support counts move B1 29 to 32 and B2 17 to 18, which is claim-affecting: the B2--B7 association phi falls to 0.382 with lift 2.037 and a 0.288--0.476 sensitivity width. `paper/sections/04_results.tex`, `data/metrics/strong_relationships.csv`, claim ledger row C06, `paper/generated/*`, `paper/figures/associations.pdf`, and the literals in `tests/test_published_values.py` are updated together. The pair stays above the pilot attention threshold and keeps its enabling-condition reading.
+- The release version in `pyproject.toml`, `CITATION.cff`, `codemeta.json`, and `.zenodo.json` reads `0.1.3`, and `uv.lock` records the bumped project version. No DOI or ORCID is asserted, because none has been registered.
+
+### Removed
+
+- The `forum_contamination_tracking`, `forum_labware_database`, and `forum_plr_zheight` entries in `paper/references.bib`, which no manuscript or supplement passage cited. They were retained forum sources that never entered a reference list, so the `.bib` entry count and the compiled bibliography disagreed by three; both now read 36.
 
 ## [0.1.2] - 2026-07-29
 

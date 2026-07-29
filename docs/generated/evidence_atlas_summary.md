@@ -14,9 +14,9 @@ directly with `uv run python scripts/build_atlas_summary.py`.
 ## B1 -- Knowledge packaging and canonicalization
 
 - **Analytical layer:** Ecosystem condition
-- **Direct-support threads:** 29
+- **Direct-support threads:** 32
 - **Primary-code threads:** 1
-- **Bounded quantitative result:** Not separately quantified; cross-cutting modifier with direct support in 29 of 55 selected threads
+- **Bounded quantitative result:** Not separately quantified; cross-cutting modifier with direct support in 32 of 55 selected threads
 - **Evidence maturity:** Qualitative and count evidence only; no bounded metric
 - **Pilot interpretation:** Cross-cutting modifier when it accompanies a technical failure; primary when the thread's object is the artifact, corpus, or governance itself. Frequent co-code should not be interpreted as an independent failure count.
 - **Strongest descriptive relationship:** Not part of the B2--B9 pairwise set
@@ -28,12 +28,12 @@ directly with `uv run python scripts/build_atlas_summary.py`.
 ## B2 -- Driver and interface accessibility
 
 - **Analytical layer:** Interface / representation
-- **Direct-support threads:** 17
+- **Direct-support threads:** 18
 - **Primary-code threads:** 10
 - **Bounded quantitative result:** Mean Integration Accessibility Score 63.9% over 6 device--interface cases
 - **Evidence maturity:** Component mean over known cells in selected cases
 - **Pilot interpretation:** Technically explicit and suitable for component-level accessibility scoring.
-- **Strongest descriptive relationship:** B2--B7 (phi 0.409, lift 2.157, overlap 8/55; enabling condition)
+- **Strongest descriptive relationship:** B2--B7 (phi 0.382, lift 2.037, overlap 8/55; enabling condition)
 - **Illustrative quotation:** Documentation on drivers is lacking.
 - **Quotation source:** User feedback on Schedulers
 - **Retained counterexample:** PLR plate-reader release; Galago public release
@@ -103,7 +103,7 @@ directly with `uv run python scripts/build_atlas_summary.py`.
 - **Bounded quantitative result:** Constraint discovery 87.5% (7/8 incomplete fields; Wilson 52.9%--97.8%); scenario resolution 0.0% (0/8 incomplete fields; Wilson 0.0%--32.4%)
 - **Evidence maturity:** Bounded proportions with Wilson intervals over one toy scenario
 - **Pilot interpretation:** Strong conceptual evidence; current forum discussion lacks a shared benchmark.
-- **Strongest descriptive relationship:** B2--B7 (phi 0.409, lift 2.157, overlap 8/55; enabling condition)
+- **Strongest descriptive relationship:** B2--B7 (phi 0.382, lift 2.037, overlap 8/55; enabling condition)
 - **Illustrative quotation:** Information about constraints becomes critical.
 - **Quotation source:** Scheduling Software Toy Problem
 - **Retained counterexample:** Galago public release; Shared scheduling ontology proposal

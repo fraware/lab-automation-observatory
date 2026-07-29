@@ -193,8 +193,8 @@ def test_direct_support_and_primary_counts(results: dict[str, Any]) -> None:
     assert list(direct) == CODES
     assert set(primary) == set(CODES)
     assert direct == {
-        "B1": 29,
-        "B2": 17,
+        "B1": 32,
+        "B2": 18,
         "B3": 18,
         "B4": 13,
         "B5": 17,

@@ -12,6 +12,7 @@ All notable changes follow Keep a Changelog principles.
 - A `Read scope` column on the adjudication key and the blind sheet, naming the pages or posts that constitute the coded material for each of the 14 hard threads. A coder who stops at the landing page of a sixty-five-post thread codes a different thread.
 - A `First post anchor` column on the episode registers, filled where the public thread exposes a post anchor, so that two segmentations can be compared post by post rather than only counted. Empty is allowed; a populated cell is checked for post-anchor URL shape.
 - An episode-unit definition in `docs/contributing-evidence.md`, and validation that each thread's expected episode count matches the episode register.
+- An episode-to-thread coherence check in `make validate`: every episode `Primary technical code` and every entry in `Ecosystem modifiers` must carry a direct-support flag on that episode's thread. Nothing previously tied episode codes back to the thread-level flags, so an episode could assert a condition its own thread recorded as unsupported. That is finding F8 of `artifacts/adjudication_pilot_v0.1.2.md`, which reported `T05-E3` and deliberately left it unfixed until the check existed.
 
 ### Changed
 
@@ -20,6 +21,8 @@ All notable changes follow Keep a Changelog principles.
 - B7 now excludes purchasing lead time, installation schedule, and component supply, and B2 now excludes claims about vendor market structure rather than a specific integration attempt. Procurement and installation lead time is declared outside the taxonomy instead of each coder improvising a home for it.
 - Episode `Counterexample` became `Counterexample to`, holding the construct or constructs the episode runs against. The scope previously survived only in free text, so a coder could agree with the boolean while disagreeing about what was contradicted. `T04-E3` is now recorded as a counterexample to B1 alone, since the recommended procedure still ends in contacting named collaborators and remains positive evidence for B10.
 - `Episode segmentation required` states an exact episode count instead of "at least three episodes", which no segmentation could contradict.
+- The eight rows flagged by the new coherence check are adjudicated against each code's `Required evidence`. Threads 5, 13, and 33 gain the thread-level flags their episodes had already evidenced (`B1` for thread 5 and thread 33, `B1` and `B2` for thread 13), and four episodes lose a modifier that no recorded evidence supported (`B3` from `T07-E3` and `T21-E1`, `B5` from `T09-E2`, `B2` from `T32-E3`). Every affected row records the reason in its `Analytical note` or `Coding note`.
+- Direct-support counts move B1 29 to 32 and B2 17 to 18, which is claim-affecting: the B2--B7 association phi falls to 0.382 with lift 2.037 and a 0.288--0.476 sensitivity width. `paper/sections/04_results.tex`, `data/metrics/strong_relationships.csv`, claim ledger row C06, `paper/generated/*`, `paper/figures/associations.pdf`, and the literals in `tests/test_published_values.py` are updated together. The pair stays above the pilot attention threshold and keeps its enabling-condition reading.
 
 ## [0.1.2] - 2026-07-29
 

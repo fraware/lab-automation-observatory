@@ -8,7 +8,8 @@ hand edit cannot silently change a published number:
 * score cells only ever contain ``0``, ``0.5``, ``1``, or an empty unknown;
 * categorical columns only contain their documented vocabulary;
 * every derived score column recomputes from its own component columns;
-* the cross-file invariants hold (primary code implies direct support, the
+* the cross-file invariants hold (primary code implies direct support, an
+  episode's codes are a subset of its thread's direct-support flags, the
   adjudication set is exactly the episode-segmented subset, each thread's
   expected episode count matches the episode register, the B8 alignment class
   agrees with numerator eligibility, and the funnel's Wilson columns agree with
@@ -320,6 +321,37 @@ def check_episode_and_adjudication_subsets(root: Path) -> list[str]:
     return problems
 
 
+def check_episode_thread_coherence(root: Path) -> list[str]:
+    """An episode's codes are a subset of its thread's direct-support flags.
+
+    An episode is a segment of a thread, so a code the episode evidences is a
+    code the thread evidences. Without this check an episode could assert a
+    condition that the thread-level flags deny: ``check_evidence_register``
+    only ties a thread's own primary code to its own flag, and
+    ``check_episode_and_adjudication_subsets`` only checks that an episode code
+    is a construct. The pilot found exactly that gap on ``T05-E3``.
+    """
+
+    problems: list[str] = []
+    threads = {row["ID"]: row for row in _register(root)}
+    for episode in _episodes(root):
+        thread = threads.get(episode["Thread ID"])
+        if thread is None:
+            continue
+        primary = episode["Primary technical code"]
+        claimed = [("primary technical code", primary)] + [
+            ("modifier", code) for code in _codes(episode["Ecosystem modifiers"])
+        ]
+        for role, code in claimed:
+            if code in CODES and thread[code] != "1":
+                problems.append(
+                    f"episode {episode['Episode ID']}: {role} {code} has no direct-support flag "
+                    f"on thread {episode['Thread ID']}, so the episode asserts a condition the "
+                    "thread-level coding denies"
+                )
+    return problems
+
+
 def check_segmentation_targets(root: Path) -> list[str]:
     """Each thread's expected episode count matches the episode register.
 
@@ -543,6 +575,7 @@ CHECKS: tuple[Callable[[Path], list[str]], ...] = (
     check_categoricals,
     check_evidence_register,
     check_episode_and_adjudication_subsets,
+    check_episode_thread_coherence,
     check_segmentation_targets,
     check_episode_provenance,
     check_b2_component_bookkeeping,

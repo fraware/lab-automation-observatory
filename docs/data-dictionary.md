@@ -111,6 +111,8 @@ One row per analytical episode from the 14-thread difficult subset.
 
 An episode is a contiguous run of posts that either raises a new initiating problem or moves to a new lifecycle stage; see [Contributing evidence and coding changes](contributing-evidence.md) for the full definition and for how a retrospective post is segmented.
 
+Because an episode is a segment of its thread, `Primary technical code` and every entry in `Ecosystem modifiers` must also carry a direct-support flag on that thread's row in the evidence register. `make validate` fails otherwise, so a correction that adds an episode code either adds the thread-level flag with its own evidence or drops the code.
+
 ### `reliability_subset.csv` (14 rows)
 
 The prepared hard-case adjudication set. It covers exactly the 14 threads that were segmented into episodes and is an instrument for an independent second coding pass, not a result. No agreement coefficient is reported anywhere in this release because no second coding exists.

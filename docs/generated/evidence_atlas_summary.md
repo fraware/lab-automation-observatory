@@ -15,7 +15,7 @@ directly with `uv run python scripts/build_atlas_summary.py`.
 
 - **Analytical layer:** Ecosystem condition
 - **Direct-support threads:** 32
-- **Primary-code threads:** 1
+- **Primary-code threads:** 2
 - **Bounded quantitative result:** Not separately quantified; cross-cutting modifier with direct support in 32 of 55 selected threads
 - **Evidence maturity:** Qualitative and count evidence only; no bounded metric
 - **Pilot interpretation:** Cross-cutting modifier when it accompanies a technical failure; primary when the thread's object is the artifact, corpus, or governance itself. Frequent co-code should not be interpreted as an independent failure count.
@@ -57,7 +57,7 @@ directly with `uv run python scripts/build_atlas_summary.py`.
 
 - **Analytical layer:** Interface / representation
 - **Direct-support threads:** 13
-- **Primary-code threads:** 7
+- **Primary-code threads:** 6
 - **Bounded quantitative result:** Mean Physical Definition Completeness 67.0% over 4 resource definitions; median evidence grade 2.5
 - **Evidence maturity:** Component mean plus ordinal evidence grade in selected cases
 - **Pilot interpretation:** Incident-rich and suitable for evidence-grade coding.

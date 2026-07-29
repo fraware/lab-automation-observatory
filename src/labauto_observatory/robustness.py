@@ -3,13 +3,14 @@
 The analyses in this module are descriptive stress tests over the purposively
 selected release data. They do not create population estimates or inferential
 p-values. Their purpose is to expose dependence on a conventional partial-score
-weight and on any single selected thread.
+weight, any single selected thread, and defensible alternative denominators.
 """
 
 from __future__ import annotations
 
 import csv
 import io
+from collections import Counter
 from itertools import combinations
 from pathlib import Path
 
@@ -19,6 +20,7 @@ from .analysis import (
     B4_COMPONENTS,
     B5_COMPONENTS,
     METRIC_FILES,
+    OPENING_SCORE_COLUMN,
 )
 from .associations import (
     LIFT_THRESHOLD,
@@ -29,11 +31,12 @@ from .associations import (
     read_register,
 )
 from .io import normalised_newlines, numeric, read_csv, read_text_lf
-from .metrics import association_from_counts, mean_score
+from .metrics import association_from_counts, context_expansion_ratio, mean_score
 
 PARTIAL_WEIGHTS: tuple[float, ...] = (0.0, 0.25, 0.5, 0.75, 1.0)
 PARTIAL_SCORE_RELATIVE = "data/robustness/partial_score_sensitivity.csv"
 ASSOCIATION_LOTO_RELATIVE = "data/robustness/association_leave_one_out.csv"
+DENOMINATOR_RELATIVE = "data/robustness/denominator_sensitivity.csv"
 
 COMPONENT_SPECS: tuple[tuple[str, str, tuple[str, ...]], ...] = (
     ("IAS", METRIC_FILES["b2"], B2_COMPONENTS),
@@ -66,6 +69,17 @@ LOTO_HEADER: tuple[str, ...] = (
     "Top-five deletions",
     "Threshold-retained deletions",
     "Total deletions",
+)
+
+DENOMINATOR_HEADER: tuple[str, ...] = (
+    "Metric",
+    "Variant",
+    "Included units",
+    "Numerator",
+    "Denominator",
+    "Estimate",
+    "Secondary result",
+    "Scope decision",
 )
 
 
@@ -176,6 +190,190 @@ def association_leave_one_out_records(root: str | Path) -> list[dict[str, str]]:
     return records
 
 
+def _b6_record(rows: list[dict[str, str]], variant: str, scope: str) -> dict[str, str]:
+    classes = Counter(row["Preflight detectability"] for row in rows)
+    definite = classes["Yes"] + classes["No"]
+    estimate = classes["Yes"] / definite
+    lower = classes["Yes"] / len(rows)
+    upper = (classes["Yes"] + classes["Indeterminate"]) / len(rows)
+    return {
+        "Metric": "B6 preflight preventability",
+        "Variant": variant,
+        "Included units": str(len(rows)),
+        "Numerator": str(classes["Yes"]),
+        "Denominator": str(definite),
+        "Estimate": format_number(estimate),
+        "Secondary result": f"sensitivity={format_number(lower)}--{format_number(upper)}",
+        "Scope decision": scope,
+    }
+
+
+def _b7_record(rows: list[dict[str, str]], variant: str, scope: str) -> dict[str, str]:
+    scores = [float(row[OPENING_SCORE_COLUMN]) for row in rows]
+    incomplete = [row for row in rows if float(row[OPENING_SCORE_COLUMN]) < 1]
+    discovered = sum(row["Identified in discussion?"] == "Yes" for row in incomplete)
+    resolved = sum(
+        row["Resolved with scenario-specific value?"] == "Yes" for row in incomplete
+    )
+    strict = sum(score == 1 for score in scores)
+    covered = sum(score > 0 for score in scores)
+    return {
+        "Metric": "B7 constraint completeness",
+        "Variant": variant,
+        "Included units": str(len(rows)),
+        "Numerator": format_number(sum(scores)),
+        "Denominator": str(len(rows)),
+        "Estimate": format_number(sum(scores) / len(rows)),
+        "Secondary result": (
+            f"strict={strict}/{len(rows)}; coverage={covered}/{len(rows)}; "
+            f"discovery={discovered}/{len(incomplete)}; resolution={resolved}/{len(incomplete)}"
+        ),
+        "Scope decision": scope,
+    }
+
+
+def _b8_record(rows: list[dict[str, str]], variant: str, scope: str) -> dict[str, str]:
+    aligned = sum(row["Alignment class"] == "Aligned" for row in rows)
+    partial_or_better = sum(
+        row["Alignment class"] in {"Aligned", "Partial"} for row in rows
+    )
+    return {
+        "Metric": "B8 test--claim alignment",
+        "Variant": variant,
+        "Included units": str(len(rows)),
+        "Numerator": str(aligned),
+        "Denominator": str(len(rows)),
+        "Estimate": format_number(aligned / len(rows)),
+        "Secondary result": f"partial-or-better={partial_or_better}/{len(rows)}",
+        "Scope decision": scope,
+    }
+
+
+def _b9_records(rows: list[dict[str, str]]) -> list[dict[str, str]]:
+    initial = sum(row["Origin"] == "Initial" for row in rows)
+    variants = (
+        (
+            "core execution ontology",
+            sum(
+                row["Origin"] == "Reply-added" and row["Core execution scope?"] == "Yes"
+                for row in rows
+            ),
+            "Counts reply-added context classes required for execution reasoning.",
+        ),
+        (
+            "broad deployment ontology",
+            sum(
+                row["Origin"] == "Reply-added"
+                and row["Broader deployment scope?"] == "Yes"
+                for row in rows
+            ),
+            "Counts all reply-added execution and deployment context classes.",
+        ),
+        (
+            "conservative grouped ontology",
+            sum(
+                row["Origin"] == "Reply-added"
+                and row["Counted in conservative grouping?"] == "Yes"
+                for row in rows
+            ),
+            "Merges related concepts to reduce dependence on coding granularity.",
+        ),
+    )
+    return [
+        {
+            "Metric": "B9 context expansion",
+            "Variant": label,
+            "Included units": str(initial + added),
+            "Numerator": str(added),
+            "Denominator": str(initial),
+            "Estimate": format_number(context_expansion_ratio(initial, added)),
+            "Secondary result": f"initial={initial}; reply-added={added}",
+            "Scope decision": scope,
+        }
+        for label, added, scope in variants
+    ]
+
+
+def _b10_record(rows: list[dict[str, str]], variant: str, scope: str) -> dict[str, str]:
+    actionable = sum(row["Actionable public resolution"] == "Yes" for row in rows)
+    partial_or_better = sum(
+        row["Actionable public resolution"] in {"Yes", "Partial"} for row in rows
+    )
+    migrated = sum(row["Private migration"] in {"Yes", "Partial"} for row in rows)
+    return {
+        "Metric": "B10 documentation outcome",
+        "Variant": variant,
+        "Included units": str(len(rows)),
+        "Numerator": str(actionable),
+        "Denominator": str(len(rows)),
+        "Estimate": format_number(actionable / len(rows)),
+        "Secondary result": (
+            f"partial-or-better={partial_or_better}/{len(rows)}; migrated={migrated}/{len(rows)}"
+        ),
+        "Scope decision": scope,
+    }
+
+
+def denominator_sensitivity_records(root: str | Path) -> list[dict[str, str]]:
+    """Summarize primary and adversarial denominator definitions for B6--B10."""
+
+    root_path = Path(root)
+    b6 = read_csv(root_path / METRIC_FILES["b6"])
+    b7 = read_csv(root_path / METRIC_FILES["b7"])
+    b8 = read_csv(root_path / METRIC_FILES["b8"])
+    b9 = read_csv(root_path / METRIC_FILES["b9"])
+    b10 = read_csv(root_path / METRIC_FILES["b10"])
+
+    records = [
+        _b6_record(
+            b6,
+            "all discussed partial-execution scenarios",
+            "Primary scope; includes one explicitly discussed hardware-crash scenario and reports scenarios, not incident prevalence.",
+        ),
+        _b6_record(
+            [row for row in b6 if row["Failure class"] != "Hardware failure"],
+            "reported or deliberately triggered software scenarios",
+            "Adversarial subset excluding the general hardware-crash scenario.",
+        ),
+        _b7_record(
+            b7,
+            "operationally complete scheduler evaluation",
+            "Primary scope; includes failure and recovery policy as an operational scheduler requirement.",
+        ),
+        _b7_record(
+            [row for row in b7 if row["Requirement field"] != "Failure and recovery policy"],
+            "nominal scheduling core",
+            "Adversarial subset for evaluating a static nominal schedule without resilience behavior.",
+        ),
+        _b8_record(
+            b8,
+            "all bounded evaluation objects",
+            "Primary scope; retains the unexecuted proposed experiment as an incomplete test--claim object.",
+        ),
+        _b8_record(
+            [row for row in b8 if float(row["Observed evidence"]) > 0],
+            "executed-evidence subset",
+            "Adversarial subset excluding the prospective experiment with no observed evidence.",
+        ),
+    ]
+    records.extend(_b9_records(b9))
+    records.extend(
+        [
+            _b10_record(
+                b10,
+                "all documentation-centered cases",
+                "Primary scope; retains censored cases and reports private migration separately.",
+            ),
+            _b10_record(
+                [row for row in b10 if row["Private migration"] == "No"],
+                "non-migrated public cases",
+                "Adversarial subset; not preferred because excluding migrated cases can select on outcome visibility.",
+            ),
+        ]
+    )
+    return records
+
+
 def _render(records: list[dict[str, str]], header: tuple[str, ...]) -> str:
     buffer = io.StringIO(newline="")
     writer = csv.DictWriter(buffer, fieldnames=list(header), lineterminator="\n")
@@ -192,16 +390,24 @@ def render_association_leave_one_out_csv(root: str | Path) -> str:
     return _render(association_leave_one_out_records(root), LOTO_HEADER)
 
 
-def write_robustness_csvs(root: str | Path) -> tuple[Path, Path]:
+def render_denominator_sensitivity_csv(root: str | Path) -> str:
+    return _render(denominator_sensitivity_records(root), DENOMINATOR_HEADER)
+
+
+def write_robustness_csvs(root: str | Path) -> tuple[Path, Path, Path]:
     root_path = Path(root)
-    partial_path = root_path / PARTIAL_SCORE_RELATIVE
-    association_path = root_path / ASSOCIATION_LOTO_RELATIVE
-    partial_path.parent.mkdir(parents=True, exist_ok=True)
-    partial_path.write_text(render_partial_score_csv(root_path), encoding="utf-8", newline="")
-    association_path.write_text(
-        render_association_leave_one_out_csv(root_path), encoding="utf-8", newline=""
+    outputs = (
+        (PARTIAL_SCORE_RELATIVE, render_partial_score_csv(root_path)),
+        (ASSOCIATION_LOTO_RELATIVE, render_association_leave_one_out_csv(root_path)),
+        (DENOMINATOR_RELATIVE, render_denominator_sensitivity_csv(root_path)),
     )
-    return partial_path, association_path
+    paths: list[Path] = []
+    for relative, rendered in outputs:
+        destination = root_path / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(rendered, encoding="utf-8", newline="")
+        paths.append(destination)
+    return paths[0], paths[1], paths[2]
 
 
 def robustness_drift(root: str | Path) -> list[str]:
@@ -209,6 +415,7 @@ def robustness_drift(root: str | Path) -> list[str]:
     expected: tuple[tuple[str, str], ...] = (
         (PARTIAL_SCORE_RELATIVE, render_partial_score_csv(root_path)),
         (ASSOCIATION_LOTO_RELATIVE, render_association_leave_one_out_csv(root_path)),
+        (DENOMINATOR_RELATIVE, render_denominator_sensitivity_csv(root_path)),
     )
     problems: list[str] = []
     for relative, rendered in expected:

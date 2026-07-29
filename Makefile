@@ -1,4 +1,4 @@
-.PHONY: sync derived atlas-summary reproduce figures tables graphical-abstract validate claims test lint typecheck paper paper-only supplement cover-letter docs docs-build links ci clean
+.PHONY: sync derived robustness atlas-summary reproduce figures tables graphical-abstract validate claims test lint typecheck paper paper-only supplement cover-letter docs docs-build links ci clean
 
 sync:
 	uv sync --all-extras
@@ -8,9 +8,14 @@ sync:
 # this target is what a data change must run before committing.
 derived:
 	uv run python scripts/build_associations.py
+	uv run python scripts/build_robustness.py
 	uv run python scripts/build_evidence_atlas.py
 	uv run python scripts/build_atlas_summary.py
 	uv run python scripts/build_blind_subset.py
+
+robustness:
+	uv run python scripts/build_robustness.py
+	uv run python scripts/build_robustness_tables.py
 
 # Regenerates only the browsable Markdown rendering of the evidence atlas.
 # Included in `derived` above; kept as its own target so docs-only changes
@@ -26,6 +31,7 @@ figures:
 
 tables:
 	uv run python scripts/build_tables.py
+	uv run python scripts/build_robustness_tables.py
 
 graphical-abstract:
 	uv run python scripts/build_graphical_abstract.py

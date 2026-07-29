@@ -5,8 +5,8 @@ type: software
 authors:
   - family-names: Petel
     given-names: Matéo H.
-version: 0.1.1
-date-released: 2026-07-28
+version: 0.1.2
+date-released: 2026-07-29
 repository-code: "https://github.com/fraware/lab-automation-observatory"
 url: "https://github.com/fraware/lab-automation-observatory"
 license: Apache-2.0

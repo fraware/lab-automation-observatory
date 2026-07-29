@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from collections.abc import Callable
 from pathlib import Path
 from types import ModuleType
@@ -10,18 +11,32 @@ from types import ModuleType
 import pytest
 
 from labauto_observatory.analysis import compute_release_results
+from labauto_observatory.io import read_csv
 
 ROOT = Path(__file__).resolve().parents[1]
 COMMITTED_TABLES = ROOT / "paper" / "generated"
-TABLE_NAMES = ("headline_metrics.tex", "strong_associations.tex", "code_counts.tex")
-FIGURE_NAMES = (
+TABLE_NAMES = (
+    "headline_metrics.tex",
+    "strong_associations.tex",
+    "code_counts.tex",
+    "quotations.tex",
+)
+# Five main-text figures and three supplement figures. Keeping the tuple exact
+# guards the agreed main-text budget: a new figure must be a deliberate change
+# here as well as in the LaTeX sources.
+MAIN_FIGURE_NAMES = (
     "conceptual_model",
     "study_workflow",
-    "metric_dashboard",
-    "associations",
+    "component_heatmap",
     "discovery_resolution",
-    "validation_funnel",
+    "associations",
 )
+SUPPLEMENT_FIGURE_NAMES = (
+    "validation_funnel",
+    "b8_alignment_matrix",
+    "b6_preflight_preventability",
+)
+FIGURE_NAMES = MAIN_FIGURE_NAMES + SUPPLEMENT_FIGURE_NAMES
 
 
 @pytest.fixture(scope="module")
@@ -64,10 +79,47 @@ def test_headline_metrics_table_content(tables: dict[str, str]) -> None:
     assert "\\label{tab:headline-metrics}" in content
     rows = [line for line in content.splitlines() if line.endswith("\\\\") and line[0].isalnum()]
     assert len(rows) == 10  # one header row plus nine construct rows
-    assert "B2 Integration accessibility & 63.9\\% & 6 device--interface cases \\\\" in content
-    assert "B6 Preflight preventability & 66.7\\% & 3 definite scenarios \\\\" in content
-    assert "B9 Core context expansion & 2.0$\\times$ & 5 opening classes \\\\" in content
+    assert "B2 Integration accessibility & 63.9\\% & -- & 6 device--interface cases \\\\" in content
+    assert (
+        "B6 Preflight preventability & 66.7\\% & 20.8--93.9\\% & "
+        "3 definite scenarios of 4 eligible \\\\" in content
+    )
+    assert "B9 Core context expansion & 2.0$\\times$ & -- & 5 opening classes \\\\" in content
     assert "do not estimate forum-wide or industry-wide rates" in content
+
+
+def test_headline_metrics_interval_column_is_only_for_proportions(
+    tables: dict[str, str],
+) -> None:
+    """A mean of ordinal component scores must not carry a binomial interval."""
+
+    content = tables["headline_metrics.tex"]
+    intervals = {
+        line.split("&")[0].strip(): line.split("&")[2].strip()
+        for line in content.splitlines()
+        if line.endswith("\\\\") and line.startswith("B")
+    }
+    means_and_ratios = (
+        "B2 Integration accessibility",
+        "B3 Deployment manifest",
+        "B4 Physical definitions",
+        "B5 Observability",
+        "B9 Core context expansion",
+    )
+    for construct in means_and_ratios:
+        assert intervals[construct] == "--"
+    for construct, interval in intervals.items():
+        if construct not in means_and_ratios:
+            assert interval.endswith("\\%") and "--" in interval
+
+
+def test_quotations_table_covers_the_whole_quote_bank(tables: dict[str, str]) -> None:
+    quotes = read_csv(ROOT / "data/derived/quote_bank.csv")
+    content = tables["quotations.tex"]
+    rows = [line for line in content.splitlines() if line.endswith("\\\\") and line[0] == "B"]
+    assert len(rows) == len(quotes)
+    assert "\\label{tab:s-quotations}" in content
+    assert "never counted as quantitative observations" in content
 
 
 def test_headline_metrics_table_matches_recomputed_values(tables: dict[str, str]) -> None:
@@ -106,6 +158,55 @@ def test_strong_associations_table_content(tables: dict[str, str]) -> None:
     assert rows[0].startswith("B5--B6 & 8/55 & 0.452 & 2.353")
     assert f"{association['phi']:.3f}" in content
     assert "Associations are descriptive." in content
+
+
+def test_main_text_holds_seven_figures_and_tables() -> None:
+    """The manuscript keeps a fixed main-text display budget of seven items."""
+
+    sources = sorted((ROOT / "paper" / "sections").glob("*.tex"))
+    body = "\n".join(path.read_text(encoding="utf-8") for path in sources)
+    included = re.findall(r"\\includegraphics\[[^]]*\]\{figures/([^.}]+)\.pdf\}", body)
+    inputs = re.findall(r"\\input\{generated/([^.}]+)\.tex\}", body)
+    assert sorted(included) == sorted(MAIN_FIGURE_NAMES)
+    assert sorted(inputs) == ["headline_metrics", "strong_associations"]
+    assert len(included) + len(inputs) == 7
+
+
+def test_supplement_uses_the_remaining_figures_and_tables() -> None:
+    """Every generated artifact is referenced somewhere, and nothing is orphaned."""
+
+    supplement = (ROOT / "paper" / "supplement.tex").read_text(encoding="utf-8")
+    included = re.findall(r"\\includegraphics\[[^]]*\]\{figures/([^.}]+)\.pdf\}", supplement)
+    inputs = re.findall(r"\\input\{generated/([^.}]+)\.tex\}", supplement)
+    assert sorted(included) == sorted(SUPPLEMENT_FIGURE_NAMES)
+    assert sorted(inputs) == ["code_counts", "quotations"]
+
+
+def test_committed_figures_match_the_expected_set() -> None:
+    """No stale PDF may linger in `paper/figures` after a figure is swapped out."""
+
+    committed = {path.stem for path in (ROOT / "paper" / "figures").glob("*.pdf")}
+    assert committed == set(FIGURE_NAMES)
+
+
+def test_every_figure_can_reach_a_float_page() -> None:
+    """Guards the two halves of the fix for figures escaping past the bibliography.
+
+    A float that LaTeX rejects everywhere is deferred behind every later float
+    and flushed at the end of the document, so the multi-panel figures need both
+    a raised top fraction and a float page as a last resort. Neither piece is
+    visible in a compiled page count, so assert them at the source.
+    """
+
+    sources = sorted((ROOT / "paper" / "sections").glob("*.tex"))
+    sources.append(ROOT / "paper" / "supplement.tex")
+    for path in sources:
+        placements = re.findall(r"\\begin\{figure\}\[([^]]*)\]", path.read_text(encoding="utf-8"))
+        assert all("p" in placement for placement in placements), path.name
+
+    macros = (ROOT / "paper" / "macros.tex").read_text(encoding="utf-8")
+    assert "\\renewcommand{\\topfraction}{0.85}" in macros
+    assert "\\renewcommand{\\floatpagefraction}{0.8}" in macros
 
 
 def test_figures_are_created(figures: Path) -> None:

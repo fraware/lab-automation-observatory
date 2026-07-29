@@ -7,7 +7,15 @@ import pytest
 from typer.testing import CliRunner
 
 from labauto_observatory.cli import app
-from labauto_observatory.io import integer, numeric, read_csv_many, read_json, read_yaml
+from labauto_observatory.io import (
+    integer,
+    normalised_newlines,
+    numeric,
+    read_csv_many,
+    read_json,
+    read_text_lf,
+    read_yaml,
+)
 from labauto_observatory.metrics import (
     association_from_counts,
     mean_score,
@@ -31,6 +39,13 @@ def test_io_helpers() -> None:
     assert numeric("") is None
     assert integer(" 4.0 ") == 4
     assert integer(" ") is None
+
+
+def test_line_ending_helpers(tmp_path: Path) -> None:
+    assert normalised_newlines("a\r\nb\rc\nd") == "a\nb\nc\nd"
+    target = tmp_path / "mixed.txt"
+    target.write_bytes(b"a\r\nb\rc\nd")
+    assert read_text_lf(target) == "a\nb\nc\nd"
 
 
 def test_cli_reproduce() -> None:

@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Iterable
 from dataclasses import asdict, dataclass
 from math import sqrt
-from statistics import fmean
+from statistics import fmean, median
 
 
 @dataclass(frozen=True)
@@ -74,6 +74,21 @@ def association_from_counts(n11: int, n10: int, n01: int, n00: int) -> Associati
     )
 
 
+def phi_with_shifted_overlap(n11: int, n10: int, n01: int, n00: int, delta: int) -> float | None:
+    """Phi after moving ``delta`` threads into or out of the overlap cell.
+
+    Marginal counts are held fixed, so one thread entering the overlap must
+    leave both discordant cells. ``None`` marks a shift that no recoding of a
+    single thread could produce.
+    """
+
+    _require_nonnegative(n11, n10, n01, n00)
+    shifted = (n11 + delta, n10 - delta, n01 - delta, n00 + delta)
+    if any(count < 0 for count in shifted):
+        return None
+    return phi_coefficient(*shifted)
+
+
 def wilson_interval(successes: int, trials: int, z: float = 1.96) -> tuple[float, float]:
     """Return a two-sided Wilson score interval for a binomial proportion."""
 
@@ -99,6 +114,15 @@ def mean_score(values: Iterable[float | None]) -> float:
     if any(value < 0 or value > 1 for value in known):
         raise ValueError("scores must lie in [0, 1]")
     return fmean(known)
+
+
+def median_ordinal(values: Iterable[float | None]) -> float:
+    """Median over known ordinal grades, keeping unknown separate from zero."""
+
+    known = [float(value) for value in values if value is not None]
+    if not known:
+        raise ValueError("at least one known grade is required")
+    return median(known)
 
 
 def context_expansion_ratio(initial_classes: int, added_classes: int) -> float:

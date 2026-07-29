@@ -12,11 +12,11 @@ Direct-support and primary-code counts are reported in Supplementary Table~S1. T
 
 \input{generated/headline_metrics.tex}
 
-\begin{figure}[t]
+\begin{figure}[tp]
   \centering
-  \includegraphics[width=\linewidth]{figures/metric_dashboard.pdf}
-  \caption{Field-level pilot metrics. The bars have distinct bounded denominators and do not form a common system-performance scale.}
-  \label{fig:metric-dashboard}
+  \includegraphics[width=\linewidth]{figures/component_heatmap.pdf}
+  \caption{Component-level scores behind the four completeness metrics, with one row per scored field and one column per coded case. Each cell is absent (0), partial (0.5), or complete (1); hatched cells marked \emph{n/a} are outside the case's scope and are excluded from that case's denominator. The four panels have separate case sets and separate field sets, so the panel means are not comparable to one another and do not form a common system-performance scale.}
+  \label{fig:component-heatmap}
 \end{figure}
 
 The mean Integration Accessibility Score was 63.9\% across six device--interface cases. Documentation averaged 75.0\%, API or protocol access averaged 83.3\%, and simulator or isolated testing averaged 25.0\%. Two cases scored at least 75\%, and three produced a positive public implementation, current interface answer, or structured development pathway. The strongest open case combined a host-independent public API, executable example, and identifiable maintainer. The weakest cases involved inaccessible licensing, missing test surfaces, obsolete tools, model-specific register maps, or support paths that could not resolve the full integration.
@@ -31,7 +31,7 @@ Mean Observability Coverage was 52.5\% across four execution and diagnostic case
 \subsection{Partial execution and recovery}
 
 % claim: C02
-Four partial-execution scenarios were coded for preflight detectability. Two model-level failures were clearly detectable before the first irreversible action. A hardware crash was not plan-preflight preventable. A bounded software-error scenario included successful return-to-source handling through a custom abort routine, although the public record did not establish whether its triggering error was knowable before aspiration \cite{forum_return_volume}. The complete-case Preflight Preventability Rate was therefore $2/3=66.7\%$. Treating the indeterminate case as non-preventable or preventable produced a sensitivity interval from 50.0\% to 75.0\%. The Wilson interval for two successes in three definite scenarios was 20.8\%--93.9\%, which communicates the small denominator more faithfully than the point estimate alone.
+Four partial-execution scenarios were coded for preflight detectability. Two model-level failures were clearly detectable before the first irreversible action. A hardware crash was not plan-preflight preventable. A bounded software-error scenario included successful return-to-source handling through a custom abort routine, although the public record did not establish whether its triggering error was knowable before aspiration \cite{forum_return_volume}. The complete-case Preflight Preventability Rate was therefore $2/3=66.7\%$. Treating the indeterminate case as non-preventable or preventable produced a sensitivity interval from 50.0\% to 75.0\%. The Wilson interval for two successes in three definite scenarios was 20.8\%--93.9\%, which communicates the small denominator more faithfully than the point estimate alone. Supplementary Figure~S3 shows the four scenarios beside the rate, its interval, and its sensitivity bounds.
 
 The composite-transfer incident exposes the mechanism. Tip pickup and aspiration completed before a destination-lid state error prevented dispensing \cite{forum_error_catching}. The failure had a software location and a physical consequence. Valuable liquid remained in tips, source-volume state had changed, and ordinary method restart could duplicate or invalidate actions. Full-sequence validation could detect the modeled state conflict before dispatch. Recovery still required a record of completed actions, material in transit, operator intervention, and final disposition.
 
@@ -40,10 +40,10 @@ The composite-transfer incident exposes the mechanism. Tip pickup and aspiration
 % claim: C03
 The scheduling toy problem included devices, capacities, task quantities, durations, transfer time, and release times. It partially specified precedence, storage, timing preferences, and priorities. It omitted sample stability, interruptibility, terminal disposition, and failure policy. Weighted opening completeness was 53.8\%, strict completeness was 38.5\%, and field coverage was 69.2\%. Seven of eight incomplete requirement classes were surfaced in replies, producing an 87.5\% discovery rate. None received a definitive scenario-specific value, producing a 0\% resolution rate and an 87.5 percentage-point discovery--resolution gap \cite{forum_scheduling_toy}.
 
-\begin{figure}[t]
+\begin{figure}[tp]
   \centering
-  \includegraphics[width=0.74\linewidth]{figures/discovery_resolution.pdf}
-  \caption{The scheduling discussion surfaced missing requirement classes without producing a fully specified benchmark instance.}
+  \includegraphics[width=0.86\linewidth]{figures/discovery_resolution.pdf}
+  \caption{Each scheduling requirement class at three stages of the single analyzed discussion: specification in the opening post, surfacing in replies, and resolution to a scenario-specific value. The discussion surfaced seven of the eight incomplete classes and resolved none of them, so the constraint set was clarified without producing a fully specified benchmark instance.}
   \label{fig:discovery-resolution}
 \end{figure}
 
@@ -52,7 +52,7 @@ This result captures a positive community function. The discussion identified wh
 \subsection{Test--claim alignment and AI validation}
 
 % claim: C09
-Mean element completeness across six bounded test claims was 73.3\%. Two claims fully aligned object, environment, acceptance rule, observed evidence, and scope. Five were at least partially aligned. The strongest aligned cases were the cross-machine tip-definition post-mortem and the VerisFlow result after its wording was restricted to simulation-trace agreement. A proposed contamination experiment was incomplete because no executed evidence or reconciled acceptance threshold was reported. TADM pressure evidence was partial because the observed curves lacked complete starting conditions and an independent transfer measure.
+Mean element completeness across six bounded test claims was 73.3\%. Two claims fully aligned object, environment, acceptance rule, observed evidence, and scope. Five were at least partially aligned. The strongest aligned cases were the cross-machine tip-definition post-mortem and the VerisFlow result after its wording was restricted to simulation-trace agreement. A proposed contamination experiment was incomplete because no executed evidence or reconciled acceptance threshold was reported. TADM pressure evidence was partial because the observed curves lacked complete starting conditions and an independent transfer measure. Supplementary Figure~S2 resolves each claim into its five elements.
 
 % claim: C05
 The VerisFlow post reported 92 matching traces from 100 randomly generated worklists. The corresponding Wilson interval was 85.0\%--95.9\% \cite{forum_verisflow}. The deepest quantitatively supported stage was simulation-trace agreement. No dry hardware, wet transfer, or assay rate was reported in the analyzed discussion. Supplementary Figure~S1 binds the reported denominator to that validation stage and marks later physical stages as unreported.
@@ -71,10 +71,10 @@ Positive cases were substantial. A Hamilton HSL discussion surfaced installed re
 
 \input{generated/strong_associations.tex}
 
-\begin{figure}[t]
+\begin{figure}[tp]
   \centering
-  \includegraphics[width=0.86\linewidth]{figures/associations.pdf}
-  \caption{Leading phi coefficients among technical constructs B2--B9. Each remained positive after one overlapping thread was recoded in either direction.}
+  \includegraphics[width=0.82\linewidth]{figures/associations.pdf}
+  \caption{All 28 pairwise phi coefficients among the technical constructs B2--B9, computed on the 55 selected threads. Outlined cells exceed the pilot attention threshold $\phi \geq 0.30$. The coefficients describe co-occurrence within a purposively selected register; they are not tests of association in a population, and negative values are not interpreted as technical antagonism because forum structure and primary-topic coding can separate codes on their own.}
   \label{fig:associations}
 \end{figure}
 

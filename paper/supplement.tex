@@ -59,31 +59,39 @@ For the two-by-two table $(n_{11},n_{10},n_{01},n_{00})$,
 \]
 
 \section{Validation-stage representation}
-\begin{figure}[t]
+The AI method-generation result in the analyzed discussion was reported at one stage only. \Cref{fig:s-validation-funnel} separates that stage from the stages that were described without a denominator and from the stages that were not reported at all, so that the depth of the reported evidence is visible without inference. The stage rows and counts come from \path{data/metrics/ai_validation_funnel.csv}, whose interval columns are recomputed by \code{labauto\_observatory.metrics.wilson\_interval}.
+
+\begin{figure}[tp]
   \centering
-  \includegraphics[width=0.9\linewidth]{figures/validation_funnel.pdf}
-  \caption{Validation-stage representation for the source-reported AI method-generation result. Input and syntax capabilities are described, simulation receives a quantitative denominator, and later physical stages remain unreported.}
+  \includegraphics[width=0.94\linewidth]{figures/validation_funnel.pdf}
+  \caption{Validation-stage representation for the source-reported AI method-generation result. Only the simulation stage carries a denominator, so only that stage is drawn as a rate with an interval. Stages that were described without a denominator, and stages that were not reported at all, are drawn as bands across the whole axis rather than as bars, so that ``reported'' cannot be read as a measured success rate.}
   \label{fig:s-validation-funnel}
+\end{figure}
+
+\section{Test--claim alignment elements}
+A claim counts as fully aligned only when all five elements support the normalized statement, so the class in \path{data/metrics/b8_test_claim_alignment.csv} is determined by the element scores rather than asserted alongside them. \Cref{fig:s-b8-alignment} shows which element is missing in each partial or incomplete case, which is the information the headline proportion necessarily discards.
+
+\begin{figure}[tp]
+  \centering
+  \includegraphics[width=0.94\linewidth]{figures/b8_alignment_matrix.pdf}
+  \caption{The five alignment elements for each of the six bounded B8 test claims. Every claim named a test object; observed evidence and reconciled acceptance criteria were the elements most often left partial. The row label records the overall alignment class assigned during coding.}
+  \label{fig:s-b8-alignment}
+\end{figure}
+
+\section{Preflight preventability and its bounds}
+The complete-case Preflight Preventability Rate has a denominator of three, so the point estimate carries very little information on its own. \Cref{fig:s-b6-preventability} therefore shows the four eligible scenarios and their detectability classes beside the rate, its Wilson interval, and the two values the rate would take if the indeterminate scenario were resolved in either direction. The indeterminate scenario is never imputed.
+
+\begin{figure}[tp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/b6_preflight_preventability.pdf}
+  \caption{The four eligible partial-execution scenarios by preflight detectability, beside the complete-case rate. The complete-case denominator excludes the indeterminate scenario; the shaded band shows the two values the rate would take if that scenario were resolved in either direction. The Wilson interval spans most of the unit interval, which is the honest consequence of three definite scenarios.}
+  \label{fig:s-b6-preventability}
 \end{figure}
 
 \section{Short anonymized quotations}
 Quotations are illustrative and are not independent quantitative observations.
-\begin{longtable}{@{}p{0.08\linewidth}p{0.48\linewidth}p{0.36\linewidth}@{}}
-\toprule
-Code & Short quotation & Source discussion \\
-\midrule
-B1 & ``Finding labware is a mess.'' & Database storing common labware specifications \\
-B2 & ``Documentation on drivers is lacking.'' & User feedback on schedulers \\
-B3 & ``This is a runtime state file.'' & Tecan Fluent version control \\
-B4 & ``This attribute has so far been completely missing in PLR.'' & PLR carrier z-height issue \\
-B5 & ``Capture everything---and only surface what you need today.'' & Automation report data \\
-B6 & ``I might have valuable liquid in my tips.'' & Error catching for composite functions \\
-B7 & ``Information about constraints becomes critical.'' & Scheduling toy problem \\
-B8 & ``It may be called a functional test instead.'' & Unit tests \\
-B9 & ``The human operator still needs to feed back the AI.'' & AI assisted method writing \\
-B10 & ``This would have saved me so much time.'' & Hamilton HSL learning \\
-\bottomrule
-\end{longtable}
+
+\input{generated/quotations.tex}
 
 \section{Reproduction}
 Run \code{make reproduce}, \code{make test}, and \code{make paper}. Expected values are asserted in \code{tests/test\_published\_values.py}. Community records validate against JSON Schema Draft 2020-12.

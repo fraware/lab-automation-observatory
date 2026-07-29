@@ -16,6 +16,7 @@ All notable changes follow Keep a Changelog principles.
 - `scripts/figure_style.py`, one module owning print typography, the Okabe--Ito palette, deterministic saving, and the single taxonomy specification now shared by the conceptual-model figure and the graphical abstract.
 - Supplement figures for the B8 alignment matrix and for B6 preflight detectability beside its rate, interval, and sensitivity bounds.
 - A `make derived` target, and mutation tests that break one release-data invariant at a time and assert the reported problem.
+- `artifacts/submission_audit_v0.1.2.md` and `artifacts/release_notes_v0.1.2.md`. This is the first audit with a successful local document build, so its page counts and reference count are measured rather than carried forward; the v0.1.1 audit is frozen.
 
 ### Changed
 

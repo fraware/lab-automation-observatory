@@ -1,0 +1,60 @@
+# Illustrative stream grounded in the third and fourth B6 scenarios in
+# data/metrics/b6_preflight_preventability.csv (return volume after abort).
+# Shows an irreversible aspiration prefix, a software-triggered failure with
+# indeterminate preflight detectability, and bounded recovery events.
+schema_version: "0.1.0-draft"
+run_id: RUN-B6-3201
+method_identity: sha256:method-abort-return-volume
+notes: Custom abort handler returns aspirated material to source.
+events:
+  - event_id: e0
+    sequence: 0
+    event_type: run_started
+    actor: scheduler
+  - event_id: e1
+    sequence: 1
+    event_type: config_bound
+    actor: scheduler
+  - event_id: e2
+    sequence: 2
+    event_type: resource_bound
+    actor: scheduler
+  - event_id: e3
+    sequence: 3
+    event_type: command_issued
+    actor: scheduler
+    command: aspirate 100 uL on four channels
+    physically_irreversible: true
+    preflight_checkable: null
+  - event_id: e4
+    sequence: 4
+    event_type: command_acknowledged
+    actor: device
+    acknowledges: e3
+    outcome: completed
+  - event_id: e5
+    sequence: 5
+    event_type: failure_raised
+    actor: scheduler
+    severity: error
+    message: deliberate non-hardware vector error after aspiration
+    failure_class: post_execution_software_error
+    preflight_detectable: "indeterminate"
+  - event_id: e6
+    sequence: 6
+    event_type: recovery_action
+    actor: scheduler
+    recovery: custom abort handler dispense-to-source and tip eject
+    restores:
+      - e3
+  - event_id: e7
+    sequence: 7
+    event_type: disposition_recorded
+    actor: scheduler
+    material_disposition: returned_to_source
+    disposition_evidence: null
+  - event_id: e8
+    sequence: 8
+    event_type: run_finished
+    actor: scheduler
+    run_result: aborted

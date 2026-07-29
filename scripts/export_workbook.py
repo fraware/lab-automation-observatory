@@ -3,6 +3,12 @@
 
 The workbook is a retained research artifact.  Downstream analyses consume the
 CSV/YAML files committed under ``data/`` and do not require this exporter.
+
+Two committed files are deliberately absent from ``EXPORTS`` because they are
+now built from other committed data rather than exported:
+``data/metrics/pairwise_associations.csv`` (``scripts/build_associations.py``)
+and ``data/derived/evidence_atlas.csv`` (``scripts/build_evidence_atlas.py``).
+Re-adding them here would reintroduce a second source of truth.
 """
 
 from __future__ import annotations
@@ -43,10 +49,8 @@ EXPORTS: dict[str, tuple[int, int, str]] = {
     "B9_Context_Expansion": (2, 24, "data/metrics/b9_context_expansion.csv"),
     "B10_Documentation_Profile": (2, 14, "data/metrics/b10_documentation_profile.csv"),
     "AI_Validation_Funnel": (2, 9, "data/metrics/ai_validation_funnel.csv"),
-    "Pairwise_Associations": (2, 30, "data/metrics/pairwise_associations.csv"),
     "Strong_Relationships": (2, 7, "data/metrics/strong_relationships.csv"),
     "Hypothesis_Map": (2, 10, "data/derived/hypothesis_map.csv"),
-    "Evidence_Atlas": (2, 12, "data/derived/evidence_atlas.csv"),
     "Troubleshooting_Template": (2, 27, "data/derived/troubleshooting_template.csv"),
     "Knowledge_Index_Schema": (2, 20, "data/knowledge_index/schema_fields.csv"),
     "Seed_Knowledge_Records": (2, 12, "data/knowledge_index/seed_records.csv"),

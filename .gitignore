@@ -24,6 +24,8 @@ paper/*.synctex.gz
 paper/*.toc
 paper/*.pdf
 paper/*.spl
+paper/check_*.png
+scratch/
 # Figure policy: the vector figures consumed by LaTeX (paper/figures/*.pdf) and
 # the graphical abstract are committed so that a fresh clone with only a TeX
 # distribution can build the manuscript. `make figures` and

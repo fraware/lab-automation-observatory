@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+from collections.abc import Callable
 from pathlib import Path
 
 import pytest
 
 from labauto_observatory.robustness import (
+    ASSOCIATION_LOTO_RELATIVE,
+    PARTIAL_SCORE_RELATIVE,
     association_leave_one_out_records,
     partial_score_records,
     robustness_drift,
@@ -72,3 +75,22 @@ def test_leave_one_out_leading_pairs() -> None:
 
 def test_robustness_outputs_have_no_drift() -> None:
     assert robustness_drift(ROOT) == []
+
+
+def test_component_mutation_invalidates_partial_score_output(
+    data_root: Path, edit_csv: Callable[..., None]
+) -> None:
+    edit_csv(data_root / "data/metrics/b2_integration_access.csv", 0, Documentation="0")
+    problems = robustness_drift(data_root)
+    assert f"{PARTIAL_SCORE_RELATIVE} has drifted from its source data; run `make derived`" in problems
+
+
+def test_register_mutation_invalidates_association_influence_output(
+    data_root: Path, edit_csv: Callable[..., None]
+) -> None:
+    edit_csv(data_root / "data/derived/evidence_register_part_01.csv", 0, B2="1")
+    problems = robustness_drift(data_root)
+    assert (
+        f"{ASSOCIATION_LOTO_RELATIVE} has drifted from its source data; run `make derived`"
+        in problems
+    )

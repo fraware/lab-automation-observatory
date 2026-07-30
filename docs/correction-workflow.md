@@ -134,8 +134,6 @@ from `make derived`.
 
 ## Maintainer checklist
 
-The one-page version of this section is [`artifacts/maintainer_correction_checklist.md`](https://github.com/fraware/lab-automation-observatory/blob/main/artifacts/maintainer_correction_checklist.md).
-
 1. Confirm the pull request names the exact record, claim, metric, or file affected, and links a
    public source, per the [pull-request template](https://github.com/fraware/lab-automation-observatory/blob/main/.github/pull_request_template.md).
 2. Classify the correction as note-only, claim-affecting, or release-blocking using the section

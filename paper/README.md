@@ -38,4 +38,4 @@ Every approved claim in `data/derived/publication_claim_ledger.csv` carries a `%
 
 ## Submission target
 
-The release is prepared as Original Research for the **SLAS Technology special issue `NexusXp: The Connected Lab`**, with regular SLAS Technology as the transfer preference. See `submission_metadata.md` and `submission_checklist.md`.
+The release is prepared as Original Research for the **SLAS Technology special issue `NexusXp: The Connected Lab`**, with regular SLAS Technology as the transfer preference. See `submission_metadata.md`.

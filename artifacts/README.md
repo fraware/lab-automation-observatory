@@ -18,7 +18,6 @@ The public repository contains derived data and deterministic generators. The re
 | [release_notes_v0.1.4.md](release_notes_v0.1.4.md) | **Current** release notes: audit split, dual-SHA manifest, ZIP builder, frozen workflows, final `v0.1.4` certification. |
 | [submission_bundle_manifest_v0.1.4.yaml](submission_bundle_manifest_v0.1.4.yaml) | Concrete v0.1.4 bundle manifest (dual SHAs, hashes, page counts, checks, `source_archive`). |
 | [requirements.environment.v0.1.0.txt](requirements.environment.v0.1.0.txt) | Historical v0.1.0 interpreter pin snapshot; not an install authority (`uv.lock` is). |
-| [external_submission_actions.md](external_submission_actions.md) | Human/portal follow-ups that stay outside repository automation. |
 | [adjudication_pilot_v0.1.2.md](adjudication_pilot_v0.1.2.md) | Process validation of the adjudication instrument on three critical threads, with [adjudication_pilot_three_threads.csv](adjudication_pilot_three_threads.csv) as the per-thread record. Not a second coding pass and not a source of any agreement statistic. |
 
 When citing "the audit" or "the release checks" for the live state of `main`, point at the highest-numbered `submission_audit_v*.md`; do not treat an older frozen audit as current.

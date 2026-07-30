@@ -31,7 +31,6 @@ LATEX_SOURCE_GLOBS = (
     "paper/generated/**/*",
     "paper/highlights.txt",
     "paper/submission_bundle_manifest.template.yaml",
-    "paper/submission_checklist.md",
 )
 
 DATA_CODE_MEMBERS = (

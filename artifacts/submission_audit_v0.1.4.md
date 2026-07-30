@@ -90,9 +90,5 @@ No new claim-affecting scientific re-estimate. B2–B7 full-corpus phi remains
 **0.382**. Version metadata is consistently `0.1.4`. DOI / preprint / ORCID
 remain null.
 
-## Remaining for full portal close (issue #8, not this audit)
-
-1. Author portal / Editorial Manager upload and portal PDF comparison.
-2. Zenodo / DOI / ORCID wiring (issue #8).
-3. Optional: install a `perl`-capable `latexmk` (or TeX Live in WSL) so
-   `make paper` / `make supplement` succeed without direct `pdflatex` passes.
+Repository engineering certification for this tag is complete. Journal deposit,
+preprint identifiers, and DOI assignment are outside the scope of this audit.

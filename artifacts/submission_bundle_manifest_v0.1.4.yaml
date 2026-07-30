@@ -3,13 +3,14 @@ project:
   name: Lab Automation Forum Bottleneck Observatory
   version: 0.1.4
   repository: https://github.com/fraware/lab-automation-observatory
-  commit_sha: c860747e7a8d4ae002ba2df250c224fc2d63a85f
-  tag: v0.1.4-rc1
+  source_content_sha: 2a0fc1e21153198a383329f4ff313808957f163e
+  certification_commit_sha: REPLACE_AFTER_CERT_COMMIT
+  tag: v0.1.4
 submission:
   venue: SLAS Technology
   collection: NexusXp - The Connected Lab
   article_type: Original Research
-  created_at_utc: "2026-07-30T07:40:00Z"
+  created_at_utc: "2026-07-30T17:00:00Z"
   supersedes:
     - Lab_Automation_Observatory_SLAS_Submission_2026-07-28.zip
 identifiers:
@@ -31,43 +32,44 @@ build:
     - make tables
     - make graphical-abstract
     - pdflatex/bibtex passes for main.tex, supplement.tex, cover_letter.tex
+    - pdftoppm -png page-image visual review (41 pages)
   clean_worktree_after_build: true
 source_hashes:
-  data_tree_sha256: bb51dffd1db7add51af1ace144baa99fafe2af7fdab34c8b398c9bbe6433811a
-  paper_source_tree_sha256: 8dc9a7b1878681076f11c9e8b4b17e9d844b6c73a39324f9306c53f66af0626d
+  data_tree_sha256: 8351f4d0aa821edbd8a0b0a904d851960b0d2a3195b8045f4e069bbe25a1d2a3
+  paper_source_tree_sha256: f22d24c616df04787ad97e1c36881b0be658f392c24e0544f74738ebbd079c2a
 artifacts:
   manuscript_pdf:
     path: paper/main.pdf
-    sha256: 0d6cd50d0ca461c5cf56edcf736a8c538f154ec76ec5d72d50471b48c1fdbdf2
+    sha256: 70c474b8b67cccfedb840c74bf1f4de14608882168c1dcf176184ec598c0d8a2
     pages: 29
   supplement_pdf:
     path: paper/supplement.pdf
-    sha256: 075ba6c00c590ed5afba0cfece509f6dd492e3872a1b739766a2ac6e81bb0de9
+    sha256: f5a5977538aa29676fbb4483eccffb0e4da922909f792b85c8c10394abb1cb10
     pages: 10
   cover_letter_pdf:
     path: paper/cover_letter.pdf
-    sha256: b6b6e55acd1c6f1d77e1f4a6a7773648a964cd1cc815ac63e1ea2a193c42fb11
+    sha256: 4ac210b00e5e3565fb926e251de67f4a174b7debf3bc0b60a8016f4df7db782a
     pages: 1
   graphical_abstract:
-    path: paper/graphical_abstract.pdf
-    sha256: c12b6dcf4975b65c51a601902008a0fda3718df006196b01e29acf81c5267bf1
+    path: paper/graphical_abstract.png
+    sha256: 719f52111c3befe3b8f6f859c0cb2ec1164918de0896c6014d31a8be4e9a25bf
   highlights:
     path: paper/highlights.txt
     sha256: fa9324a78a41e574a7142270fcb7b33636f5a6bf9be0d727a99ef3a650b9ec01
   source_archive:
-    path: null
-    sha256: null
+    path: artifacts/bundles/data-and-code-source.zip
+    sha256: 7ee515ba28b62c90d356a9d5eda743dfe16fcfe5bb94b566cee4563ec08e2067
 checks:
-  tests_passed: 205
+  tests_passed: 206
   branch_coverage_percent: 95.73
   release_csvs_validated: 31
   approved_claims_traced: 11
-  source_quote_audit_records: 24
+  source_quote_audit_records: 25
   unresolved_citations: 0
   type3_fonts_detected: 0
-  visual_pdf_review: completed_local_pdffonts_pdftotext_pagecounts
+  visual_pdf_review: completed_page_image_review_pdftoppm_png_120dpi_41_pages
   portal_pdf_comparison: pending
 approval:
-  technical_release_gate: passed_rc1
+  technical_release_gate: passed
   scientific_release_gate: pending_portal
   author_portal_attestation: pending

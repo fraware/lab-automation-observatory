@@ -8,21 +8,26 @@ All notable changes follow Keep a Changelog principles.
 
 ### Added
 
-- `data/derived/source_quote_audit.csv`, a 24-row Gate 1 source/quotation audit ledger covering every manuscript forum/site bibliography key and every quote-bank entry, with surrounding-context and later-update outcomes, resolved quotation corrections, and claim boundaries. Documented in `docs/data-dictionary.md`, enforced by `tests/test_source_quote_audit.py`, `EXPECTED_ROW_COUNTS`, and `scripts/validate_release.py`.
+- `data/derived/source_quote_audit.csv`, a 25-row Gate 1 source/quotation audit ledger covering every manuscript forum/site bibliography key and every quote-bank entry, with surrounding-context and later-update outcomes, resolved quotation corrections, and claim boundaries. About (`/about`) and Terms (`/tos`) are separate identities. Documented in `docs/data-dictionary.md`, enforced by `tests/test_source_quote_audit.py` (including BibTeX key→URL→audit URL parity), `EXPECTED_ROW_COUNTS`, and `scripts/validate_release.py`.
 - Robustness-table sync fixture and test so the three `build_robustness_tables` outputs stay byte-matched to `paper/generated/`, plus a B6 denominator mutation test that invalidates `data/robustness/denominator_sensitivity.csv`.
 - Fix in `scripts/build_robustness_tables.py` so `denominator_table` passes a single iterable to `"\n".join` (latent arity bug exposed by the new sync fixture).
 - `artifacts/submission_audit_v0.1.4.md` and `artifacts/release_notes_v0.1.4.md`.
+- `scripts/build_submission_bundle.py` to assemble the canonical SLAS ZIP, nested data/code archive, and `SHA256SUMS.txt`.
 
 ### Changed
 
 - Supplement inventory test now expects all five generated table stems (`association_leave_one_out`, `code_counts`, `denominator_sensitivity`, `partial_score_sensitivity`, `quotations`), matching `paper/supplement.tex` after the PR #14 robustness tables.
 - Release version metadata reads `0.1.4` in `pyproject.toml`, `uv.lock`, `CITATION.cff`, `codemeta.json`, `.zenodo.json`, and the submission bundle manifest template.
+- Submission manifest schema uses `source_content_sha` plus `certification_commit_sha` instead of a single ambiguous `commit_sha`.
+- Root `requirements.environment.txt` relocated to `artifacts/requirements.environment.v0.1.0.txt` as a historical snapshot; install authority is `uv sync --frozen --all-extras` / `uv.lock`.
+- Manual workflows (`ci`, `paper`, `release`, `pages`) use `uv sync --frozen --all-extras`; release workflow requires a `tag` input and uploads the full submission asset set.
 - `README.md` restores a visible Markdown H1 beside the ASCII banner for accessibility and discoverability.
 - Independent-coding guidance (issue #11) names only `reliability_subset_blind.csv`; the answer-bearing key must not be opened during coding.
 
 ### Fixed
 
 - Broken release test contract where the supplement `\input` assertion lagged the five-table supplement source.
+- Combined About/Terms audit row that listed two bib keys against only the About URL.
 
 ## [0.1.3] - 2026-07-29
 

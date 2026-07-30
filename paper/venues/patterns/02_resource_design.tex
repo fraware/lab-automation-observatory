@@ -1,0 +1,13 @@
+\section{Resource design principles}
+
+The resource separates six objects that require different controls: source evidence, coded evidence, metric inputs, derived results, manuscript claims, and submission artifacts. A source record answers where the evidence came from and what context or wording was approved. A coded record states the analytical unit and construct assignment. A metric input preserves the eligible cases, component fields, unknown values, and denominator. A derived result is generated from those inputs. A claim record binds a manuscript statement to its evidence and prohibited overclaim. A release manifest binds the resulting files to immutable commits and hashes.
+
+Four principles govern the representation.
+\begin{enumerate}
+  \item \textbf{Bounded units.} Every quantitative result names the object measured and its denominator.
+  \item \textbf{Typed uncertainty.} Unknown, absent, partial, disputed, and superseded states remain distinct.
+  \item \textbf{Validation-stage binding.} Logic, interface, simulation, dry, wet, assay, and production evidence support different claims.
+  \item \textbf{Correctable provenance.} Records retain source links, applicability, date, ownership, limitations, and lineage.
+\end{enumerate}
+
+The design supports machine validation without implying that every field is objectively measurable or that ordinal rubric scores are probabilities. Human interpretation remains explicit in the codebook, episode notes, hard-case set, and claim ledger. Positive cases and counterexamples are retained so the resource represents successful infrastructure and correction processes alongside recurring gaps.

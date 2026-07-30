@@ -1,0 +1,26 @@
+\section{Related work}
+\label{sec:related}
+
+\subsection{Interoperable and autonomous laboratories}
+
+Laboratory-integration standards seek to replace bespoke point-to-point control with reusable interfaces. SiLA defined common device-control concepts, SiLA~2 adopted service-oriented communication and observable properties, and gateway and manager projects addressed legacy devices and workflow integration \cite{bar2012sila,juchli2022sila2,porr2020gateway,bromig2022manager}. PyLabRobot provides an open, hardware-agnostic programming interface and community-maintained resource representations \cite{wierenga2023pylabrobot}. These systems create digital integration surfaces. Operational use additionally depends on access conditions, version compatibility, test environments, examples, maintenance ownership, and synchronization with higher-level state.
+
+Self-driving laboratories combine execution platforms with data acquisition, model-based experiment selection, and iterative optimization \cite{abolhasani2023rise,hung2024community}. Modular autonomy frameworks and generalized schedulers aim to make those functions reusable across experiments and facilities \cite{canty2023autonomy,fei2024alabos,cousty2024glas}. Recent deployments emphasize maintenance, exception handling, and real-world environmental constraints \cite{ochiai2025selfmaintainability,robertson2026airfree}. The present work examines how these requirements appear in practitioner evidence before they become formal platform specifications or benchmark variables.
+
+\subsection{Executable research objects and data stewardship}
+
+FAIR principles define findability, accessibility, interoperability, and reusability for research data \cite{wilkinson2016fair}. Digital laboratories extend these requirements beyond static datasets. Reproducible execution can depend on method source, generated identifiers, external libraries, labware and liquid definitions, calibration, drivers, firmware, initialization state, runtime recovery data, and event provenance. A version-controlled script can therefore remain insufficiently identified as a deployment.
+
+The Observatory treats analytical and community artifacts as typed research objects. Derived discussion records preserve source links, units, coding decisions, uncertainty, and public outcomes. Metric inputs preserve component fields and unknown values. JSON Schemas define reproducible troubleshooting questions, resolved-knowledge records, device-interface records, and run events. A claim ledger binds manuscript statements to evidence sources, denominators, safe wording, and prohibited overclaims. This design follows the broader objective of turning analytical provenance and correction pathways into part of the research output.
+
+\subsection{Validation scope in AI-enabled physical systems}
+
+Natural-language and AI systems increasingly mediate laboratory instrumentation and method generation \cite{xie2025llmcontrol}. Their evaluation spans several non-equivalent stages: input interpretation, syntactic generation, simulation, dry physical execution, wet execution, assay performance, and production monitoring. A system can pass an earlier stage and remain unevaluated at later stages. Forum participants similarly distinguish software-state tests, functional hardware checks, process experiments, and scientific acceptance \cite{forum_unit_tests,forum_verisflow}.
+
+The Test--Claim Alignment representation used here records the test object, environment, acceptance criterion, observed evidence, and asserted scope. The representation preserves useful source-reported results while preventing a simulation denominator from becoming a wet-lab performance claim. It also provides a general model for evaluating AI-generated methods, physical-resource definitions, contamination policies, and recovery procedures.
+
+\subsection{Technical communities as distributed evidence systems}
+
+Programming question-and-answer research has shown how public technical communities support problem solving and reusable knowledge exchange \cite{treude2011questions,vasilescu2014social}. Open-science communities similarly provide peer learning and lower access barriers \cite{eerland2021communities}. Laboratory-automation discussions add evidence forms tied to physical execution, including geometry measurements, sensor curves, liquid histories, calibration, sample disposition, and recovery actions.
+
+The methodological challenge is to preserve that evidence without overstating its representativeness. The coding strategy follows explicit inclusion and exclusion rules, episode segmentation, hard-case adjudication, counterexample retention, and source-level auditing informed by thematic and content-analysis methods \cite{braun2006thematic,krippendorff2018content}. Internet-research ethics motivate de-identification, contextual quotation, and minimal redistribution of public content \cite{aoir2019ethics}. The released resource contains derived records and short anonymized quotations, not a verbatim forum corpus or contributor profiles.

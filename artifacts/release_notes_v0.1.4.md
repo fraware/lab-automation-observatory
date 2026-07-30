@@ -1,11 +1,10 @@
 # v0.1.4 release notes
 
-Final SLAS publication-gate certification (issues #13 / #8 prerequisite). Branches
-from tag `v0.1.4-rc1`, splits the About/Terms audit identity to 25 rows, adds
-BibTeX URL parity tests, dual-SHA manifest fields, a canonical submission ZIP
+Certified repository release for the SLAS Technology / NexusXp submission line.
+Branches from tag `v0.1.4-rc1`, splits the About/Terms audit identity to 25 rows,
+adds BibTeX URL parity tests, dual-SHA manifest fields, a canonical submission ZIP
 builder, frozen workflow installs, and a completed page-image PDF visual pass.
-It does **not** start DOI, Zenodo, preprint, or Editorial Manager upload
-(issue #8).
+DOI, Zenodo, and preprint identifiers are not asserted by this tag.
 
 `source_content_sha`: `2a0fc1e21153198a383329f4ff313808957f163e`  
 Scientific ancestry: `c860747e7a8d4ae002ba2df250c224fc2d63a85f`  
@@ -28,7 +27,7 @@ Bundle manifest: [submission_bundle_manifest_v0.1.4.yaml](submission_bundle_mani
 - Dual SHA schema: `source_content_sha` + `certification_commit_sha`
 - Historical env pins under `artifacts/requirements.environment.v0.1.0.txt`
 - `scripts/build_submission_bundle.py` and release workflow asset completeness
-- Page-image visual review recorded; checklist computational/document gates checked
+- Page-image visual review recorded; computational and document checks recorded in the audit
 
 ## Measured checks (2026-07-30)
 

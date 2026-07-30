@@ -25,7 +25,7 @@ Required checks:
 - explicit ellipses for omitted words and `[sic]` where preserving an error is material;
 - a source correction must update the audit ledger, quote bank, generated quotation table, manuscript or supplement, and tests in the same change set.
 
-Release blocker: the complete 24-record source/quotation audit ledger described in issue #13 must be committed. The seven known quotation corrections have an approved wording and should be applied before the canonical bundle is built.
+Release blocker: the complete 25-record source/quotation audit ledger described in issue #13 must be committed. The seven known quotation corrections have an approved wording and should be applied before the canonical bundle is built.
 
 ## Gate 2 — coding-instrument integrity
 

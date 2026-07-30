@@ -34,23 +34,23 @@ This checklist maps the frozen release candidate to the current SLAS author requ
 
 ## Computational release gate
 
-- [ ] Freeze one commit and declare its release version
-- [ ] Run `uv sync --frozen --all-extras`
-- [ ] Run `make ci`
-- [ ] Confirm deterministic regeneration leaves a clean working tree
-- [ ] Confirm all claim anchors, source rows, denominators, tables, and figures agree
-- [ ] Confirm mutation/property tests cover changes that could alter published values
-- [ ] Complete `submission_bundle_manifest.template.yaml` with hashes and measured check counts
+- [x] Freeze one commit and declare its release version
+- [x] Run `uv sync --frozen --all-extras`
+- [x] Run `make ci` computational subset (`validate`, `pytest`, `docs-build`; TeX via direct `pdflatex`/`bibtex` where `latexmk`/perl is unavailable)
+- [x] Confirm deterministic regeneration leaves a clean working tree
+- [x] Confirm all claim anchors, source rows, denominators, tables, and figures agree
+- [x] Confirm mutation/property tests cover changes that could alter published values
+- [x] Complete `submission_bundle_manifest.template.yaml` with hashes and measured check counts
 
 ## Document release gate
 
-- [ ] Rebuild manuscript, supplement, cover letter, and graphical abstract from the frozen commit
-- [ ] Confirm no missing citations, references, figures, or generated tables
-- [ ] Confirm embedded fonts and zero Type 3 fonts
-- [ ] Confirm extractable text and searchable links
-- [ ] Render and inspect every PDF page for clipping, overlap, blank pages, and glyph errors
-- [ ] Name the archive with venue, version/date, and commit prefix
-- [ ] Mark the July 28, 2026 bundle as superseded
+- [x] Rebuild manuscript, supplement, cover letter, and graphical abstract from the frozen commit
+- [x] Confirm no missing citations, references, figures, or generated tables
+- [x] Confirm embedded fonts and zero Type 3 fonts
+- [x] Confirm extractable text and searchable links
+- [x] Render and inspect every PDF page for clipping, overlap, blank pages, and glyph errors
+- [x] Name the archive with venue, version/date, and commit prefix
+- [x] Mark the July 28, 2026 bundle as superseded
 
 ## Submission administration
 
@@ -62,4 +62,4 @@ This checklist maps the frozen release candidate to the current SLAS author requ
 
 ## Final gate
 
-Submit only when every numerical statement traces to a committed input, every direct quotation has passed the source ledger, every external identifier resolves, and the portal files match the commit-pinned manifest. The current v0.1.3 audit does not certify a rebuilt PDF after the claim-affecting register corrections.
+Submit only when every numerical statement traces to a committed input, every direct quotation has passed the source ledger, every external identifier resolves, and the portal files match the commit-pinned manifest. The current v0.1.4 audit and annotated tag certify the rebuilt PDFs for this release line; portal upload remains issue #8.

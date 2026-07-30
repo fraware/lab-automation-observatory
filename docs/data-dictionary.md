@@ -235,13 +235,13 @@ blank reading.
 | `Thread`, `Date`, `Source URL` | Provenance of the quotation. |
 | `Analytical use` | The illustrative purpose. Quotations are never counted as quantitative observations. |
 
-### `source_quote_audit.csv` (24 rows)
+### `source_quote_audit.csv` (25 rows)
 
-Gate 1 source/quotation audit ledger. One row per unique audited source identity covering every manuscript `forum_*` / `labautomation_*` bibliography key and every `quote_bank.csv` entry. Shared URLs appear once with both mappings filled. The two site pages (About and Terms) share one audit identity so the ledger stays at 24 records.
+Gate 1 source/quotation audit ledger. One row per unique audited source identity covering every manuscript `forum_*` / `labautomation_*` bibliography key and every `quote_bank.csv` entry. Shared URLs appear once with both mappings filled. About (`/about`) and Terms (`/tos`) are separate audit identities so each bibliography key binds to exactly one URL.
 
 | Column | Definition |
 |---|---|
-| `Audit ID` | Stable identifier `SQA-01` … `SQA-24`. |
+| `Audit ID` | Stable identifier `SQA-01` … `SQA-25`. |
 | `Source URL` | Canonical audited URL for the row. |
 | `Source title` | Title of the discussion or site page. |
 | `Source date` | Date string as audited. |

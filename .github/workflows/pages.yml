@@ -28,7 +28,7 @@ jobs:
         with:
           enable-cache: true
           python-version: "3.13"
-      - run: uv sync --all-extras
+      - run: uv sync --frozen --all-extras
       - name: Fail if any generated artifact has drifted
         run: uv run python scripts/validate_release.py
       - name: Regenerate the browsable atlas summary

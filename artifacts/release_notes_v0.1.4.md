@@ -1,50 +1,44 @@
 # v0.1.4 release notes
 
-Release-blocker remediation for the SLAS publication gate (issue #13). Repairs
-the broken supplement/table test contract, commits the 24-row source/quotation
-audit ledger, bumps release metadata to 0.1.4, and records a measured freeze
-including inspected PDFs. It does **not** start DOI, Zenodo, preprint, or
-Editorial Manager work (issue #8).
+Final SLAS publication-gate certification (issues #13 / #8 prerequisite). Branches
+from tag `v0.1.4-rc1`, splits the About/Terms audit identity to 25 rows, adds
+BibTeX URL parity tests, dual-SHA manifest fields, a canonical submission ZIP
+builder, frozen workflow installs, and a completed page-image PDF visual pass.
+It does **not** start DOI, Zenodo, preprint, or Editorial Manager upload
+(issue #8).
 
-Content freeze SHA: `c860747e7a8d4ae002ba2df250c224fc2d63a85f`  
-Tag intent: `v0.1.4-rc1`  
+`source_content_sha`: `2a0fc1e21153198a383329f4ff313808957f163e`  
+Scientific ancestry: `c860747e7a8d4ae002ba2df250c224fc2d63a85f`  
+Tag intent: `v0.1.4`  
 Bundle manifest: [submission_bundle_manifest_v0.1.4.yaml](submission_bundle_manifest_v0.1.4.yaml)
 
-## Why this release
+## Why this certification tip
 
-1. `tests/test_build_outputs.py` still expected only two supplement table
-   inputs after PR #14 added three robustness tables, so `make test` failed on
-   checked-in source alone.
-2. Robustness `.tex` files were existence-checked but not byte-synced to a fresh
-   `build_robustness_tables` run; the denominator builder also had a latent
-   `str.join` arity bug exposed by the new sync fixture.
-3. Gate 1 required a machine-readable 24-record source/quotation audit ledger
-   that was never committed.
-4. Issue #11 still pointed independent coders at the answer-bearing
-   `reliability_subset.csv`.
+1. rc1 ledger `SQA-01` listed both `labautomation_about` and `labautomation_terms`
+   against only `https://labautomation.io/about`.
+2. Manifest `commit_sha` conflated scientific freeze and certification tip.
+3. Root `requirements.environment.txt` implied exact pins that Dependabot no
+   longer maintains beside `uv.lock`.
+4. Submission still needed a verifiable ZIP + `SHA256SUMS` and workflow
+   `--frozen` hardening before tagging `v0.1.4`.
 
-## What changed
+## What changed since rc1
 
-- Supplement inventory expects five generated stems; robustness-table sync and
-  B6 denominator mutation tests land beside the existing partial-score and
-  leave-one-out mutation coverage.
-- `data/derived/source_quote_audit.csv` (24 rows) plus
-  `tests/test_source_quote_audit.py`, data-dictionary documentation,
-  `EXPECTED_ROW_COUNTS`, and `validate_release` presence checks.
-- Version `0.1.4` across `pyproject.toml`, `uv.lock`, `CITATION.cff`,
-  `codemeta.json`, `.zenodo.json`, and the submission manifest template;
-  CHANGELOG cut; README Markdown H1 restored above the ASCII banner.
-- Issue #11 edited to require only `reliability_subset_blind.csv`.
+- 25-row source-quote audit with About/Terms split and BibTeX href parity tests
+- Dual SHA schema: `source_content_sha` + `certification_commit_sha`
+- Historical env pins under `artifacts/requirements.environment.v0.1.0.txt`
+- `scripts/build_submission_bundle.py` and release workflow asset completeness
+- Page-image visual review recorded; checklist computational/document gates checked
 
 ## Measured checks (2026-07-30)
 
-- Host: Windows 11, Python 3.13.11; `uv sync --frozen --all-extras` green
-- 205 tests passed; 95.73% branch-aware coverage
+- Host: Windows 11, Python 3.13.11; install authority `uv.lock`
+- **206** tests passed; 95.73% branch-aware coverage
 - 31 release CSVs + 3 robustness artifacts validated
-- 24 source-quote audit records
-- `mkdocs build --strict` green; clean worktree after `make derived`
+- 25 source-quote audit records
+- `mkdocs build --strict` green
 - PDFs (MiKTeX `pdflatex`/`bibtex`): main 29 pp, supplement 10 pp, cover letter
-  1 pp, graphical abstract 1 pp; **zero Type 3 fonts**; extractable text OK
+  1 pp, graphical abstract 1 pp; **zero Type 3 fonts**; 41 page images reviewed
 
 Measured detail and SHA-256 digests:
 [submission_audit_v0.1.4.md](submission_audit_v0.1.4.md).

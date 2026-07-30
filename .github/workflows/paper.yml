@@ -15,7 +15,9 @@ jobs:
         with:
           enable-cache: true
           python-version: "3.13"
-      - run: uv sync --all-extras
+      - run: uv sync --frozen --all-extras
+      - run: uv run python scripts/validate_release.py
+      - run: uv run pytest
       - run: uv run python scripts/reproduce_results.py
       - run: uv run python scripts/build_figures.py
       - run: uv run python scripts/build_tables.py

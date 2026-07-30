@@ -9,5 +9,5 @@ numpy==2.3.5
 pandas==2.2.3
 PyYAML==6.0.3
 typer==0.26.3
-pytest==9.0.2
+pytest==9.1.1
 coverage==7.13.3

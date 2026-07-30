@@ -1,0 +1,9 @@
+\section{Validation and release controls}
+
+Resource validation operates at several layers. Schema tests verify field types, required values, enumerations, identifiers, source domains, and conditional requirements. Cross-file tests verify that episodes reference existing threads, episode codes are supported at thread level, blind coding projections exclude answer-bearing fields, source-audit URLs match bibliography URLs, and approved quotations match the released quote bank.
+
+Metric tests recompute every published value from the field-level inputs. Robustness tests regenerate alternative weighting, leave-one-thread-out, and denominator files and compare them with the committed outputs. Mutation tests alter selected inputs and require validation to fail, establishing that the release gates respond to material drift. Claim-traceability tests require each approved claim to appear at a marked manuscript location and retain an evidence source, denominator or qualitative scope, safe wording, prohibited overclaim, and limitation.
+
+The certified v0.1.4 release passed 206 tests with 95.73\% branch-aware coverage. The release validator checked 31 CSV files, three robustness outputs, 25 source-audit rows, and 11 approved manuscript claims. The main manuscript, supplement, cover letter, and graphical abstract were rebuilt, checked for extractable text and embedded fonts, and inspected through rendered page images. A dual-SHA manifest distinguishes scientific source content from certification metadata and binds the canonical submission bundle to hashes.
+
+These checks establish internal consistency, deterministic reproduction, and traceability. They do not establish representative sampling, independent coding agreement, or operational effectiveness of the proposed community artifacts. Those questions require the reuse studies described below.

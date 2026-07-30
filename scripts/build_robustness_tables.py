@@ -98,31 +98,33 @@ def denominator_table() -> str:
         return f"{estimate:.1f}$\\times$" if multiplier else percent(estimate)
 
     body = "\n".join(
-        (
-            f"B6 & {result('B6 preflight preventability', 'all discussed partial-execution scenarios')} "
-            f"& {result('B6 preflight preventability', 'reported or deliberately triggered software scenarios')} "
-            r"& Hardware-crash inclusion is conservative; retain scenario wording. \\"
-        ),
-        (
-            f"B7 & {result('B7 constraint completeness', 'operationally complete scheduler evaluation')} "
-            f"& {result('B7 constraint completeness', 'nominal scheduling core')} "
-            r"& Failure policy changes the completeness denominator and discovery rate. \\"
-        ),
-        (
-            f"B8 & {result('B8 test--claim alignment', 'all bounded evaluation objects')} "
-            f"& {result('B8 test--claim alignment', 'executed-evidence subset')} "
-            r"& Retain the prospective object as an explicit incomplete case. \\"
-        ),
-        (
-            f"B9 & {result('B9 context expansion', 'core execution ontology', multiplier=True)} "
-            f"& {result('B9 context expansion', 'conservative grouped ontology', multiplier=True)} "
-            r"& Report core, broad, and conservative ontologies separately. \\"
-        ),
-        (
-            f"B10 & {result('B10 documentation outcome', 'all documentation-centered cases')} "
-            f"& {result('B10 documentation outcome', 'non-migrated public cases')} "
-            r"& Excluding migrated cases selects on public outcome visibility. \\"
-        ),
+        [
+            (
+                f"B6 & {result('B6 preflight preventability', 'all discussed partial-execution scenarios')} "
+                f"& {result('B6 preflight preventability', 'reported or deliberately triggered software scenarios')} "
+                r"& Hardware-crash inclusion is conservative; retain scenario wording. \\"
+            ),
+            (
+                f"B7 & {result('B7 constraint completeness', 'operationally complete scheduler evaluation')} "
+                f"& {result('B7 constraint completeness', 'nominal scheduling core')} "
+                r"& Failure policy changes the completeness denominator and discovery rate. \\"
+            ),
+            (
+                f"B8 & {result('B8 test--claim alignment', 'all bounded evaluation objects')} "
+                f"& {result('B8 test--claim alignment', 'executed-evidence subset')} "
+                r"& Retain the prospective object as an explicit incomplete case. \\"
+            ),
+            (
+                f"B9 & {result('B9 context expansion', 'core execution ontology', multiplier=True)} "
+                f"& {result('B9 context expansion', 'conservative grouped ontology', multiplier=True)} "
+                r"& Report core, broad, and conservative ontologies separately. \\"
+            ),
+            (
+                f"B10 & {result('B10 documentation outcome', 'all documentation-centered cases')} "
+                f"& {result('B10 documentation outcome', 'non-migrated public cases')} "
+                r"& Excluding migrated cases selects on public outcome visibility. \\"
+            ),
+        ]
     )
     return rf"""
 \begin{{table}}[tp]

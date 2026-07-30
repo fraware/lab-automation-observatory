@@ -76,6 +76,7 @@ def main() -> None:
         "data/derived/episode_register_part_02.csv",
         "data/derived/reliability_subset.csv",
         "data/derived/reliability_subset_blind.csv",
+        "data/derived/source_quote_audit.csv",
         "data/derived/evidence_atlas.csv",
         "data/robustness/partial_score_sensitivity.csv",
         "data/robustness/association_leave_one_out.csv",

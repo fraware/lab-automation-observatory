@@ -76,7 +76,7 @@ directly with `uv run python scripts/build_atlas_summary.py`.
 - **Evidence maturity:** Component mean over known cells in selected cases
 - **Pilot interpretation:** Measure relationships and coverage, not raw log volume.
 - **Strongest descriptive relationship:** B5--B6 (phi 0.452, lift 2.353, overlap 8/55; mechanism)
-- **Illustrative quotation:** Capture everything—and only surface what you need today.
+- **Illustrative quotation:** Capture everything - and only surface only what you need today.
 - **Quotation source:** Automation Report Data
 - **Retained counterexample:** Cross-contamination state prototype; Structured run-data retention
 - **Key sources:** 50ul Tip Troubleshooting Report / Post-Mortem; Tecan Fluent Version Control (git); Automation Report Data
@@ -104,7 +104,7 @@ directly with `uv run python scripts/build_atlas_summary.py`.
 - **Evidence maturity:** Bounded proportions with Wilson intervals over one toy scenario
 - **Pilot interpretation:** Strong conceptual evidence; current forum discussion lacks a shared benchmark.
 - **Strongest descriptive relationship:** B2--B7 (phi 0.382, lift 2.037, overlap 8/55; enabling condition)
-- **Illustrative quotation:** Information about constraints becomes critical.
+- **Illustrative quotation:** information about constraints ... becomes critical.
 - **Quotation source:** Scheduling Software Toy Problem
 - **Retained counterexample:** Galago public release; Shared scheduling ontology proposal
 - **Key sources:** User feedback on Schedulers; Scheduling Software Toy Problem; Open source scheduler
@@ -132,7 +132,7 @@ directly with `uv run python scripts/build_atlas_summary.py`.
 - **Evidence maturity:** Requirements-elicitation ratio over one discussion
 - **Pilot interpretation:** Recent and selected evidence; Context Expansion Ratio is exploratory.
 - **Strongest descriptive relationship:** B8--B9 (phi 0.302, lift 2.316, overlap 4/55; evaluation dependency)
-- **Illustrative quotation:** The human operator still needs to feed back the AI.
+- **Illustrative quotation:** you still need human awareness to make sure everything is working properly.
 - **Quotation source:** AI Assisted Method Writing
 - **Retained counterexample:** *None recorded in this pilot.*
 - **Key sources:** In-House Drivers Integration; No-Code vs Code Interface Discussion; AI Assisted Method Writing

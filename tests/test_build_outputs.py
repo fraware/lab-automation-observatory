@@ -21,6 +21,11 @@ TABLE_NAMES = (
     "code_counts.tex",
     "quotations.tex",
 )
+ROBUSTNESS_TABLE_NAMES = (
+    "partial_score_sensitivity.tex",
+    "association_leave_one_out.tex",
+    "denominator_sensitivity.tex",
+)
 # Five main-text figures and three supplement figures. Keeping the tuple exact
 # guards the agreed main-text budget: a new figure must be a deliberate change
 # here as well as in the LaTeX sources.
@@ -53,6 +58,19 @@ def tables(
 
 
 @pytest.fixture(scope="module")
+def robustness_tables(
+    load_script: Callable[[str], ModuleType], tmp_path_factory: pytest.TempPathFactory
+) -> dict[str, str]:
+    """Regenerate the robustness LaTeX tables into a scratch directory."""
+
+    module = load_script("build_robustness_tables")
+    out = tmp_path_factory.mktemp("robustness_tables")
+    module.OUT = out
+    module.main()
+    return {path.name: path.read_text(encoding="utf-8") for path in sorted(out.iterdir())}
+
+
+@pytest.fixture(scope="module")
 def figures(
     load_script: Callable[[str], ModuleType], tmp_path_factory: pytest.TempPathFactory
 ) -> Path:
@@ -72,6 +90,19 @@ def test_generated_tables_are_committed_in_sync(tables: dict[str, str]) -> None:
     for name in TABLE_NAMES:
         committed = (COMMITTED_TABLES / name).read_text(encoding="utf-8")
         assert tables[name] == committed, f"{name} is out of date; run `make tables`"
+
+
+def test_generated_robustness_tables_are_committed_in_sync(
+    robustness_tables: dict[str, str],
+) -> None:
+    """Robustness `.tex` files must match a fresh `build_robustness_tables` run."""
+
+    assert set(robustness_tables) == set(ROBUSTNESS_TABLE_NAMES)
+    for name in ROBUSTNESS_TABLE_NAMES:
+        committed = (COMMITTED_TABLES / name).read_text(encoding="utf-8")
+        assert robustness_tables[name] == committed, (
+            f"{name} is out of date; run `make tables`"
+        )
 
 
 def test_headline_metrics_table_content(tables: dict[str, str]) -> None:
@@ -173,13 +204,19 @@ def test_main_text_holds_seven_figures_and_tables() -> None:
 
 
 def test_supplement_uses_the_remaining_figures_and_tables() -> None:
-    """Every generated artifact is referenced somewhere, and nothing is orphaned."""
+    """Supplement references every non-main generated figure and table stem."""
 
     supplement = (ROOT / "paper" / "supplement.tex").read_text(encoding="utf-8")
     included = re.findall(r"\\includegraphics\[[^]]*\]\{figures/([^.}]+)\.pdf\}", supplement)
     inputs = re.findall(r"\\input\{generated/([^.}]+)\.tex\}", supplement)
     assert sorted(included) == sorted(SUPPLEMENT_FIGURE_NAMES)
-    assert sorted(inputs) == ["code_counts", "quotations"]
+    assert sorted(inputs) == [
+        "association_leave_one_out",
+        "code_counts",
+        "denominator_sensitivity",
+        "partial_score_sensitivity",
+        "quotations",
+    ]
 
 
 def test_committed_figures_match_the_expected_set() -> None:

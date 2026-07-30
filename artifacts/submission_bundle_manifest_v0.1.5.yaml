@@ -4,7 +4,7 @@ project:
   version: 0.1.5
   repository: https://github.com/fraware/lab-automation-observatory
   source_content_sha: 20308c3f452bc79ba21c2a327796f65e606bb461
-  certification_commit_sha: PENDING_AUDIT_COMMIT
+  certification_commit_sha: 1bb31371d09efdbe53de011a0b46bb6726b51ac8
   empirical_baseline_tag: v0.1.4
   empirical_baseline_sha: 6608d6156a025fb9d6e37a7c78112af0f88ea5a2
   tag: v0.1.5

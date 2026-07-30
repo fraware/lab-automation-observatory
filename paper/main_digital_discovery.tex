@@ -1,0 +1,32 @@
+\documentclass[11pt]{article}
+\input{macros}
+\usepackage[margin=1in]{geometry}
+\usepackage[super,sort&compress]{natbib}
+\renewcommand{\bibsection}{\section*{References}}
+
+\title{Operational Bottlenecks in the Digital Laboratory: A Reproducible Mixed-Methods Study of Public Practitioner Evidence}
+\author{Mat\'eo H. Petel, M.S.\\Center for Strategic Research in Critical Technologies; SentinelOps\\\texttt{mpetel@stanford.edu}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Digital laboratories depend on interfaces, versioned methods, physical-resource models, schedulers, execution records, and validation evidence that must remain coherent across software and physical operations. Public practitioner discussions preserve detailed evidence about failures in these digital objects, although their recurrence cannot estimate operational incidence. We analyzed 55 purposively selected public laboratory-automation discussions and 45 episodes from a deliberately difficult 14-thread subset. A ten-construct taxonomy organized the evidence across knowledge infrastructure, interfaces and representations, runtime coordination, evaluation, and AI-specific context. We operationalized the constructs through bounded, machine-readable case records and executable metrics. Mean pilot scores were 63.9\% for integration accessibility, 54.2\% for deployment-manifest completeness, 67.0\% for physical-definition completeness, and 52.5\% for observability coverage. Observability and recovery formed the strongest descriptive relationship ($\phi=0.452$, lift $=2.353$), and the relationship remained above the pilot attention threshold under every leave-one-thread-out deletion. The release contains derived data, schemas, source-audit records, deterministic analyses, regression tests, and community artifacts for reproducible troubleshooting and knowledge stewardship. The study demonstrates how public technical evidence can be transformed into auditable digital-laboratory research objects without treating forum activity as prevalence, vendor reliability, or causal effect.
+\end{abstract}
+
+\noindent\textbf{Keywords:} digital laboratory; laboratory automation; research data; reproducibility; technical communities; observability; recovery
+
+\input{venues/digital_discovery/01_introduction}
+\input{venues/digital_discovery/02_related_work}
+\input{sections/03_methods}
+\input{sections/04_results}
+\input{venues/digital_discovery/05_discussion}
+\input{venues/digital_discovery/06_resource_and_reuse}
+\input{sections/07_limitations}
+\input{venues/digital_discovery/08_conclusion}
+\input{venues/digital_discovery/09_declarations}
+
+\bibliographystyle{unsrtnat}
+\bibliography{references}
+\end{document}

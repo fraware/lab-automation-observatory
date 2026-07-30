@@ -4,7 +4,7 @@ project:
   version: 0.1.4
   repository: https://github.com/fraware/lab-automation-observatory
   source_content_sha: 2a0fc1e21153198a383329f4ff313808957f163e
-  certification_commit_sha: REPLACE_AFTER_CERT_COMMIT
+  certification_commit_sha: 962cdfd3406c5fa18520754e9978b9260409a1a5
   tag: v0.1.4
 submission:
   venue: SLAS Technology
@@ -73,3 +73,4 @@ approval:
   technical_release_gate: passed
   scientific_release_gate: pending_portal
   author_portal_attestation: pending
+

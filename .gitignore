@@ -38,3 +38,5 @@ scratch/
 !paper/graphical_abstract.pdf
 paper/figures/*.png
 artifacts/*.xlsx
+artifacts/bundles/
+

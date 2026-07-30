@@ -1,0 +1,70 @@
+schema_version: 1
+project:
+  name: Lab Automation Forum Bottleneck Observatory
+  version: 0.1.3
+  repository: https://github.com/fraware/lab-automation-observatory
+  commit_sha: REPLACE_WITH_FROZEN_COMMIT
+  tag: REPLACE_WITH_TAG
+submission:
+  venue: SLAS Technology
+  collection: NexusXp - The Connected Lab
+  article_type: Original Research
+  created_at_utc: REPLACE_WITH_ISO_8601
+  supersedes:
+    - Lab_Automation_Observatory_SLAS_Submission_2026-07-28.zip
+identifiers:
+  doi: null
+  preprint: null
+  orcid: null
+build:
+  operating_system: REPLACE_WITH_OS
+  python: REPLACE_WITH_PYTHON_VERSION
+  uv_lock_sha256: REPLACE_WITH_SHA256
+  tex_distribution: REPLACE_WITH_TEX_DISTRIBUTION
+  commands:
+    - uv sync --frozen --all-extras
+    - make ci
+    - make paper
+    - make supplement
+    - make cover-letter
+    - make graphical-abstract
+  clean_worktree_after_build: false
+source_hashes:
+  data_tree_sha256: REPLACE_WITH_SHA256
+  paper_source_tree_sha256: REPLACE_WITH_SHA256
+artifacts:
+  manuscript_pdf:
+    path: REPLACE_WITH_PATH
+    sha256: REPLACE_WITH_SHA256
+    pages: null
+  supplement_pdf:
+    path: REPLACE_WITH_PATH
+    sha256: REPLACE_WITH_SHA256
+    pages: null
+  cover_letter_pdf:
+    path: REPLACE_WITH_PATH
+    sha256: REPLACE_WITH_SHA256
+    pages: null
+  graphical_abstract:
+    path: REPLACE_WITH_PATH
+    sha256: REPLACE_WITH_SHA256
+  highlights:
+    path: REPLACE_WITH_PATH
+    sha256: REPLACE_WITH_SHA256
+  source_archive:
+    path: REPLACE_WITH_PATH
+    sha256: REPLACE_WITH_SHA256
+checks:
+  tests_passed: null
+  branch_coverage_percent: null
+  release_csvs_validated: null
+  approved_claims_traced: null
+  source_quote_audit_records: null
+  unresolved_citations: null
+  type3_fonts_detected: null
+  visual_pdf_review: pending
+  portal_pdf_comparison: pending
+approval:
+  technical_release_gate: pending
+  scientific_release_gate: pending
+  author_portal_attestation: pending

@@ -1,0 +1,20 @@
+\begin{table}[tp]
+\centering
+\caption{Sensitivity of component-score means to the numerical value assigned to a partial field.}
+\label{tab:s-partial-score-sensitivity}
+\begin{threeparttable}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Metric & Partial $=0$ & Partial $=0.25$ & Partial $=0.5$ & Partial $=0.75$ & Partial $=1$ \\
+\midrule
+IAS & 38.9\% & 51.4\% & 63.9\% & 76.4\% & 88.9\% \\
+RMC & 21.7\% & 37.9\% & 54.2\% & 70.4\% & 86.7\% \\
+PDC & 50.0\% & 58.5\% & 67.0\% & 75.6\% & 84.1\% \\
+OC & 25.0\% & 38.8\% & 52.5\% & 66.2\% & 80.0\% \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]\footnotesize
+\item The central release value uses 0.5. Each column recomputes case means and then the across-case mean while leaving absent, complete, and unknown cells unchanged. These ordinal summaries are neither calibrated probabilities nor a common cross-metric performance scale.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

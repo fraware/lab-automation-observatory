@@ -1,6 +1,6 @@
 <div align="center">
   
-```
+<pre>
                                   __    ___    ____
                                  / /   /   |  / __ )
                                 / /   / /| | / __  |
@@ -20,7 +20,7 @@
         \____/_____/____/_____/_/ |_| |___/_/  |_/_/  \____/_/ |_|  /_/
 
           where laboratory automation work breaks - measured, not guessed
-```
+</pre>
 
 </div>
 

@@ -1,0 +1,36 @@
+\documentclass[preprint,12pt]{elsarticle}
+\input{macros}
+\journal{SLAS Technology}
+\begin{document}
+\begin{frontmatter}
+
+\title{Where Connected Laboratory Automation Breaks: Operational Boundaries Revealed by Public Practitioner Evidence}
+
+% Short title: Connected Laboratory Bottlenecks
+\author[csrct,sentinelops]{Mat\'eo H. Petel, M.S.}\ead{mpetel@stanford.edu}
+\affiliation[csrct]{organization={Center for Strategic Research in Critical Technologies}}
+\affiliation[sentinelops]{organization={SentinelOps}}
+
+\begin{abstract}
+Connected laboratories depend on device interfaces, versioned methods, physical-resource models, schedulers, execution records, recovery procedures, and validation practices that must remain coherent across software and physical operations. Public troubleshooting discussions expose failures at these boundaries, although discussion counts cannot estimate operational incidence. We analyzed 55 purposively selected public laboratory-automation discussions and segmented 45 analytical episodes from a deliberately difficult 14-thread subset. A ten-construct taxonomy organized the evidence across ecosystem knowledge, interfaces and representations, runtime coordination, evaluation, and AI-specific context. Bounded field-level analyses yielded mean pilot scores of 63.9\% for integration accessibility, 54.2\% for deployment-manifest completeness, 67.0\% for physical-definition completeness, and 52.5\% for observability coverage. Observability and recovery formed the strongest descriptive relationship ($\phi=0.452$, lift $=2.353$), and leave-one-thread-out analysis retained that relationship above the pilot attention threshold in all 55 deletions. Incident evidence supports a mechanism in which incomplete command--state--material linkage constrains recovery after irreversible physical actions. The study contributes executable metrics, explicit claim boundaries, a troubleshooting-question schema, and a governed resolved-knowledge format. The results define connected-laboratory engineering priorities without treating forum recurrence as prevalence, product reliability, or causal effect.
+\end{abstract}
+
+\begin{keyword}
+connected laboratory \sep laboratory automation \sep lab robotics \sep observability \sep recovery \sep reproducibility
+\end{keyword}
+\end{frontmatter}
+
+\linenumbers
+\input{venues/slas/01_introduction}
+\input{sections/02_related_work}
+\input{sections/03_methods}
+\input{sections/04_results}
+\input{venues/slas/05_discussion}
+\input{sections/06_community_artifacts}
+\input{sections/07_limitations}
+\input{venues/slas/08_conclusion}
+\input{sections/09_declarations}
+
+\bibliographystyle{elsarticle-num}
+\bibliography{references}
+\end{document}

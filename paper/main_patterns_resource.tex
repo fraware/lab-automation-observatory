@@ -1,0 +1,33 @@
+\documentclass[11pt]{article}
+\input{macros}
+\usepackage[margin=1in]{geometry}
+\usepackage{authblk}
+
+\title{The Lab Automation Observatory: A Reproducible Evidence Resource for Operational Knowledge in Digital Laboratories}
+\author[1,2]{Mat\'eo H. Petel, M.S.}
+\affil[1]{Center for Strategic Research in Critical Technologies}
+\affil[2]{SentinelOps}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Operational knowledge in laboratory automation is distributed across public discussions, vendor-specific explanations, local code, post-mortems, and transient support interactions. The Lab Automation Observatory converts a bounded public corpus into a versioned, machine-readable resource designed for audit, reuse, correction, and prospective study. The release contains 55 purposively selected discussion records, 45 analytical episodes, a ten-construct taxonomy, field-level metric inputs, source and claim audit ledgers, robustness analyses, JSON Schemas, executable analyses, regression tests, and governed example records. The resource preserves source provenance, unit, denominator, uncertainty, validation stage, known limitations, and prohibited inference. It also provides reusable schemas for reproducible troubleshooting questions, resolved-knowledge records, device-interface accessibility, and run events. We describe the resource architecture, construction, validation, empirical coverage, and intended reuse. The strongest pilot mechanism connects observability with recovery after irreversible physical execution, providing a prospective target for operational incident datasets. The Observatory is designed as infrastructure for studying and improving digital-laboratory practice; it is not an incident census, vendor benchmark, or verbatim forum archive.
+\end{abstract}
+
+\noindent\textbf{Keywords:} research resource; laboratory automation; data provenance; knowledge infrastructure; reproducibility; technical communities
+
+\input{venues/patterns/01_context}
+\input{venues/patterns/02_resource_design}
+\input{venues/patterns/03_construction}
+\input{venues/patterns/04_resource_contents}
+\input{venues/patterns/05_validation}
+\input{venues/patterns/06_use_cases}
+\input{venues/patterns/07_empirical_demonstration}
+\input{venues/patterns/08_limitations}
+\input{venues/patterns/09_availability}
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+\end{document}

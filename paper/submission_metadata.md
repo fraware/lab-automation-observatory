@@ -51,7 +51,3 @@
 
 - **Repository:** https://github.com/fraware/lab-automation-observatory
 - **Submission baseline tag:** `v0.1.4` (https://github.com/fraware/lab-automation-observatory/releases/tag/v0.1.4)
-- **Source content SHA:** `2a0fc1e21153198a383329f4ff313808957f163e`
-- **Certification commit SHA:** `962cdfd3406c5fa18520754e9978b9260409a1a5`
-- **ORCID:** not yet recorded (manifest `identifiers.orcid` is `null`; add after author confirmation — do not invent)
-- **DOI / preprint:** not reserved (manifest `identifiers.doi` and `identifiers.preprint` are `null`)

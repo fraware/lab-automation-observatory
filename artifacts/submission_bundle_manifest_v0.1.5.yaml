@@ -57,7 +57,7 @@ artifacts:
     sha256: 1c704f805bdd75e74d7d8ca7d72f400907320d32178740e83d41a6ce26e63195
   source_archive:
     path: artifacts/bundles/data-and-code-source.zip
-    sha256: PENDING_BUNDLE_BUILD
+    sha256: 61f2a0d6e0503a4451fdb4fef116972e486364552b2e4558aa5c0109669d1565
 checks:
   tests_passed: 206
   branch_coverage_percent: 95.73

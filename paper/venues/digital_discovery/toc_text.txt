@@ -1,0 +1,1 @@
+Public laboratory-automation discussions are converted into auditable digital research objects: derived records, bounded metrics, robustness analyses, source and claim ledgers, schemas, executable code, and deterministic publication artifacts. The strongest pilot mechanism links command–state–material observability to recovery after irreversible physical execution.

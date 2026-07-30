@@ -68,6 +68,7 @@ EXPECTED_ROW_COUNTS: dict[str, int] = {
     "data/derived/negative_cases.csv": 10,
     "data/derived/publication_claim_ledger.csv": 12,
     "data/derived/quote_bank.csv": 20,
+    "data/derived/source_quote_audit.csv": 24,
     "data/derived/reliability_subset.csv": 14,
     "data/derived/reliability_subset_blind.csv": 14,
     "data/derived/taxonomy_rules.csv": 10,

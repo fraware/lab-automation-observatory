@@ -235,6 +235,28 @@ blank reading.
 | `Thread`, `Date`, `Source URL` | Provenance of the quotation. |
 | `Analytical use` | The illustrative purpose. Quotations are never counted as quantitative observations. |
 
+### `source_quote_audit.csv` (24 rows)
+
+Gate 1 source/quotation audit ledger. One row per unique audited source identity covering every manuscript `forum_*` / `labautomation_*` bibliography key and every `quote_bank.csv` entry. Shared URLs appear once with both mappings filled. The two site pages (About and Terms) share one audit identity so the ledger stays at 24 records.
+
+| Column | Definition |
+|---|---|
+| `Audit ID` | Stable identifier `SQA-01` … `SQA-24`. |
+| `Source URL` | Canonical audited URL for the row. |
+| `Source title` | Title of the discussion or site page. |
+| `Source date` | Date string as audited. |
+| `Source role` | `manuscript_cite`, `quote_bank`, or `both`. |
+| `Bib keys` | Semicolon-separated `references.bib` keys, or empty. |
+| `Quote-bank codes` | Semicolon-separated `quote_bank.csv` `Code` values, or empty. |
+| `Approved exact quotation` | Exact approved quotation text; empty for cite-only pages. |
+| `Surrounding-context result` | Completed surrounding-context check outcome. |
+| `Later-update result` | Completed later-update check outcome. |
+| `Product-report status` | Whether the source is treated as a bounded product report. |
+| `Required correction` | `none`, or an `applied: …` description after a resolved correction. |
+| `Supported claim boundary` | Allowed analytical use of the source. |
+| `Prohibited inference` | Disallowed overclaim from the source. |
+| `Review status` | Must be `complete` for every release row. |
+
 ### `troubleshooting_template.csv` (25 rows)
 
 The minimum reproducible automation question, in tabular form. The machine-readable version is `schemas/troubleshooting-question.schema.json`.

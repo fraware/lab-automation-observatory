@@ -1,12 +1,12 @@
 Metric,Variant,Included units,Numerator,Denominator,Estimate,Secondary result,Scope decision
 B6 preflight preventability,all discussed partial-execution scenarios,4,2,3,0.6666666666666666,sensitivity=0.5--0.75,"Primary scope; includes one explicitly discussed hardware-crash scenario and reports scenarios, not incident prevalence."
 B6 preflight preventability,reported or deliberately triggered software scenarios,3,2,2,1,sensitivity=0.6666666666666666--1,Adversarial subset excluding the general hardware-crash scenario.
-B7 constraint completeness,operationally complete scheduler evaluation,13,7,13,0.5384615384615384,"strict=5/13; coverage=9/13; discovery=7/8; resolution=0/8",Primary scope; includes failure and recovery policy as an operational scheduler requirement.
-B7 constraint completeness,nominal scheduling core,12,7,12,0.5833333333333334,"strict=5/12; coverage=9/12; discovery=7/7; resolution=0/7",Adversarial subset for evaluating a static nominal schedule without resilience behavior.
+B7 constraint completeness,operationally complete scheduler evaluation,13,7,13,0.5384615384615384,strict=5/13; coverage=9/13; discovery=7/8; resolution=0/8,Primary scope; includes failure and recovery policy as an operational scheduler requirement.
+B7 constraint completeness,nominal scheduling core,12,7,12,0.5833333333333334,strict=5/12; coverage=9/12; discovery=7/7; resolution=0/7,Adversarial subset for evaluating a static nominal schedule without resilience behavior.
 B8 test--claim alignment,all bounded evaluation objects,6,2,6,0.3333333333333333,partial-or-better=5/6,Primary scope; retains the unexecuted proposed experiment as an incomplete test--claim object.
 B8 test--claim alignment,executed-evidence subset,5,2,5,0.4,partial-or-better=5/5,Adversarial subset excluding the prospective experiment with no observed evidence.
 B9 context expansion,core execution ontology,15,10,5,2,initial=5; reply-added=10,Counts reply-added context classes required for execution reasoning.
 B9 context expansion,broad deployment ontology,22,17,5,3.4,initial=5; reply-added=17,Counts all reply-added execution and deployment context classes.
 B9 context expansion,conservative grouped ontology,16,11,5,2.2,initial=5; reply-added=11,Merges related concepts to reduce dependence on coding granularity.
-B10 documentation outcome,all documentation-centered cases,12,5,12,0.4166666666666667,"partial-or-better=10/12; migrated=3/12",Primary scope; retains censored cases and reports private migration separately.
-B10 documentation outcome,non-migrated public cases,9,5,9,0.5555555555555556,"partial-or-better=7/9; migrated=0/9",Adversarial subset; not preferred because excluding migrated cases can select on outcome visibility.
+B10 documentation outcome,all documentation-centered cases,12,5,12,0.4166666666666667,partial-or-better=10/12; migrated=3/12,Primary scope; retains censored cases and reports private migration separately.
+B10 documentation outcome,non-migrated public cases,9,5,9,0.5555555555555556,partial-or-better=7/9; migrated=0/9,Adversarial subset; not preferred because excluding migrated cases can select on outcome visibility.

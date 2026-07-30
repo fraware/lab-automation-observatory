@@ -30,6 +30,7 @@ LATEX_SOURCE_GLOBS = (
     "paper/figures/**/*",
     "paper/generated/**/*",
     "paper/highlights.txt",
+    "paper/venues/slas/**/*",
     "paper/submission_bundle_manifest.template.yaml",
 )
 
@@ -91,7 +92,11 @@ def build_bundle(
     output_dir: Path,
     certification_sha: str,
     manifest_path: Path,
-    version: str = "0.1.4",
+    version: str = "0.1.5",
+    manuscript_pdf: Path | None = None,
+    cover_letter_pdf: Path | None = None,
+    supplement_pdf: Path | None = None,
+    highlights_path: Path | None = None,
 ) -> Path:
     output_dir.mkdir(parents=True, exist_ok=True)
     sha7 = certification_sha[:7]
@@ -110,10 +115,22 @@ def build_bundle(
                 path.rmdir()
     staging.mkdir(parents=True, exist_ok=True)
 
+    # Default to the v0.1.5 SLAS venue paths; fall back to legacy main/cover names.
+    manuscript = manuscript_pdf or ROOT / "paper/main_slas_v0.1.5.pdf"
+    if not manuscript.exists():
+        manuscript = ROOT / "paper/main.pdf"
+    cover = cover_letter_pdf or ROOT / "paper/cover_letter_slas_v0.1.5.pdf"
+    if not cover.exists():
+        cover = ROOT / "paper/cover_letter.pdf"
+    supplement = supplement_pdf or ROOT / "paper/supplement.pdf"
+    highlights = highlights_path or ROOT / "paper/venues/slas/highlights_v0.1.5.txt"
+    if not highlights.exists():
+        highlights = ROOT / "paper/highlights.txt"
+
     required_pdfs = {
-        "manuscript.pdf": ROOT / "paper/main.pdf",
-        "supplement.pdf": ROOT / "paper/supplement.pdf",
-        "cover_letter.pdf": ROOT / "paper/cover_letter.pdf",
+        "manuscript.pdf": manuscript,
+        "supplement.pdf": supplement,
+        "cover_letter.pdf": cover,
     }
     for name, path in required_pdfs.items():
         if not path.exists():
@@ -121,7 +138,6 @@ def build_bundle(
         (staging / name).write_bytes(path.read_bytes())
 
     ga = ROOT / "paper/graphical_abstract.png"
-    highlights = ROOT / "paper/highlights.txt"
     for path in (ga, highlights, manifest_path):
         if not path.exists():
             raise SystemExit(f"required artifact missing: {path}")
@@ -216,20 +232,48 @@ def main() -> None:
     parser.add_argument(
         "--manifest",
         type=Path,
-        default=ROOT / "artifacts/submission_bundle_manifest_v0.1.4.yaml",
+        default=ROOT / "artifacts/submission_bundle_manifest_v0.1.5.yaml",
     )
     parser.add_argument(
         "--output-dir",
         type=Path,
         default=ROOT / "artifacts/bundles",
     )
-    parser.add_argument("--version", default="0.1.4")
+    parser.add_argument("--version", default="0.1.5")
+    parser.add_argument(
+        "--manuscript-pdf",
+        type=Path,
+        default=None,
+        help="Override manuscript PDF path (default: paper/main_slas_v0.1.5.pdf)",
+    )
+    parser.add_argument(
+        "--cover-letter-pdf",
+        type=Path,
+        default=None,
+        help="Override cover-letter PDF path (default: paper/cover_letter_slas_v0.1.5.pdf)",
+    )
+    parser.add_argument(
+        "--supplement-pdf",
+        type=Path,
+        default=None,
+        help="Override supplement PDF path (default: paper/supplement.pdf)",
+    )
+    parser.add_argument(
+        "--highlights",
+        type=Path,
+        default=None,
+        help="Override highlights path (default: paper/venues/slas/highlights_v0.1.5.txt)",
+    )
     args = parser.parse_args()
     build_bundle(
         output_dir=args.output_dir,
         certification_sha=args.certification_sha,
         manifest_path=args.manifest,
         version=args.version,
+        manuscript_pdf=args.manuscript_pdf,
+        cover_letter_pdf=args.cover_letter_pdf,
+        supplement_pdf=args.supplement_pdf,
+        highlights_path=args.highlights,
     )
 
 

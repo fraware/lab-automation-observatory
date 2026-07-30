@@ -1,7 +1,7 @@
 schema_version: 1
 project:
   name: Lab Automation Forum Bottleneck Observatory
-  version: 0.1.4
+  version: 0.1.5
   repository: https://github.com/fraware/lab-automation-observatory
   source_content_sha: REPLACE_WITH_SOURCE_CONTENT_SHA
   certification_commit_sha: REPLACE_WITH_CERTIFICATION_COMMIT_SHA

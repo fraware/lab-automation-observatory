@@ -1,0 +1,4 @@
+• Ten bottlenecks expose operational boundaries in connected laboratories.
+• Observability and recovery form the strongest technical relationship.
+• Bounded metrics retain explicit units, denominators, and evidence stages.
+• Reusable schemas support troubleshooting, knowledge, interfaces, and events.

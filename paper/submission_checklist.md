@@ -26,7 +26,7 @@ This checklist maps the frozen release candidate to the current SLAS author requ
 - [x] Published numerical claims asserted in regression tests
 - [x] Public-data minimization documented
 - [x] Blind coder projection identified as the only independent-coding entry point
-- [ ] Commit the complete source/quotation audit ledger
+- [x] Commit the complete source/quotation audit ledger
 - [x] Apply and regenerate all seven identified source-fidelity quotation corrections
 - [x] Complete partial-score weighting sensitivity
 - [x] Complete leave-one-thread-out association stability using the current corrected register

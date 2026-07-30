@@ -105,20 +105,6 @@ The strongest technical association in the pilot links fragmented observability
 `lift = 2.353`. We publish it as a mechanism hypothesis worth testing, not as a
 causal estimate.
 
-## What this study does not claim
-
-Being useful here depends on being clear about the limits.
-
-- **No prevalence.** A purposive sample of discussions cannot tell you how often
-  anything happens in the field, and discussion counts are not incident counts.
-- **No vendor rankings.** Nothing here supports a reliability, quality, or
-  market-share comparison between products or suppliers.
-- **No causality from co-occurrence.** Associations are reported as hypotheses.
-- **No agreement statistic.** This is a single-coder pilot, so it reports none.
-  Instead it publishes the hard cases where a second coder would most likely
-  disagree, so that a real agreement number becomes possible later — see
-  [Contribute](#contribute).
-
 ## Reproduce it
 
 Reproduction reads only the derived data committed in this repository. Nothing

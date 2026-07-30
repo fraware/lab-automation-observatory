@@ -4,6 +4,29 @@ All notable changes follow Keep a Changelog principles.
 
 ## [Unreleased]
 
+## [0.1.5] - 2026-07-30
+
+### Added
+
+- Venue-specific manuscripts and packages for SLAS Technology / NexusXp
+  (`paper/main_slas_v0.1.5.tex`), Digital Discovery, Patterns Resource,
+  anonymized CSCW, and a future JOSS draft, with a venue build matrix under
+  `submissions/`.
+- Restored public `CLAIM_BOUNDARIES.md` binding every venue manuscript to the
+  certified inferential boundaries.
+- `artifacts/submission_audit_v0.1.5.md`, `artifacts/release_notes_v0.1.5.md`,
+  and `artifacts/submission_bundle_manifest_v0.1.5.yaml`.
+- `scripts/build_cscw_anonymous_package.py` for the anonymous CSCW review
+  archive.
+
+### Changed
+
+- Release version metadata reads `0.1.5` while preserving the certified
+  v0.1.4 empirical data, metrics, robustness outputs, and numerical results.
+- `scripts/build_submission_bundle.py` defaults to SLAS v0.1.5 manuscript,
+  cover-letter, and highlights paths.
+- Release workflow accepts `v0.1.5*` tags and the v0.1.5 bundle manifest.
+
 ## [0.1.4] - 2026-07-30
 
 ### Added

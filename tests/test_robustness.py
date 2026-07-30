@@ -7,6 +7,7 @@ import pytest
 
 from labauto_observatory.robustness import (
     ASSOCIATION_LOTO_RELATIVE,
+    DENOMINATOR_RELATIVE,
     PARTIAL_SCORE_RELATIVE,
     association_leave_one_out_records,
     denominator_sensitivity_records,
@@ -121,5 +122,22 @@ def test_register_mutation_invalidates_association_influence_output(
     problems = robustness_drift(data_root)
     assert (
         f"{ASSOCIATION_LOTO_RELATIVE} has drifted from its source data; run `make derived`"
+        in problems
+    )
+
+
+def test_metric_mutation_invalidates_denominator_sensitivity_output(
+    data_root: Path, edit_csv: Callable[..., None]
+) -> None:
+    """Flipping a B6 failure class must invalidate the denominator sensitivity CSV."""
+
+    edit_csv(
+        data_root / "data/metrics/b6_preflight_preventability.csv",
+        0,
+        **{"Failure class": "Hardware failure"},
+    )
+    problems = robustness_drift(data_root)
+    assert (
+        f"{DENOMINATOR_RELATIVE} has drifted from its source data; run `make derived`"
         in problems
     )

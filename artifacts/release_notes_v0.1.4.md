@@ -2,9 +2,13 @@
 
 Release-blocker remediation for the SLAS publication gate (issue #13). Repairs
 the broken supplement/table test contract, commits the 24-row source/quotation
-audit ledger, bumps release metadata to 0.1.4, and records measured automated
-checks. It does **not** start DOI, Zenodo, preprint, or Editorial Manager work
-(issue #8 remains blocked until #13 closes after an inspected PDF bundle).
+audit ledger, bumps release metadata to 0.1.4, and records a measured freeze
+including inspected PDFs. It does **not** start DOI, Zenodo, preprint, or
+Editorial Manager work (issue #8).
+
+Content freeze SHA: `c860747e7a8d4ae002ba2df250c224fc2d63a85f`  
+Tag intent: `v0.1.4-rc1`  
+Bundle manifest: [submission_bundle_manifest_v0.1.4.yaml](submission_bundle_manifest_v0.1.4.yaml)
 
 ## Why this release
 
@@ -32,12 +36,15 @@ checks. It does **not** start DOI, Zenodo, preprint, or Editorial Manager work
   CHANGELOG cut; README Markdown H1 restored above the ASCII banner.
 - Issue #11 edited to require only `reliability_subset_blind.csv`.
 
-## Measured checks (2026-07-30, Windows host)
+## Measured checks (2026-07-30)
 
+- Host: Windows 11, Python 3.13.11; `uv sync --frozen --all-extras` green
 - 205 tests passed; 95.73% branch-aware coverage
 - 31 release CSVs + 3 robustness artifacts validated
 - 24 source-quote audit records
-- `mkdocs build --strict` green
-- TeX/PDF rebuild and visual inspection: **pending Linux/TeX Live**
+- `mkdocs build --strict` green; clean worktree after `make derived`
+- PDFs (MiKTeX `pdflatex`/`bibtex`): main 29 pp, supplement 10 pp, cover letter
+  1 pp, graphical abstract 1 pp; **zero Type 3 fonts**; extractable text OK
 
-Measured detail is in [submission_audit_v0.1.4.md](submission_audit_v0.1.4.md).
+Measured detail and SHA-256 digests:
+[submission_audit_v0.1.4.md](submission_audit_v0.1.4.md).

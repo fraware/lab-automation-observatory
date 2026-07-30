@@ -1,0 +1,29 @@
+\section{Design implications}
+
+\subsection{Progressive disclosure for technical questions}
+
+A forum form should request a small universal core and reveal conditional fields through the reported problem. System and software identity, objective, expected behavior, observed behavior, exact evidence, prior tests, acceptance criterion, recent changes, and requested help form the core. Integration questions activate interface and licence fields. Physical failures activate layout, resource, geometry, and material fields. Partial execution activates completed actions, current material state, intervention, recovery, and final disposition.
+
+The interface should explain why each field matters and allow users to mark information as unknown, unavailable, confidential, or not applicable. A form that requires every field at once could exclude participants and encourage fabricated precision. Its evaluation should measure clarification rounds, time to actionable response, abandonment, sensitive-data disclosure, and the quality of eventual resolution.
+
+\subsection{Event records for collaborative repair}
+
+Execution systems should expose linked identifiers for run, configuration, command, material, resource, observation, modeled transition, intervention, recovery, and result. Acknowledgement and physical observation should remain separate. The record should identify the last confirmed physical state, uncertain fields, irreversible actions, and final disposition.
+
+Such a record supports collaboration among operators, developers, vendors, and scientists without requiring one person to reconstruct the entire process from logs and memory. The design should retain manual judgment and uncertainty. Evaluation should focus on diagnosis time, safe-state time, unresolved-state count, operator burden, salvage, disposition completeness, and recurrence.
+
+\subsection{Return paths from private resolution}
+
+Support systems should make it easy to return a bounded public outcome after private work. A lightweight publication step can capture the observable problem, applicable versions, root-cause status, resolution, validation stage, evidence grade, public artifact, limitation, maintainer, and last verification. Participants should be able to redact confidential details and state which information remains unavailable.
+
+The public record should link to the original discussion and any maintained code or documentation. It should also support dispute, supersession, and review due dates. Metrics should examine how frequently migrated discussions receive a public return and whether returned records reduce rediscovery.
+
+\subsection{Community-maintained evidence grades}
+
+Shared resource definitions, drivers, workarounds, and validation claims should expose evidence depth. Declared, measured, device-validated, and independently reproduced values should not appear equivalent. Evidence grades should be field-specific where feasible, since geometry, material, tolerance, and device behavior can have different provenance.
+
+Community interfaces can invite targeted validation. A user who cannot reproduce a resource definition can contribute the machine, configuration, measurement, and observed outcome instead of replacing the record. Maintainers can then update applicability or supersede a field with explicit lineage.
+
+\subsection{Evaluation by knowledge outcomes}
+
+Technical communities are frequently evaluated through response time, accepted answers, or activity. The findings support a broader outcome set: diagnostic sufficiency, missing-requirement discovery, actionable resolution, public visibility, canonicalization, correction latency, staleness, and conversion into maintained artifacts. These measures distinguish immediate support from durable infrastructure.

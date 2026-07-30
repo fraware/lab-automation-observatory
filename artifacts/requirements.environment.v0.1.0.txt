@@ -4,10 +4,10 @@
 # produce the published values and is not a substitute for the lockfile.
 # Every entry below is declared in `pyproject.toml`.
 jsonschema==4.26.0
-matplotlib==3.10.8
-numpy==2.3.5
+matplotlib==3.11.1
+numpy==2.4.6
 pandas==2.2.3
 PyYAML==6.0.3
-typer==0.26.3
-pytest==9.0.2
-coverage==7.13.3
+typer==0.27.0
+pytest==9.1.1
+coverage==7.15.2

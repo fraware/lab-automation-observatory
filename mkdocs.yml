@@ -1,19 +1,17 @@
-site_name: Lab Automation Forum Bottleneck Observatory
+site_name: Lab Automation Observatory
 site_description: Reproducible research and community artifacts for laboratory automation
 repo_url: https://github.com/fraware/lab-automation-observatory
 nav:
   - Home: index.md
   - Methods: methods.md
   - Data dictionary: data-dictionary.md
-  - Publication robustness: robustness.md
   - Evidence atlas: evidence-atlas.md
   - Evidence atlas summary: generated/evidence_atlas_summary.md
-  - Community artifacts: community-artifacts.md
-  - Claim discipline: claim-discipline.md
   - Contributing evidence: contributing-evidence.md
   - Correction workflow: correction-workflow.md
   - Device-interface registry: device-interface-registry.md
   - Run-event schema: event-schema.md
+  - Project: project.md
 theme:
   name: material
 markdown_extensions:

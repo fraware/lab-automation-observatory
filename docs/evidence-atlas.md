@@ -115,7 +115,7 @@ back to the source before citing a number.
   way `Bounded quantitative result` phrases it — with its unit and
   denominator attached — rather than as a bare percentage.
 
-See [Claim discipline](claim-discipline.md) for the full set of excluded
+See [CLAIM_BOUNDARIES.md](https://github.com/fraware/lab-automation-observatory/blob/main/CLAIM_BOUNDARIES.md) for the full set of excluded
 claim types, and [Methods](methods.md) for the corpus and coding rationale
 behind the counts.
 

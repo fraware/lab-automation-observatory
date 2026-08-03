@@ -4,6 +4,15 @@ All notable changes follow Keep a Changelog principles.
 
 ## [Unreleased]
 
+### Changed
+
+- Consolidated public documentation into a tighter map: claim discipline folded
+  into `CLAIM_BOUNDARIES.md`; governance/ethics/data-use/roadmap into
+  `docs/project.md`; robustness into `docs/methods.md`; venue requirements into
+  `submissions/README.md`. Removed redundant root and docs Markdown files.
+  MkDocs navigation and `REUSE.toml` updated. Manuscript sources remain
+  local-only (`paper/` gitignored; purged from git history).
+
 ## [0.1.5] - 2026-07-30
 
 ### Added

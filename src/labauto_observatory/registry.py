@@ -16,7 +16,7 @@ seed record trustworthy.
   facts to that case; it may not restate its score differently. The draft says
   the two files are "expected to stay in agreement on the numbers they share",
   and this module is what makes that a check instead of a promise.
-* **Claim discipline.** ``docs/claim-discipline.md`` forbids reading a
+* **Claim discipline.** ``CLAIM_BOUNDARIES.md`` forbids reading a
   collection of single-vendor records as a league table. Every record must
   therefore prohibit exactly that use of itself, and a submission that omits the
   prohibition must fail rather than be silently accepted.
@@ -104,7 +104,7 @@ def check_claim_discipline(records: list[dict[str, Any]]) -> list[str]:
         if not any("rank" in claim and vendor_token in claim for claim in prohibitions):
             problems.append(
                 f"{label}: 'prohibited_claims' must forbid ranking {record['vendor']!r} against "
-                "other vendors; see docs/claim-discipline.md"
+                "other vendors; see CLAIM_BOUNDARIES.md"
             )
     return problems
 

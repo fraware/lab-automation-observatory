@@ -4,7 +4,7 @@ This page defines how a correction to a coded row, a metric input, a published c
 knowledge-index record moves from a report to a merged change. It is the correction-specific
 companion to [Contributing evidence and coding changes](contributing-evidence.md), which covers
 the mechanics of each change type, and to [CONTRIBUTING.md](https://github.com/fraware/lab-automation-observatory/blob/main/CONTRIBUTING.md),
-which covers pull-request requirements. [GOVERNANCE.md](https://github.com/fraware/lab-automation-observatory/blob/main/GOVERNANCE.md)
+which covers pull-request requirements. [Project governance](project.md)
 sets the roles and the immutability rule this page assumes.
 
 A correction fixes something already in the release: a wrong code, a wrong score, a stale
@@ -38,7 +38,7 @@ applies to corrections exactly as it applies to new material.
 |---|---|
 | Coded-row correction | The register part file; the same thread's rows in `episode_register_part_*.csv` and `reliability_subset.csv` if it is one of the 14 hard threads; `data/derived/pairwise_associations.csv` and `data/derived/evidence_atlas.csv` after `make derived`; the literals in `tests/test_published_values.py` if any count moves; `paper/generated/*` and `paper/figures/*` after `make tables` and `make figures`; a `CHANGELOG.md` `Unreleased` entry. |
 | Metric-input correction | The one `data/metrics/*.csv` file; `data/metrics/b2_b10_matched_cases.csv` if the row is a matched case; `tests/test_published_values.py`; `paper/generated/*`, `paper/figures/*`; `publication_claim_ledger.csv` if the metric backs an approved claim's `Evidence source` or `Denominator / scope`. |
-| Published-claim correction | `publication_claim_ledger.csv`; the manuscript file carrying the `% claim: Cnn` marker; `docs/claim-discipline.md` only if the approved-claim classes themselves change. |
+| Published-claim correction | `publication_claim_ledger.csv`; the manuscript file carrying the `% claim: Cnn` marker; `CLAIM_BOUNDARIES.md` only if the approved-claim classes themselves change. |
 | Knowledge-index correction | `seed_records.yaml` and `seed_records.json` together, which must stay identical; `seed_records.csv`, the flattened review view; the superseded record's `Status`. |
 | Taxonomy or schema correction | `taxonomy_rules.csv` or `codebook.csv`; every register row whose `Primary` or direct-support flags move as a result; `docs/data-dictionary.md`. |
 | Provenance-only correction | The single corrected field. No other file, unless the new source changes what evidence strength or resolution class the row can support, in which case it becomes a coded-row correction. |
@@ -82,7 +82,7 @@ A correction limited to a provenance field or a note (see the classification bel
 ## Classifying the correction
 
 Every correction falls into exactly one of three classes. The class determines which checks are
-required and who signs off, per the roles in `GOVERNANCE.md`.
+required and who signs off, per the roles in `docs/project.md`.
 
 ### Note-only
 
@@ -109,7 +109,7 @@ a table, a figure, or manuscript prose.
   to the changed files, ending in `make claims` if the ledger or a manuscript anchor moved.
   `tests/test_published_values.py` literals must be updated in the same pull request.
   `CHANGELOG.md` gets an `Unreleased` entry naming the value that moved and why.
-- Requires a domain reviewer or the project steward, per `GOVERNANCE.md`, in addition to the data
+- Requires a domain reviewer or the project steward, per `docs/project.md`, in addition to the data
   steward who reviews the evidence itself.
 - If the changed number is already published under a cut release tag (`vX.Y.Z` in `CHANGELOG.md`),
   the correction lands as a new release, not a retroactive edit. Release tags are immutable.

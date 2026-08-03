@@ -79,7 +79,7 @@ Accessibility facts describe what was true when someone last read the documentat
 | `known_limitations` | Array of strings, at least one | Required | Explicit technical bounds of this specific record (partial feature coverage, single hardware generation, modified unit, and so on). |
 | `prohibited_claims` | Array of strings, at least one | Required | Downstream claims this record must not be used to support. |
 
-Every record's `prohibited_claims` must include a statement that the record cannot be used to rank its vendor against other vendors on accessibility or reliability. A registry made of many single-vendor records is exactly the shape of data that gets misread as a league table, so the prohibition is a required field, not a documentation aside. Consistent with `docs/claim-discipline.md`, the registry as a whole also carries no prevalence, market-share, or installed-base claim: a growing count of registry records describes registry coverage, not how common any interface pattern is among laboratories.
+Every record's `prohibited_claims` must include a statement that the record cannot be used to rank its vendor against other vendors on accessibility or reliability. A registry made of many single-vendor records is exactly the shape of data that gets misread as a league table, so the prohibition is a required field, not a documentation aside. Consistent with `CLAIM_BOUNDARIES.md`, the registry as a whole also carries no prevalence, market-share, or installed-base claim: a growing count of registry records describes registry coverage, not how common any interface pattern is among laboratories.
 
 ## Seed records
 
@@ -131,7 +131,7 @@ make test
 
 - It does not promise a review turnaround. The contribution section above states what a submission must contain and what is checked mechanically; it deliberately states no SLA, because a single-maintainer project cannot honour one.
 - It does not compute or publish any aggregate across records (count by vendor, mean accessibility by interface class, or similar). Aggregation policy is out of scope until the registry has enough independently contributed records for aggregation to mean something, and even then it must not become a vendor comparison.
-- It does not touch `data/metrics/b2_integration_access.csv`, the published IAS values, or any claim in `docs/claim-discipline.md`. The two files describe the same underlying cases from different angles and are expected to stay in agreement on the numbers they share, not to be merged.
+- It does not touch `data/metrics/b2_integration_access.csv`, the published IAS values, or any claim in `CLAIM_BOUNDARIES.md`. The two files describe the same underlying cases from different angles and are expected to stay in agreement on the numbers they share, not to be merged.
 
 ## Open questions for issue #12
 

@@ -152,5 +152,5 @@ to imply completeness.
 
 Comment on the Roadmap item or open a draft pull request against
 `schemas/run-event.schema.json` to continue the discussion. See also
-[Community artifacts](community-artifacts.md#planned-registries) and
-`ROADMAP.md`.
+[docs/index.md](index.md#community-artifacts-summary) and
+[Project roadmap](project.md#roadmap).

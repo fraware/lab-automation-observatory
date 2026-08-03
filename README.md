@@ -155,8 +155,7 @@ simulation result can never quietly become a wet-lab result.
 Publishing an artifact is not success. Judge these on whether they reduce
 clarification rounds, shorten time to an actionable answer, stop the same
 question from returning, keep records from going stale silently, and get final
-outcomes recorded. Details in
-[docs/community-artifacts.md](docs/community-artifacts.md).
+outcomes recorded. Details in [docs/index.md](docs/index.md).
 
 ## Contribute
 
@@ -194,9 +193,9 @@ step-by-step walkthrough of each change type above.
 
 The ground rules, in one breath: link a public source; keep "unknown" distinct
 from "absent"; claim only what your evidence reached; and update the tests when a
-published number moves. Published numbers are also wired to the exact manuscript
-passages that depend on them, so `make claims` will tell you if a change breaks
-that link ([how it works](docs/claim-discipline.md)).
+published number moves. Published numbers stay inside
+[CLAIM_BOUNDARIES.md](CLAIM_BOUNDARIES.md); with a local `paper/` tree,
+`make claims` checks manuscript bindings.
 
 Hosted CI is deliberately not triggered on pull requests, so `make ci` on your
 own machine is the authoritative check. Run it before you open one.
@@ -222,27 +221,21 @@ paper/                    Local-only manuscript tree (gitignored; not on GitHub)
 
 | Read this | For |
 |---|---|
-| [docs/methods.md](docs/methods.md) | Corpus, episode segmentation, coding, and what reliability rests on |
+| [docs/index.md](docs/index.md) | Docs map and community-artifact summary |
+| [docs/methods.md](docs/methods.md) | Corpus, coding, adjudication, robustness |
 | [docs/data-dictionary.md](docs/data-dictionary.md) | Every column in every derived file |
-| [docs/evidence-atlas.md](docs/evidence-atlas.md) | What one evidence-atlas row means, how to trace it to quotes/cases/metrics, and what it does not support |
-| [docs/community-artifacts.md](docs/community-artifacts.md) | The artifacts above and how they should be evaluated |
-| [docs/claim-discipline.md](docs/claim-discipline.md) | How published numbers stay bound to the text that cites them |
-| [REPRODUCIBILITY.md](REPRODUCIBILITY.md) | Environment, generated outputs, and Windows notes |
-| [artifacts/README.md](artifacts/README.md) | Which audit describes the current validated baseline, and what it measured |
-| [docs/device-interface-registry.md](docs/device-interface-registry.md) | Device-interface registry draft with seven checked seed records |
-| `schemas/run-event.schema.json` | Proposed run-event schema for making B5/B6 observability measurable at the source |
-| `data/run_event_examples/` | Illustrative streams grounded in the B5-C3 and B6 pilot cases |
-| [docs/event-schema.md](docs/event-schema.md) | Proposed run-event schema, example streams, and B5/B6 scoring path |
-| [ROADMAP.md](ROADMAP.md), [GOVERNANCE.md](GOVERNANCE.md) | Where this is going and how decisions get made |
+| [docs/evidence-atlas.md](docs/evidence-atlas.md) | How to read one atlas row |
+| [CLAIM_BOUNDARIES.md](CLAIM_BOUNDARIES.md) | Supported and unsupported inference; claim ledger rules |
+| [REPRODUCIBILITY.md](REPRODUCIBILITY.md) | Environment, generated outputs, Windows notes |
+| [artifacts/README.md](artifacts/README.md) | Current audit and release-notes index |
+| [docs/project.md](docs/project.md) | Governance, ethics, data use, roadmap |
+| [docs/device-interface-registry.md](docs/device-interface-registry.md) | Device-interface registry draft |
+| [docs/event-schema.md](docs/event-schema.md) | Run-event schema draft and B5/B6 scoring path |
+| [submissions/README.md](submissions/README.md) | Venue publication line (manuscripts local-only) |
 
-Every page above is also a page of the MkDocs site. `make docs` serves it at
-`http://127.0.0.1:8000`, and `make docs-build` renders it into `site/` with
-warnings escalated to errors. The site is not published yet: the
-`Docs site` workflow (`.github/workflows/pages.yml`) deploys it to GitHub Pages
-on manual dispatch, and this section will name the published URL once a
-maintainer has dispatched it and enabled Pages for the repository. Until then,
-read the Markdown in `docs/` directly or serve it locally; nothing in the site
-is generated from anything the repository does not already commit.
+`make docs` serves MkDocs at `http://127.0.0.1:8000`; `make docs-build` renders
+`site/` with warnings as errors. The `Docs site` workflow
+(`.github/workflows/pages.yml`) deploys on manual dispatch.
 
 ## Data, ethics, and licensing
 
@@ -251,7 +244,7 @@ the public sources. It does not redistribute a verbatim forum corpus or user
 handles. Outcomes are treated as censored when a discussion moves to private
 support, direct messages, meetings, or local implementations, because a thread
 going quiet is not the same as a problem being solved. See
-[ETHICS.md](ETHICS.md) and [DATA_USE.md](DATA_USE.md).
+[docs/project.md](docs/project.md).
 
 Code is Apache-2.0. Original documentation and derived data are CC BY 4.0. Forum
 content remains owned by the people who wrote it. Per-file licensing follows

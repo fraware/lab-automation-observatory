@@ -15,7 +15,7 @@ QUOTE_BANK_PATH = ROOT / "data/derived/quote_bank.csv"
 REFERENCES_PATH = ROOT / "paper/references.bib"
 requires_paper = pytest.mark.skipif(
     not (ROOT / "paper" / "main.tex").is_file(),
-    reason="paper/ is not present in this checkout",
+    reason="manuscript sources are not present in this checkout",
 )
 
 EXPECTED_COLUMNS = (

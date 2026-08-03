@@ -1,3 +1,5 @@
+# Lab Automation Observatory
+
 <div align="center">
 
 <pre>
@@ -110,7 +112,7 @@ queries the forum.
 ```bash
 git clone https://github.com/fraware/lab-automation-observatory.git
 cd lab-automation-observatory
-uv sync --all-extras
+uv sync --frozen --all-extras
 
 make reproduce   # recompute every published value into build/results.json
 make test        # assert published values, schemas, and generated outputs
@@ -187,7 +189,7 @@ The ground rules, in one breath: link a public source; keep "unknown" distinct
 from "absent"; claim only what your evidence reached; and update the tests when a
 published number moves. Published numbers stay inside
 [CLAIM_BOUNDARIES.md](CLAIM_BOUNDARIES.md); `make claims` checks manuscript
-bindings when `paper/` is present.
+claim markers and anchors when manuscript sources are available.
 
 Hosted CI is deliberately not triggered on pull requests, so `make ci` on your
 own machine is the authoritative check. Run it before you open one.

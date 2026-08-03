@@ -101,10 +101,7 @@ def build_bundle(
     output_dir.mkdir(parents=True, exist_ok=True)
     sha7 = certification_sha[:7]
     stamp = date.today().isoformat()
-    zip_name = (
-        f"LabAutomationObservatory_SLASTechnology_NexusXp_"
-        f"v{version}_{stamp}_{sha7}.zip"
-    )
+    zip_name = f"LabAutomationObservatory_SLASTechnology_NexusXp_v{version}_{stamp}_{sha7}.zip"
     zip_path = output_dir / zip_name
     staging = output_dir / f".staging_{sha7}"
     if staging.exists():

@@ -36,8 +36,8 @@ applies to corrections exactly as it applies to new material.
 
 | Kind | Files that usually move together |
 |---|---|
-| Coded-row correction | The register part file; the same thread's rows in `episode_register_part_*.csv` and `reliability_subset.csv` if it is one of the 14 hard threads; `data/derived/pairwise_associations.csv` and `data/derived/evidence_atlas.csv` after `make derived`; the literals in `tests/test_published_values.py` if any count moves; `paper/generated/*` and `paper/figures/*` after `make tables` and `make figures`; a `CHANGELOG.md` `Unreleased` entry. |
-| Metric-input correction | The one `data/metrics/*.csv` file; `data/metrics/b2_b10_matched_cases.csv` if the row is a matched case; `tests/test_published_values.py`; `paper/generated/*`, `paper/figures/*`; `publication_claim_ledger.csv` if the metric backs an approved claim's `Evidence source` or `Denominator / scope`. |
+| Coded-row correction | The register part file; the same thread's rows in `episode_register_part_*.csv` and `reliability_subset.csv` if it is one of the 14 hard threads; `data/derived/pairwise_associations.csv` and `data/derived/evidence_atlas.csv` after `make derived`; the literals in `tests/test_published_values.py` if any count moves; regenerated tables and figures after `make tables` and `make figures` when those generators apply; a `CHANGELOG.md` `Unreleased` entry. |
+| Metric-input correction | The one `data/metrics/*.csv` file; `data/metrics/b2_b10_matched_cases.csv` if the row is a matched case; `tests/test_published_values.py`; regenerated tables and figures; `publication_claim_ledger.csv` if the metric backs an approved claim's `Evidence source` or `Denominator / scope`. |
 | Published-claim correction | `publication_claim_ledger.csv`; the manuscript file carrying the `% claim: Cnn` marker; `CLAIM_BOUNDARIES.md` only if the approved-claim classes themselves change. |
 | Knowledge-index correction | `seed_records.yaml` and `seed_records.json` together, which must stay identical; `seed_records.csv`, the flattened review view; the superseded record's `Status`. |
 | Taxonomy or schema correction | `taxonomy_rules.csv` or `codebook.csv`; every register row whose `Primary` or direct-support flags move as a result; `docs/data-dictionary.md`. |
@@ -64,16 +64,15 @@ applies to corrections exactly as it applies to new material.
 4. `make tables` and `make figures`, whenever a changed value feeds a generated table or figure:
    the headline metrics table, the component heatmaps, the discovery/resolution matrix, the
    association phi matrix, the validation funnel, or an atlas export. Commit the regenerated
-   `paper/generated/*` and `paper/figures/*`.
+   outputs those targets produce.
 5. `make claims`, whenever the claim ledger, a `Manuscript anchor`, or a `% claim: Cnn` marker
    changes. It fails when an approved claim has no marker, when the anchor is missing from the
    manuscript, when the marker and the anchor sit in different files, or when a rejected claim is
    marked.
 6. `make docs-build`, whenever a documentation page or the `mkdocs.yml` navigation changes.
 7. `make ci` before merge for any correction that touches the register, the metrics, the claim
-   ledger, or a schema. It chains lint, typecheck, `validate`, `test`, `docs-build`, and the
-   manuscript, supplement, and cover-letter builds, so it is the single command that reproduces
-   what the release pipeline will do with the correction applied.
+   ledger, or a schema. It chains lint, typecheck, `validate`, `test`, and `docs-build`, so it is
+   the single command that reproduces the public release checks with the correction applied.
 
 A correction limited to a provenance field or a note (see the classification below) only needs
 `make validate` and, if a doc changed, `make docs-build`; it will not change what `make test` or
@@ -93,8 +92,8 @@ to the same content, a maintainer name or `Last verified` date update that does 
 resolution the record reports.
 
 - Required checks: `make validate`, plus `make docs-build` if a doc page changed.
-- No entry in `tests/test_published_values.py`, `paper/generated/*`, or `CHANGELOG.md` is
-  expected to change. If one does, the correction is not note-only; reclassify it.
+- No entry in `tests/test_published_values.py`, generated table or figure outputs, or
+  `CHANGELOG.md` is expected to change. If one does, the correction is not note-only; reclassify it.
 - Can be merged by any maintainer once `make validate` passes.
 
 ### Claim-affecting

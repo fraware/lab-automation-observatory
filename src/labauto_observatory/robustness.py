@@ -150,13 +150,8 @@ def association_leave_one_out_records(root: str | Path) -> list[dict[str, str]]:
     for deleted_index in range(len(rows)):
         subset = rows[:deleted_index] + rows[deleted_index + 1 :]
         ranked = _association_rows(subset)
-        rank_map = {
-            (code_a, code_b): rank
-            for rank, (code_a, code_b, _, _) in enumerate(ranked, 1)
-        }
-        value_map = {
-            (code_a, code_b): (phi, lift) for code_a, code_b, phi, lift in ranked
-        }
+        rank_map = {(code_a, code_b): rank for rank, (code_a, code_b, _, _) in enumerate(ranked, 1)}
+        value_map = {(code_a, code_b): (phi, lift) for code_a, code_b, phi, lift in ranked}
         for pair in pairs:
             phi, lift = value_map[pair]
             phis[pair].append(phi)
@@ -212,9 +207,7 @@ def _b7_record(rows: list[dict[str, str]], variant: str, scope: str) -> dict[str
     scores = [float(row[OPENING_SCORE_COLUMN]) for row in rows]
     incomplete = [row for row in rows if float(row[OPENING_SCORE_COLUMN]) < 1]
     discovered = sum(row["Identified in discussion?"] == "Yes" for row in incomplete)
-    resolved = sum(
-        row["Resolved with scenario-specific value?"] == "Yes" for row in incomplete
-    )
+    resolved = sum(row["Resolved with scenario-specific value?"] == "Yes" for row in incomplete)
     strict = sum(score == 1 for score in scores)
     covered = sum(score > 0 for score in scores)
     return {
@@ -234,9 +227,7 @@ def _b7_record(rows: list[dict[str, str]], variant: str, scope: str) -> dict[str
 
 def _b8_record(rows: list[dict[str, str]], variant: str, scope: str) -> dict[str, str]:
     aligned = sum(row["Alignment class"] == "Aligned" for row in rows)
-    partial_or_better = sum(
-        row["Alignment class"] in {"Aligned", "Partial"} for row in rows
-    )
+    partial_or_better = sum(row["Alignment class"] in {"Aligned", "Partial"} for row in rows)
     return {
         "Metric": "B8 test--claim alignment",
         "Variant": variant,
@@ -263,8 +254,7 @@ def _b9_records(rows: list[dict[str, str]]) -> list[dict[str, str]]:
         (
             "broad deployment ontology",
             sum(
-                row["Origin"] == "Reply-added"
-                and row["Broader deployment scope?"] == "Yes"
+                row["Origin"] == "Reply-added" and row["Broader deployment scope?"] == "Yes"
                 for row in rows
             ),
             "Counts all reply-added execution and deployment context classes.",
@@ -272,8 +262,7 @@ def _b9_records(rows: list[dict[str, str]]) -> list[dict[str, str]]:
         (
             "conservative grouped ontology",
             sum(
-                row["Origin"] == "Reply-added"
-                and row["Counted in conservative grouping?"] == "Yes"
+                row["Origin"] == "Reply-added" and row["Counted in conservative grouping?"] == "Yes"
                 for row in rows
             ),
             "Merges related concepts to reduce dependence on coding granularity.",

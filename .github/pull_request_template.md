@@ -20,4 +20,4 @@ State what the revised material still does not establish.
 - [ ] `make typecheck`
 - [ ] `make validate`
 - [ ] `make test`
-- [ ] `make paper`
+- [ ] `make docs-build`

@@ -80,9 +80,7 @@ def main() -> None:
             raise SystemExit("approved claims are not traceable to the manuscript sources")
         traced = len(traceability.approved)
     else:
-        print(
-            "paper/ not present; skipping manuscript claim traceability"
-        )
+        print("manuscript sources not present; skipping manuscript claim traceability")
 
     data = check_release_data(ROOT)
     if not data.ok:
@@ -112,7 +110,7 @@ def main() -> None:
         print(
             f"validated {len(records)} knowledge records and {len(approved)} approved claims; "
             f"checked {len(data.checked_files)} release CSVs and 3 robustness artifacts "
-            "(manuscript checks skipped; paper/ not present)"
+            "(manuscript checks skipped; manuscript sources not present)"
         )
 
 

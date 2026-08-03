@@ -6,6 +6,11 @@ All notable changes follow Keep a Changelog principles.
 
 ### Changed
 
+- Public external-release scrub: venue docs no longer inventory manuscript paths
+  or portal-operator checklists; claim and reproducibility docs avoid manuscript
+  directory locality; Zenodo/CodeMeta descriptions match the public data-and-code
+  deposit; Pages workflow pinned to the same `setup-uv` revision as CI; PR
+  template validates with `make docs-build` instead of a manuscript build target.
 - Consolidated public documentation into a tighter map: claim discipline folded
   into `CLAIM_BOUNDARIES.md`; governance/ethics/data-use/roadmap into
   `docs/project.md`; robustness into `docs/methods.md`; venue requirements into

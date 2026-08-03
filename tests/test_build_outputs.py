@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 COMMITTED_TABLES = ROOT / "paper" / "generated"
 requires_paper = pytest.mark.skipif(
     not (ROOT / "paper" / "main.tex").is_file(),
-    reason="paper/ is not present in this checkout",
+    reason="manuscript sources are not present in this checkout",
 )
 TABLE_NAMES = (
     "headline_metrics.tex",
@@ -106,9 +106,7 @@ def test_generated_robustness_tables_are_committed_in_sync(
     assert set(robustness_tables) == set(ROBUSTNESS_TABLE_NAMES)
     for name in ROBUSTNESS_TABLE_NAMES:
         committed = (COMMITTED_TABLES / name).read_text(encoding="utf-8")
-        assert robustness_tables[name] == committed, (
-            f"{name} is out of date; run `make tables`"
-        )
+        assert robustness_tables[name] == committed, f"{name} is out of date; run `make tables`"
 
 
 def test_headline_metrics_table_content(tables: dict[str, str]) -> None:

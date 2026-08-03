@@ -39,7 +39,7 @@ Applies to `data/metrics/*.csv`.
 1. Keep the `0 / 0.5 / 1 / empty` encoding. A score of `1` means the property is explicitly and completely evidenced.
 2. Do not change a metric's unit or denominator without saying so explicitly in the pull request, because the unit is part of every published claim.
 3. Fill `Interpretation` and `Invalid inference` for the affected rows.
-4. Update the expected values in `tests/test_published_values.py` in the same pull request, and regenerate `paper/generated/` with `make tables`.
+4. Update the expected values in `tests/test_published_values.py` in the same pull request, and regenerate tables with `make tables`.
 
 ### Change or add a published claim
 
@@ -116,7 +116,7 @@ make figures
 
 `make derived` must run first: `data/metrics/pairwise_associations.csv`, `data/derived/evidence_atlas.csv`, `data/derived/reliability_subset_blind.csv`, and `docs/generated/evidence_atlas_summary.md` are all computed from the register, the metric files, the adjudication key, or the atlas itself, and `make validate` fails if any of them is left stale.
 
-Commit any resulting changes to the derived CSVs, the generated atlas summary, `paper/generated/`, and `paper/figures/*.pdf`. See [REPRODUCIBILITY.md](https://github.com/fraware/lab-automation-observatory/blob/main/REPRODUCIBILITY.md) for the Windows and PowerShell equivalents.
+Commit any resulting changes to the derived CSVs, the generated atlas summary, and any regenerated table or figure outputs. See [REPRODUCIBILITY.md](https://github.com/fraware/lab-automation-observatory/blob/main/REPRODUCIBILITY.md) for the Windows and PowerShell equivalents.
 
 ## What will be declined
 

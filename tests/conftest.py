@@ -19,7 +19,7 @@ SCRIPTS = ROOT / "scripts"
 PAPER_AVAILABLE = (ROOT / "paper" / "main.tex").is_file()
 requires_paper = pytest.mark.skipif(
     not PAPER_AVAILABLE,
-    reason="paper/ is not present in this checkout",
+    reason="manuscript sources are not present in this checkout",
 )
 
 

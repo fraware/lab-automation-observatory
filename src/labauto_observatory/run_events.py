@@ -216,7 +216,11 @@ def _completed_irreversible_prefix(events: list[dict[str, Any]]) -> bool:
         if event.get("event_type") != "command_acknowledged":
             continue
         acknowledged = event.get("acknowledges")
-        if acknowledged in irreversible and event.get("outcome") == "completed":
+        if (
+            isinstance(acknowledged, str)
+            and acknowledged in irreversible
+            and event.get("outcome") == "completed"
+        ):
             completed.add(acknowledged)
     return bool(completed)
 

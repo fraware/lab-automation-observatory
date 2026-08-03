@@ -86,28 +86,23 @@ Discovery / CSCW main logs show 0 Overfull `\hbox` after settling passes.
 - Body word count (pdftotext layout text before the References heading): **5206**
   (within the 5k–12k rolling-submission target; full extract including
   bibliography: 5616)
-- PDF metadata Author field empty; extractable text has no matches for author
-  name, email, `fraware`, `SentinelOps`, `Stanford`, or ORCID strings
+- PDF metadata Author field empty; extractable text has no author-identifying
+  strings in the anonymized CSCW package
 - Anonymous review header renders as `Anon.`; author line is
   `Anonymous Author(s)`
 - Anonymous package builder: `scripts/build_cscw_anonymous_package.py`
   (inspection notes recorded in this audit; ZIP lands under
   `artifacts/bundles/`, gitignored)
 
-### Cover / inquiry letters outside PDF compile
-
-- Patterns editorial inquiry: `paper/venues/patterns/editorial_inquiry.md`
-  (Markdown; no PDF required by the build matrix)
-- CSCW cover letter: `paper/venues/cscw/cover_letter.md` (Markdown)
-
 ## Claim scope
 
 No new claim-affecting scientific re-estimate. B2–B7 full-corpus phi remains
 **0.382**. Venue manuscripts change framing, structure, title, and contribution
 emphasis only. `CLAIM_BOUNDARIES.md` restates the public inferential boundaries
-and binds every venue manuscript to them. DOI / preprint / ORCID remain null.
+and binds every venue manuscript to them. Persistent archive DOI and preprint
+identifiers remain unset.
 
-Repository engineering certification for the v0.1.5 publication tip is complete
-once the companion manifest carries the merge/certification commit SHA and the
-canonical SLAS ZIP is built. Journal deposit, preprint identifiers, and DOI
-assignment remain outside the scope of this audit.
+Repository certification for the v0.1.5 publication tip is complete once the
+companion manifest carries the merge/certification commit SHA and the canonical
+SLAS ZIP is built. Journal deposit, preprint identifiers, and DOI assignment
+remain outside the scope of this audit.

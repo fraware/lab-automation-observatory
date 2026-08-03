@@ -1,6 +1,6 @@
 {
   "title": "Lab Automation Forum Bottleneck Observatory",
-  "description": "Reproducible mixed-methods analysis, LaTeX manuscript, derived coding, bounded metrics, and community artifacts for public laboratory-automation discussions.",
+  "description": "Reproducible mixed-methods analysis, derived coding, bounded metrics, and community artifacts for public laboratory-automation discussions.",
   "creators": [
     {
       "name": "Petel, Matéo H."
@@ -25,5 +25,5 @@
       "resource_type": "software"
     }
   ],
-  "notes": "Source-first research release supporting the manuscript 'Where Laboratory Automation Work Breaks'. The deposit contains derived data, schemas, tests, LaTeX source, and compiled submission assets; it excludes a verbatim forum corpus and contributor handles."
+  "notes": "Source-first research release supporting the manuscript 'Where Laboratory Automation Work Breaks'. The deposit contains derived data, schemas, tests, and reproducible analysis code; it excludes a verbatim forum corpus and contributor handles."
 }

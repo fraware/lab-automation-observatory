@@ -10,9 +10,9 @@ Audit: [submission_audit_v0.1.5.md](submission_audit_v0.1.5.md)
 
 ## Highlights
 
-1. Adds primary SLAS Technology / NexusXp manuscript
-   (`paper/main_slas_v0.1.5.tex`) and cover letter, plus Digital Discovery,
-   Patterns Resource, anonymized CSCW, and future JOSS package drafts.
+1. Adds primary SLAS Technology / NexusXp manuscript framing and cover letter,
+   plus Digital Discovery, Patterns Resource, anonymized CSCW, and future JOSS
+   package drafts.
 2. Restores public `CLAIM_BOUNDARIES.md` and records a venue build matrix under
    `submissions/`.
 3. Preserves coded data, metrics, robustness outputs, schemas, and the v0.1.4
@@ -24,6 +24,6 @@ Audit: [submission_audit_v0.1.5.md](submission_audit_v0.1.5.md)
 
 ## Out of scope
 
-- ORCID / DOI / portal upload
+- Persistent archive DOI and journal-portal upload
 - Concurrent multi-venue archival submission
 - Any change to the certified numerical baseline

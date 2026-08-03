@@ -26,15 +26,11 @@ def _partial_lookup() -> dict[tuple[str, float], float]:
 
 
 def _association_lookup() -> dict[tuple[str, str], dict[str, str]]:
-    return {
-        (row["Code A"], row["Code B"]): row for row in association_leave_one_out_records(ROOT)
-    }
+    return {(row["Code A"], row["Code B"]): row for row in association_leave_one_out_records(ROOT)}
 
 
 def _denominator_lookup() -> dict[tuple[str, str], dict[str, str]]:
-    return {
-        (row["Metric"], row["Variant"]): row for row in denominator_sensitivity_records(ROOT)
-    }
+    return {(row["Metric"], row["Variant"]): row for row in denominator_sensitivity_records(ROOT)}
 
 
 def test_partial_score_sensitivity_values() -> None:
@@ -112,7 +108,9 @@ def test_component_mutation_invalidates_partial_score_output(
 ) -> None:
     edit_csv(data_root / "data/metrics/b2_integration_access.csv", 0, Documentation="0")
     problems = robustness_drift(data_root)
-    assert f"{PARTIAL_SCORE_RELATIVE} has drifted from its source data; run `make derived`" in problems
+    assert (
+        f"{PARTIAL_SCORE_RELATIVE} has drifted from its source data; run `make derived`" in problems
+    )
 
 
 def test_register_mutation_invalidates_association_influence_output(
@@ -138,6 +136,5 @@ def test_metric_mutation_invalidates_denominator_sensitivity_output(
     )
     problems = robustness_drift(data_root)
     assert (
-        f"{DENOMINATOR_RELATIVE} has drifted from its source data; run `make derived`"
-        in problems
+        f"{DENOMINATOR_RELATIVE} has drifted from its source data; run `make derived`" in problems
     )

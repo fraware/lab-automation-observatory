@@ -20,7 +20,6 @@ IDENTITY_PATTERNS = (
     re.compile(r"Petel", re.I),
     re.compile(r"mpetel", re.I),
     re.compile(r"fraware", re.I),
-    re.compile(r"SentinelOps", re.I),
     re.compile(r"github\.com/fraware", re.I),
     re.compile(r"ORCID", re.I),
 )

@@ -1,5 +1,9 @@
 name: Paper
 
+# Manuscript sources under paper/ are local-only and are not present in the
+# public repository. This workflow is retained as a disabled stub so historical
+# workflow links do not 404; it always exits without building.
+
 on:
   workflow_dispatch:
 
@@ -10,29 +14,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
-        with:
-          enable-cache: true
-          python-version: "3.13"
-      - run: uv sync --frozen --all-extras
-      - run: uv run python scripts/validate_release.py
-      - run: uv run pytest
-      - run: uv run python scripts/reproduce_results.py
-      - run: uv run python scripts/build_figures.py
-      - run: uv run python scripts/build_tables.py
-      - run: uv run python scripts/build_graphical_abstract.py
-      - uses: xu-cheng/latex-action@v4
-        with:
-          root_file: |
-            paper/main.tex
-            paper/supplement.tex
-          work_in_root_file_dir: true
-          latexmk_use_xelatex: false
-      - uses: actions/upload-artifact@v7
-        with:
-          name: manuscript
-          path: |
-            paper/main.pdf
-            paper/supplement.pdf
-            paper/highlights.txt
+      - name: Manuscript build disabled
+        run: |
+          echo "paper/ is local-only and is not published to this repository."
+          echo "Compile manuscripts on a machine that holds the private paper/ tree."
+          exit 0

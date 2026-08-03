@@ -11,32 +11,10 @@ dist/
 site/
 *.egg-info/
 .DS_Store
-paper/*.aux
-paper/*.bbl
-paper/*.bcf
-paper/*.blg
-paper/*.fdb_latexmk
-paper/*.fls
-paper/*.log
-paper/*.out
-paper/*.run.xml
-paper/*.synctex.gz
-paper/*.toc
-paper/*.pdf
-paper/*.spl
-paper/check_*.png
 scratch/
-# Figure policy: the vector figures consumed by LaTeX (paper/figures/*.pdf) and
-# the graphical abstract are committed so that a fresh clone with only a TeX
-# distribution can build the manuscript. `make figures` and
-# `make graphical-abstract` regenerate them byte-identically on the locked
-# environment. The raster figure previews are convenience outputs and are not
-# committed. `paper/graphical_abstract.png` is the one raster exception: it is
-# tracked alongside `paper/graphical_abstract.pdf` (neither is matched by the
-# `paper/figures/*.png` ignore rule below) because the submission package
-# requires a raster graphical abstract.
-!paper/graphical_abstract.pdf
-paper/figures/*.png
 artifacts/*.xlsx
 artifacts/bundles/
 
+# Manuscript sources, figures, generated TeX, venue packages, and PDFs are
+# local-only. They must never be committed or published to the public remote.
+paper/

@@ -2,7 +2,7 @@
 
 ## Release 0.1
 
-- Reproducible paper, derived data, schemas, tests, and local validation.
+- Reproducible derived data, schemas, tests, and local validation (manuscript sources stay local-only).
 - Ten seed resolved-knowledge records.
 - Forum-ready troubleshooting template.
 

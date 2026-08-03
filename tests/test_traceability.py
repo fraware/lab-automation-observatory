@@ -20,6 +20,10 @@ from labauto_observatory.traceability import (
 
 ROOT = Path(__file__).resolve().parents[1]
 LEDGER_COLUMNS = ["Claim ID", "Prohibited overclaim", ANCHOR_COLUMN, "Status"]
+requires_paper = pytest.mark.skipif(
+    not (ROOT / "paper" / "main.tex").is_file(),
+    reason="paper/ is local-only and not present in this checkout",
+)
 
 
 def build_root(tmp_path: Path, rows: list[dict[str, str]], sources: dict[str, str]) -> Path:
@@ -49,6 +53,7 @@ def claim_row(claim_id: str, anchor: str, status: str = "Approved") -> dict[str,
     }
 
 
+@requires_paper
 def test_release_claims_are_traceable() -> None:
     report = check_traceability(ROOT)
     assert report.problems == ()
@@ -57,6 +62,7 @@ def test_release_claims_are_traceable() -> None:
     assert all(trace.marker_files and trace.anchor_files for trace in report.approved)
 
 
+@requires_paper
 def test_release_report_renders_every_claim() -> None:
     report = check_traceability(ROOT)
     rendered = format_report(report)

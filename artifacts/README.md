@@ -1,6 +1,6 @@
 # Retained research artifacts
 
-The public repository contains derived data and deterministic generators. The retained analysis workbook and compiled submission files are available from GitHub release tags when published; they are not required for ordinary reproduction.
+The public repository contains derived data, deterministic generators, and audit records. Manuscript sources under `paper/`, compiled venue PDFs, and submission ZIPs that embed LaTeX sources are **local-only** and are not published to GitHub (tree or Release assets). Public release tags may carry data/code archives such as `data-and-code-source.zip`; they are not required for ordinary reproduction from a clone.
 
 ## Audit and release-notes index
 
@@ -16,10 +16,10 @@ The public repository contains derived data and deterministic generators. The re
 | [release_notes_v0.1.3.md](release_notes_v0.1.3.md) | Frozen v0.1.3 release notes: adjudication instrument fixes, coherence corrections, and 0.2 scaffolding. |
 | [submission_audit_v0.1.4.md](submission_audit_v0.1.4.md) | Frozen v0.1.4 audit: empirical certification tip, 206 tests at 95.73% coverage, 31 validated release CSVs, 25-row source/quotation audit, page-image visual review (41 pages), zero Type 3. |
 | [release_notes_v0.1.4.md](release_notes_v0.1.4.md) | Frozen v0.1.4 release notes: audit split, dual-SHA manifest, ZIP builder, frozen workflows. |
-| [submission_bundle_manifest_v0.1.4.yaml](submission_bundle_manifest_v0.1.4.yaml) | Frozen v0.1.4 bundle manifest (dual SHAs, hashes, page counts, checks, `source_archive`). |
-| [submission_audit_v0.1.5.md](submission_audit_v0.1.5.md) | **Current** audit record: venue-specific manuscripts on the v0.1.4 empirical baseline, 206 tests at 95.73% coverage, seven compiled venue PDFs, CSCW body word count 5206, zero Type 3. |
-| [release_notes_v0.1.5.md](release_notes_v0.1.5.md) | **Current** release notes: SLAS / Digital Discovery / Patterns / CSCW / JOSS publication line and v0.1.5 bundle tooling. |
-| [submission_bundle_manifest_v0.1.5.yaml](submission_bundle_manifest_v0.1.5.yaml) | Concrete v0.1.5 SLAS bundle manifest (dual SHAs, hashes, page counts, checks). |
+| [submission_bundle_manifest_v0.1.4.yaml](submission_bundle_manifest_v0.1.4.yaml) | Frozen v0.1.4 local certification manifest (dual SHAs, hashes, page counts, checks, `source_archive`). |
+| [submission_audit_v0.1.5.md](submission_audit_v0.1.5.md) | **Current** audit record: venue-specific manuscript line on the v0.1.4 empirical baseline, 206 tests at 95.73% coverage (compile details refer to the local-only `paper/` tree). |
+| [release_notes_v0.1.5.md](release_notes_v0.1.5.md) | **Current** release notes: publication line and v0.1.5 bundle tooling; manuscript packages themselves stay local. |
+| [submission_bundle_manifest_v0.1.5.yaml](submission_bundle_manifest_v0.1.5.yaml) | Local certification manifest for the v0.1.5 SLAS bundle (dual SHAs, hashes, page counts, checks); not a public manuscript download. |
 | [requirements.environment.v0.1.0.txt](requirements.environment.v0.1.0.txt) | Historical v0.1.0 interpreter pin snapshot; not an install authority (`uv.lock` is). |
 | [adjudication_pilot_v0.1.2.md](adjudication_pilot_v0.1.2.md) | Process validation of the adjudication instrument on three critical threads, with [adjudication_pilot_three_threads.csv](adjudication_pilot_three_threads.csv) as the per-thread record. Not a second coding pass and not a source of any agreement statistic. |
 

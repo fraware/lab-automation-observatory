@@ -117,15 +117,15 @@ uv sync --all-extras
 
 make reproduce   # recompute every published value into build/results.json
 make test        # assert published values, schemas, and generated outputs
-make paper       # build the manuscript (needs TeX Live with latexmk)
 ```
 
-`make reproduce` also writes a readable summary to `build/RESULTS.md`. Figures
-land in `paper/figures/`, LaTeX tables in `paper/generated/`. Because the vector
-figures and generated tables are committed, a fresh clone with only a TeX
-distribution can build the paper through `make paper-only`, with no Python step.
-`make ci` runs the whole battery — lint, types, schema validation, tests, docs,
-and the PDF builds.
+`make reproduce` also writes a readable summary to `build/RESULTS.md`.
+`make ci` runs lint, types, schema validation, tests, and the docs build.
+
+Manuscript sources under `paper/` are **local-only** and are not published to
+this repository. Venue PDFs, LaTeX sources, and submission bundles stay on the
+maintainer machine; public GitHub Releases carry data/code assets only.
+`make paper` / `make paper-only` work only where a local `paper/` tree exists.
 
 On Windows, GNU Make is not installed by default;
 [REPRODUCIBILITY.md](REPRODUCIBILITY.md#windows-and-powershell) lists the
@@ -206,7 +206,6 @@ Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) before opening a discussion
 ## Repository map
 
 ```text
-paper/                    LaTeX manuscript, supplement, generated tables
 src/labauto_observatory/  Metric and validation library
 data/derived/             Public derived coding records
 data/metrics/             Field-level metric inputs and association results
@@ -216,6 +215,7 @@ scripts/                  Reproduction, figure, table, and validation commands
 tests/                    Published-value, schema, and metric tests
 docs/                     Methods, data dictionary, and artifact guides
 artifacts/                Audit records, release notes, and provenance
+paper/                    Local-only manuscript tree (gitignored; not on GitHub)
 ```
 
 ## Documentation
@@ -259,6 +259,5 @@ content remains owned by the people who wrote it. Per-file licensing follows
 
 ## Citation
 
-Cite the paper and this repository using the metadata in
-[CITATION.cff](CITATION.cff). Related work is collected in
-`paper/references.bib`.
+Cite this repository using the metadata in [CITATION.cff](CITATION.cff).
+Manuscript bibliography sources live in the local-only `paper/` tree.

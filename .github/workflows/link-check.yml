@@ -19,4 +19,4 @@ jobs:
             --accept 200,206,429
             --exclude-mail
             --max-retries 3
-            README.md docs paper data/derived data/knowledge_index
+            README.md docs data/derived data/knowledge_index

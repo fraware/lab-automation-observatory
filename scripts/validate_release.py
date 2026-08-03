@@ -9,10 +9,35 @@ from pathlib import Path
 from labauto_observatory.io import read_yaml
 from labauto_observatory.register_validation import check_release_data
 from labauto_observatory.robustness import robustness_drift
-from labauto_observatory.traceability import check_traceability
+from labauto_observatory.traceability import check_traceability, manuscript_tree_present
 from labauto_observatory.validation import validate_file
 
 ROOT = Path(__file__).resolve().parents[1]
+
+PAPER_ARTIFACTS = (
+    "paper/main.tex",
+    "paper/supplement.tex",
+    "paper/references.bib",
+    "paper/generated/partial_score_sensitivity.tex",
+    "paper/generated/association_leave_one_out.tex",
+    "paper/generated/denominator_sensitivity.tex",
+)
+
+DATA_ARTIFACTS = (
+    "data/derived/evidence_register_part_01.csv",
+    "data/derived/evidence_register_part_02.csv",
+    "data/derived/episode_register_part_01.csv",
+    "data/derived/episode_register_part_02.csv",
+    "data/derived/reliability_subset.csv",
+    "data/derived/reliability_subset_blind.csv",
+    "data/derived/source_quote_audit.csv",
+    "data/derived/evidence_atlas.csv",
+    "data/robustness/partial_score_sensitivity.csv",
+    "data/robustness/association_leave_one_out.csv",
+    "data/robustness/denominator_sensitivity.csv",
+    "schemas/knowledge-index.schema.json",
+    "schemas/troubleshooting-question.schema.json",
+)
 
 
 def require(path: Path) -> None:
@@ -45,11 +70,20 @@ def main() -> None:
     if any(not claim["Prohibited overclaim"].strip() for claim in approved):
         raise SystemExit("every approved claim must specify a prohibited overclaim")
 
-    traceability = check_traceability(ROOT)
-    if not traceability.ok:
-        for problem in traceability.problems:
-            print(f"claim traceability failure: {problem}")
-        raise SystemExit("approved claims are not traceable to the manuscript sources")
+    paper_present = manuscript_tree_present(ROOT)
+    traced = 0
+    if paper_present:
+        traceability = check_traceability(ROOT)
+        if not traceability.ok:
+            for problem in traceability.problems:
+                print(f"claim traceability failure: {problem}")
+            raise SystemExit("approved claims are not traceable to the manuscript sources")
+        traced = len(traceability.approved)
+    else:
+        print(
+            "paper/ not present; skipping manuscript claim traceability "
+            "(manuscript sources are local-only)"
+        )
 
     data = check_release_data(ROOT)
     if not data.ok:
@@ -63,34 +97,24 @@ def main() -> None:
             print(f"robustness artifact failure: {problem}")
         raise SystemExit("committed robustness outputs have drifted from release data")
 
-    for relative in [
-        "paper/main.tex",
-        "paper/supplement.tex",
-        "paper/references.bib",
-        "paper/generated/partial_score_sensitivity.tex",
-        "paper/generated/association_leave_one_out.tex",
-        "paper/generated/denominator_sensitivity.tex",
-        "data/derived/evidence_register_part_01.csv",
-        "data/derived/evidence_register_part_02.csv",
-        "data/derived/episode_register_part_01.csv",
-        "data/derived/episode_register_part_02.csv",
-        "data/derived/reliability_subset.csv",
-        "data/derived/reliability_subset_blind.csv",
-        "data/derived/source_quote_audit.csv",
-        "data/derived/evidence_atlas.csv",
-        "data/robustness/partial_score_sensitivity.csv",
-        "data/robustness/association_leave_one_out.csv",
-        "data/robustness/denominator_sensitivity.csv",
-        "schemas/knowledge-index.schema.json",
-        "schemas/troubleshooting-question.schema.json",
-    ]:
+    for relative in DATA_ARTIFACTS:
         require(ROOT / relative)
+    if paper_present:
+        for relative in PAPER_ARTIFACTS:
+            require(ROOT / relative)
 
-    print(
-        f"validated {len(records)} knowledge records and {len(approved)} approved claims; "
-        f"traced {len(traceability.approved)} approved claims to the manuscript; "
-        f"checked {len(data.checked_files)} release CSVs and 3 robustness artifacts"
-    )
+    if paper_present:
+        print(
+            f"validated {len(records)} knowledge records and {len(approved)} approved claims; "
+            f"traced {traced} approved claims to the manuscript; "
+            f"checked {len(data.checked_files)} release CSVs and 3 robustness artifacts"
+        )
+    else:
+        print(
+            f"validated {len(records)} knowledge records and {len(approved)} approved claims; "
+            f"checked {len(data.checked_files)} release CSVs and 3 robustness artifacts "
+            "(manuscript checks skipped; paper/ is local-only)"
+        )
 
 
 if __name__ == "__main__":

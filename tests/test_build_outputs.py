@@ -15,6 +15,10 @@ from labauto_observatory.io import read_csv
 
 ROOT = Path(__file__).resolve().parents[1]
 COMMITTED_TABLES = ROOT / "paper" / "generated"
+requires_paper = pytest.mark.skipif(
+    not (ROOT / "paper" / "main.tex").is_file(),
+    reason="paper/ is local-only and not present in this checkout",
+)
 TABLE_NAMES = (
     "headline_metrics.tex",
     "strong_associations.tex",
@@ -83,6 +87,7 @@ def figures(
     return out
 
 
+@requires_paper
 def test_generated_tables_are_committed_in_sync(tables: dict[str, str]) -> None:
     """`paper/generated` must match a fresh build so LaTeX never uses stale numbers."""
 
@@ -92,6 +97,7 @@ def test_generated_tables_are_committed_in_sync(tables: dict[str, str]) -> None:
         assert tables[name] == committed, f"{name} is out of date; run `make tables`"
 
 
+@requires_paper
 def test_generated_robustness_tables_are_committed_in_sync(
     robustness_tables: dict[str, str],
 ) -> None:
@@ -191,6 +197,7 @@ def test_strong_associations_table_content(tables: dict[str, str]) -> None:
     assert "Associations are descriptive." in content
 
 
+@requires_paper
 def test_main_text_holds_seven_figures_and_tables() -> None:
     """The manuscript keeps a fixed main-text display budget of seven items."""
 
@@ -203,6 +210,7 @@ def test_main_text_holds_seven_figures_and_tables() -> None:
     assert len(included) + len(inputs) == 7
 
 
+@requires_paper
 def test_supplement_uses_the_remaining_figures_and_tables() -> None:
     """Supplement references every non-main generated figure and table stem."""
 
@@ -219,6 +227,7 @@ def test_supplement_uses_the_remaining_figures_and_tables() -> None:
     ]
 
 
+@requires_paper
 def test_committed_figures_match_the_expected_set() -> None:
     """No stale PDF may linger in `paper/figures` after a figure is swapped out."""
 
@@ -226,6 +235,7 @@ def test_committed_figures_match_the_expected_set() -> None:
     assert committed == set(FIGURE_NAMES)
 
 
+@requires_paper
 def test_every_figure_can_reach_a_float_page() -> None:
     """Guards the two halves of the fix for figures escaping past the bibliography.
 

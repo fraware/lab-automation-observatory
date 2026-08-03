@@ -30,4 +30,4 @@ The release does not support:
 
 Every quantitative statement must retain its analytical unit, numerator or component set, denominator, sampling frame, validation stage, and material sensitivity. Unknown values remain distinct from zero or absence. Public non-resolution remains distinct from operational non-resolution. Simulation, dry execution, wet execution, assay evidence, and production monitoring remain separate stages.
 
-Every venue-specific manuscript in `paper/` is governed by these boundaries. Framing, structure, title, and contribution emphasis can change by venue. The empirical values and their supported inference cannot.
+Every venue-specific manuscript in the local-only `paper/` tree is governed by these boundaries. Framing, structure, title, and contribution emphasis can change by venue. The empirical values and their supported inference cannot.

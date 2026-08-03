@@ -131,14 +131,15 @@ def test_drift_checks_report_a_missing_artifact(tmp_path: Path) -> None:
 def test_drift_checks_ignore_checkout_line_endings(data_root: Path, relative: str) -> None:
     """A CRLF working tree is a checkout artifact, not drift.
 
-    Git stores these files with LF and hands Windows clones CRLF, so a
+    Git stores these files with LF and may hand Windows clones CRLF, so a
     byte-for-byte comparison would fail `make validate` on a fresh clone.
     """
 
     target = data_root / relative
     with target.open(encoding="utf-8", newline="") as handle:
-        committed = handle.read()
-    assert "\r\n" not in committed
+        committed = handle.read().replace("\r\n", "\n")
+    with target.open("w", encoding="utf-8", newline="\n") as handle:
+        handle.write(committed)
     with target.open("w", encoding="utf-8", newline="\r\n") as handle:
         handle.write(committed)
     assert pairwise_drift(data_root) == []

@@ -1,6 +1,6 @@
 # Venue requirements verified 2026-07-30
 
-This file records the official requirements used to construct the venue variants. Recheck each source on the day of submission.
+This file records the official requirements used to construct the venue variants. Recheck each source on the day of submission. Manuscript paths under `paper/` are local-only and are not published to the public repository.
 
 ## SLAS Technology — NexusXp: The Connected Lab
 

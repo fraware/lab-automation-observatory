@@ -5,12 +5,18 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+import pytest
+
 from labauto_observatory.io import read_csv
 
 ROOT = Path(__file__).resolve().parents[1]
 AUDIT_PATH = ROOT / "data/derived/source_quote_audit.csv"
 QUOTE_BANK_PATH = ROOT / "data/derived/quote_bank.csv"
 REFERENCES_PATH = ROOT / "paper/references.bib"
+requires_paper = pytest.mark.skipif(
+    not (ROOT / "paper" / "main.tex").is_file(),
+    reason="paper/ is local-only and not present in this checkout",
+)
 
 EXPECTED_COLUMNS = (
     "Audit ID",
@@ -87,6 +93,7 @@ def test_every_quote_bank_entry_maps_to_exactly_one_audit_row() -> None:
         assert approved == quote["Short anonymized quotation"]
 
 
+@requires_paper
 def test_every_manuscript_forum_site_bib_key_maps_to_exactly_one_audit_row() -> None:
     audit = _audit_rows()
     for key in sorted(_forum_site_bib_entries()):
@@ -94,6 +101,7 @@ def test_every_manuscript_forum_site_bib_key_maps_to_exactly_one_audit_row() -> 
         assert len(matches) == 1, key
 
 
+@requires_paper
 def test_bib_key_url_matches_audit_source_url() -> None:
     """Each forum/site bib key's \\href URL must equal its audit row Source URL."""
     audit = _audit_rows()

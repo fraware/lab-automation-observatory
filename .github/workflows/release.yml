@@ -1,5 +1,9 @@
 name: Release
 
+# Public releases publish data/code checksums only. Manuscript PDFs, LaTeX
+# sources, graphical abstracts, and venue submission ZIPs stay local and must
+# not be uploaded as GitHub Release assets.
+
 on:
   workflow_dispatch:
     inputs:
@@ -36,39 +40,13 @@ jobs:
       - run: uv run python scripts/validate_release.py
       - run: uv run pytest
       - run: uv run python scripts/reproduce_results.py
-      - run: uv run python scripts/build_figures.py
-      - run: uv run python scripts/build_tables.py
-      - run: uv run python scripts/build_graphical_abstract.py
-      - uses: xu-cheng/latex-action@v4
-        with:
-          root_file: |
-            paper/main_slas_v0.1.5.tex
-            paper/supplement.tex
-            paper/cover_letter_slas_v0.1.5.tex
-          work_in_root_file_dir: true
-          latexmk_use_xelatex: false
-      - name: Build submission bundle
-        run: |
-          CERT_SHA="$(git rev-parse HEAD)"
-          uv run python scripts/build_submission_bundle.py \
-            --certification-sha "$CERT_SHA" \
-            --manifest artifacts/submission_bundle_manifest_v0.1.5.yaml \
-            --output-dir artifacts/bundles \
-            --version 0.1.5
-      - name: Publish immutable release assets
+      - name: Publish data-and-code release assets only
         uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ inputs.tag }}
           generate_release_notes: true
+          body: |
+            Public release assets are limited to reproducible data and code.
+            Manuscript PDFs, LaTeX sources, and venue submission bundles are local-only and are not published here.
           files: |
-            paper/main_slas_v0.1.5.pdf
-            paper/supplement.pdf
-            paper/cover_letter_slas_v0.1.5.pdf
-            paper/venues/slas/highlights_v0.1.5.txt
-            paper/graphical_abstract.png
-            artifacts/submission_bundle_manifest_v0.1.5.yaml
-            artifacts/bundles/*.zip
-            artifacts/bundles/SHA256SUMS.txt
-            artifacts/bundles/data-and-code-source.zip
-            artifacts/bundles/bundle-SHA256SUMS.txt
             build/results.json

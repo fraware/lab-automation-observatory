@@ -1,6 +1,6 @@
 # Adjudication pilot on three critical threads
 
-**Status: process validation of the coding instrument only.** This memo does not report inter-rater reliability, does not constitute the independent second coding pass requested in [issue #11](https://github.com/fraware/lab-automation-observatory/issues/11), and does not license any agreement coefficient in the manuscript or the repository. The single-coder limitation stated in [README.md](../README.md), [docs/contributing-evidence.md](../docs/contributing-evidence.md), and `paper/sections/07_limitations.tex` is unchanged by this run. The purpose was narrow: find out whether the published rules are usable for selecting a primary code and for segmenting episodes, before anyone spends effort on all fourteen threads.
+**Status: process validation of the coding instrument only.** This memo does not report inter-rater reliability, does not constitute the independent second coding pass requested in [issue #11](https://github.com/fraware/lab-automation-observatory/issues/11), and does not license any agreement coefficient in the manuscript or the repository. The single-coder limitation stated in [README.md](../README.md) and [docs/contributing-evidence.md](../docs/contributing-evidence.md) is unchanged by this run. The purpose was narrow: find out whether the published rules are usable for selecting a primary code and for segmenting episodes, before anyone spends effort on all fourteen threads.
 
 Date of run: 2026-07-29, against the post-`v0.1.2` working tree.
 

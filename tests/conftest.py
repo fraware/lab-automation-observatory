@@ -16,6 +16,11 @@ os.environ.setdefault("MPLBACKEND", "Agg")
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "scripts"
+PAPER_AVAILABLE = (ROOT / "paper" / "main.tex").is_file()
+requires_paper = pytest.mark.skipif(
+    not PAPER_AVAILABLE,
+    reason="paper/ is local-only and not present in this checkout",
+)
 
 
 def _load_script(name: str) -> ModuleType:

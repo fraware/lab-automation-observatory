@@ -108,6 +108,13 @@ def read_claims(ledger: str | Path) -> list[Claim]:
     ]
 
 
+def manuscript_tree_present(root: str | Path) -> bool:
+    """Return True when the local-only manuscript tree is available for checks."""
+
+    root_path = Path(root)
+    return all((root_path / relative).is_file() for relative in MANUSCRIPT_RELATIVE)
+
+
 def manuscript_sources(root: str | Path) -> list[Path]:
     """Return the manuscript files that participate in claim traceability."""
 

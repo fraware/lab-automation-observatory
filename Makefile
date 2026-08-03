@@ -60,13 +60,12 @@ docs-build: atlas-summary
 
 # Mirrors the scope of .github/workflows/link-check.yml. Requires the
 # `lychee` binary (https://github.com/lycheeverse/lychee) on PATH; it is not
-# vendored through uv/npx.
+# vendored through uv/npx. Manuscript sources under paper/ are local-only.
 links:
-	lychee --no-progress --accept 200,206,429 --exclude-mail --max-retries 3 README.md docs paper data/derived data/knowledge_index
+	lychee --no-progress --accept 200,206,429 --exclude-mail --max-retries 3 README.md docs data/derived data/knowledge_index
 
-# `paper` refreshes the generated inputs first and therefore needs the Python
-# environment. Committed figures and tables let `paper-only` build with a TeX
-# distribution alone.
+# Manuscript targets require a local `paper/` tree (gitignored; not in the
+# public clone). Public CI does not run them.
 paper: reproduce figures tables
 	cd paper && latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 
@@ -79,8 +78,8 @@ supplement: reproduce figures tables
 cover-letter:
 	cd paper && latexmk -pdf -interaction=nonstopmode -halt-on-error cover_letter.tex
 
-ci: lint typecheck validate test docs-build paper supplement cover-letter graphical-abstract
+ci: lint typecheck validate test docs-build
 
 clean:
-	cd paper && latexmk -C main.tex && latexmk -C supplement.tex && latexmk -C cover_letter.tex
 	rm -rf build
+	@if [ -d paper ]; then cd paper && latexmk -C main.tex && latexmk -C supplement.tex && latexmk -C cover_letter.tex; fi

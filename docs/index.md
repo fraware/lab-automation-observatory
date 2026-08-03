@@ -1,6 +1,6 @@
 # Lab Automation Observatory docs
 
-This site documents the public derived data, bounded metrics, claim boundaries, and community artifact schemas. Manuscript sources under `paper/` are local-only and are not published to GitHub.
+This site documents the public derived data, bounded metrics, claim boundaries, and community artifact schemas.
 
 The central rule: every quantitative result must identify its unit, denominator, sampling frame, validation stage, and unsupported inference. See [CLAIM_BOUNDARIES.md](https://github.com/fraware/lab-automation-observatory/blob/main/CLAIM_BOUNDARIES.md).
 

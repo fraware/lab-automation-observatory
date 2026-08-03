@@ -68,7 +68,7 @@ It excludes a verbatim forum dump, user handles, private messages, personal prof
 
 ### Release 0.1
 
-- Reproducible derived data, schemas, tests, and local validation (manuscript sources stay local-only).
+- Reproducible derived data, schemas, tests, and local validation.
 - Ten seed resolved-knowledge records.
 - Forum-ready troubleshooting template.
 

@@ -60,12 +60,10 @@ docs-build: atlas-summary
 
 # Mirrors the scope of .github/workflows/link-check.yml. Requires the
 # `lychee` binary (https://github.com/lycheeverse/lychee) on PATH; it is not
-# vendored through uv/npx. Manuscript sources under paper/ are local-only.
+# vendored through uv/npx.
 links:
 	lychee --no-progress --accept 200,206,429 --exclude-mail --max-retries 3 README.md docs data/derived data/knowledge_index
 
-# Manuscript targets require a local `paper/` tree (gitignored; not in the
-# public clone). Public CI does not run them.
 paper: reproduce figures tables
 	cd paper && latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 

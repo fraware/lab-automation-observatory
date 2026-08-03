@@ -1,8 +1,6 @@
 name: Paper
 
-# Manuscript sources under paper/ are local-only and are not present in the
-# public repository. This workflow is retained as a disabled stub so historical
-# workflow links do not 404; it always exits without building.
+# Disabled stub retained so historical workflow links do not 404.
 
 on:
   workflow_dispatch:
@@ -16,6 +14,5 @@ jobs:
     steps:
       - name: Manuscript build disabled
         run: |
-          echo "paper/ is local-only and is not published to this repository."
-          echo "Compile manuscripts on a machine that holds the private paper/ tree."
+          echo "Manuscript build is disabled in this workflow."
           exit 0

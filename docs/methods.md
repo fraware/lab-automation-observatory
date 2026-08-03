@@ -24,7 +24,7 @@ Because the key states the expected primary code in the same row as the source U
 
 ## Claim traceability
 
-Every approved claim in `data/derived/publication_claim_ledger.csv` is bound to the LaTeX sources twice when the local-only `paper/` tree is present: by a `% claim: Cnn` marker next to the supporting passage, and by a `Manuscript anchor` substring that must appear in that passage. `make claims` fails if either binding is lost. The public inferential boundary is [CLAIM_BOUNDARIES.md](https://github.com/fraware/lab-automation-observatory/blob/main/CLAIM_BOUNDARIES.md).
+Every approved claim in `data/derived/publication_claim_ledger.csv` is bound to the LaTeX sources twice when `paper/` is present: by a `% claim: Cnn` marker next to the supporting passage, and by a `Manuscript anchor` substring that must appear in that passage. `make claims` fails if either binding is lost. The public inferential boundary is [CLAIM_BOUNDARIES.md](https://github.com/fraware/lab-automation-observatory/blob/main/CLAIM_BOUNDARIES.md).
 
 ## Publication robustness
 
@@ -50,7 +50,7 @@ make validate
 make test
 ```
 
-`make derived` also regenerates the robustness CSVs. `make tables` regenerates their supplementary LaTeX tables when a local `paper/` tree is present. `scripts/validate_release.py` fails when either CSV has drifted from its source data.
+`make derived` also regenerates the robustness CSVs. `make tables` regenerates their supplementary LaTeX tables when `paper/` is present. `scripts/validate_release.py` fails when either CSV has drifted from its source data.
 
 ## Public-data handling
 

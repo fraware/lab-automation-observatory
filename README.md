@@ -119,11 +119,6 @@ make test        # assert published values, schemas, and generated outputs
 `make reproduce` also writes a readable summary to `build/RESULTS.md`.
 `make ci` runs lint, types, schema validation, tests, and the docs build.
 
-Manuscript sources under `paper/` are **local-only** and are not published to
-this repository. Venue PDFs, LaTeX sources, and submission bundles stay on the
-maintainer machine; public GitHub Releases carry data/code assets only.
-`make paper` / `make paper-only` work only where a local `paper/` tree exists.
-
 On Windows, GNU Make is not installed by default;
 [REPRODUCIBILITY.md](REPRODUCIBILITY.md#windows-and-powershell) lists the
 PowerShell equivalents, along with exactly which generated artifacts are tracked.
@@ -191,8 +186,8 @@ step-by-step walkthrough of each change type above.
 The ground rules, in one breath: link a public source; keep "unknown" distinct
 from "absent"; claim only what your evidence reached; and update the tests when a
 published number moves. Published numbers stay inside
-[CLAIM_BOUNDARIES.md](CLAIM_BOUNDARIES.md); with a local `paper/` tree,
-`make claims` checks manuscript bindings.
+[CLAIM_BOUNDARIES.md](CLAIM_BOUNDARIES.md); `make claims` checks manuscript
+bindings when `paper/` is present.
 
 Hosted CI is deliberately not triggered on pull requests, so `make ci` on your
 own machine is the authoritative check. Run it before you open one.
@@ -211,7 +206,6 @@ scripts/                  Reproduction, figure, table, and validation commands
 tests/                    Published-value, schema, and metric tests
 docs/                     Methods, data dictionary, and artifact guides
 artifacts/                Audit records, release notes, and provenance
-paper/                    Local-only manuscript tree (gitignored; not on GitHub)
 ```
 
 ## Documentation
@@ -228,7 +222,7 @@ paper/                    Local-only manuscript tree (gitignored; not on GitHub)
 | [docs/project.md](docs/project.md) | Governance, ethics, data use, roadmap |
 | [docs/device-interface-registry.md](docs/device-interface-registry.md) | Device-interface registry draft |
 | [docs/event-schema.md](docs/event-schema.md) | Run-event schema draft and B5/B6 scoring path |
-| [submissions/README.md](submissions/README.md) | Venue publication line (manuscripts local-only) |
+| [submissions/README.md](submissions/README.md) | Venue publication line |
 
 `make docs` serves MkDocs at `http://127.0.0.1:8000`; `make docs-build` renders
 `site/` with warnings as errors. The `Docs site` workflow
@@ -250,4 +244,3 @@ content remains owned by the people who wrote it. Per-file licensing follows
 ## Citation
 
 Cite this repository using the metadata in [CITATION.cff](CITATION.cff).
-Manuscript bibliography sources live in the local-only `paper/` tree.

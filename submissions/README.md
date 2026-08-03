@@ -2,8 +2,6 @@
 
 This directory separates publication strategy from the canonical scientific release. The empirical baseline is tag `v0.1.4`; venue variants change framing, structure, declarations, and submission artifacts without changing the coded evidence or reported numerical results.
 
-**Manuscript sources are local-only.** Paths under `paper/` named below refer to the maintainer machine's gitignored manuscript tree. They are not present in the public GitHub clone, and venue submission ZIPs / manuscript PDFs are not attached to public releases.
-
 ## Submission rule
 
 The manuscripts are **alternatives, not parallel submissions**. Submit to one archival venue at a time. A later submission must occur only after rejection or formal withdrawal from the earlier venue, and any prior submission history must be disclosed where the target venue requires it.

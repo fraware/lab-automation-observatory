@@ -1,8 +1,6 @@
 name: Release
 
-# Public releases publish data/code checksums only. Manuscript PDFs, LaTeX
-# sources, graphical abstracts, and venue submission ZIPs stay local and must
-# not be uploaded as GitHub Release assets.
+# Public releases publish data/code checksums and related reproducible assets.
 
 on:
   workflow_dispatch:
@@ -47,6 +45,5 @@ jobs:
           generate_release_notes: true
           body: |
             Public release assets are limited to reproducible data and code.
-            Manuscript PDFs, LaTeX sources, and venue submission bundles are local-only and are not published here.
           files: |
             build/results.json

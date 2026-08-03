@@ -2,8 +2,6 @@
 
 All venue variants inherit the empirical baseline from tag `v0.1.4`. No venue package may alter the coded data, metric inputs, generated numerical results, source-audit records, or claim boundaries without a new scientific release.
 
-`paper/` paths in this matrix are **local-only** (gitignored; not on the public remote). Submission ZIPs and manuscript PDFs stay off public GitHub Releases.
-
 ## Common validation gate
 
 Run from the repository root:

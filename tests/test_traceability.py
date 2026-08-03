@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 LEDGER_COLUMNS = ["Claim ID", "Prohibited overclaim", ANCHOR_COLUMN, "Status"]
 requires_paper = pytest.mark.skipif(
     not (ROOT / "paper" / "main.tex").is_file(),
-    reason="paper/ is local-only and not present in this checkout",
+    reason="paper/ is not present in this checkout",
 )
 
 

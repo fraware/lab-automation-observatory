@@ -109,7 +109,7 @@ def read_claims(ledger: str | Path) -> list[Claim]:
 
 
 def manuscript_tree_present(root: str | Path) -> bool:
-    """Return True when the local-only manuscript tree is available for checks."""
+    """Return True when the manuscript tree is available for checks."""
 
     root_path = Path(root)
     return all((root_path / relative).is_file() for relative in MANUSCRIPT_RELATIVE)

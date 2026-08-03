@@ -81,8 +81,7 @@ def main() -> None:
         traced = len(traceability.approved)
     else:
         print(
-            "paper/ not present; skipping manuscript claim traceability "
-            "(manuscript sources are local-only)"
+            "paper/ not present; skipping manuscript claim traceability"
         )
 
     data = check_release_data(ROOT)
@@ -113,7 +112,7 @@ def main() -> None:
         print(
             f"validated {len(records)} knowledge records and {len(approved)} approved claims; "
             f"checked {len(data.checked_files)} release CSVs and 3 robustness artifacts "
-            "(manuscript checks skipped; paper/ is local-only)"
+            "(manuscript checks skipped; paper/ not present)"
         )
 
 

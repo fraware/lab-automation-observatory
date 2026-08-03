@@ -20,8 +20,7 @@ def main() -> None:
     if not manuscript_tree_present(ROOT):
         note = (
             "# Claim traceability\n\n"
-            "Skipped: `paper/` is local-only and is not present in this checkout.\n"
-            "Run this check on a machine that holds the manuscript tree.\n"
+            "Skipped: `paper/` is not present in this checkout.\n"
         )
         (BUILD / "claim_traceability.md").write_text(note, encoding="utf-8")
         print("paper/ not present; skipped manuscript claim traceability")

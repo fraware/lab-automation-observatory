@@ -17,7 +17,7 @@
           
 </pre>
 
- where laboratory automation work breaks - measured, not guessed
+ where laboratory automation work breaks
  
 </div>
 

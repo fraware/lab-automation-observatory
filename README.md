@@ -1,4 +1,3 @@
-# Lab Automation Observatory
 
 <div align="center">
 

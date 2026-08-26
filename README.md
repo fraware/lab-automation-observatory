@@ -22,10 +22,6 @@
 </div>
 
 <p align="center">
-  <a href="https://api.reuse.software/info/github.com/fraware/lab-automation-observatory"><img alt="REUSE status" src="https://api.reuse.software/badge/github.com/fraware/lab-automation-observatory"></a>
-</p>
-
-<p align="center">
   <a href="#what-you-get">What you get</a> &middot;
   <a href="#ten-bottlenecks-five-layers">Bottlenecks</a> &middot;
   <a href="#principal-results">Results</a> &middot;
